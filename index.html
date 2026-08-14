@@ -437,12 +437,30 @@ cai_app "GitHub Desktop"     "$GHD_URL"    "GitHub Desktop.app"
 echo ""
 echo "🎉 Xong. Mở Launchpad là thấy 2 app mới."</code></pre>
     </div>
+    <h3 class="os os-mac">Homebrew là gì? Tôi có cần không?</h3>
     <div class="note os os-mac">
-      <span class="h">Đã có Homebrew rồi?</span>
-      <p>Thì chỉ cần một dòng — kết quả như nhau. Cask tên <code>github</code> chính là GitHub Desktop.</p>
+      <span class="h">Không cần. Bạn đã xong rồi.</span>
+      <p>Đoạn lệnh ở trên chạy được trên <b>mọi máy Mac</b>, không cần Homebrew. Nếu bạn chưa nghe tên Homebrew bao giờ thì bỏ qua cả phần này cũng không sao.</p>
+      <p><b>Homebrew</b> là một công cụ cài phần mềm bằng dòng lệnh — hình dung như một cái “App Store cho Terminal”. Ai đã cài sẵn từ trước thì có cách gõ ngắn hơn, chỉ khác nhau ở chỗ đó thôi, hai cách cài ra cùng một app.</p>
+      <p><b>Đừng cài Homebrew chỉ để làm bước này.</b> Cài nó mất thêm ~10 phút và thêm một thứ bạn chưa cần đến.</p>
     </div>
+
+    <p class="os os-mac">Muốn biết máy mình đã có sẵn chưa, dán dòng này vào Terminal rồi Enter:</p>
     <div class="cmd os os-mac">
-      <div class="bar"><b>macOS</b> · nếu đã có Homebrew<button type="button" class="copy">Copy</button></div>
+      <div class="bar"><b>macOS</b> · kiểm tra xem máy đã có Homebrew chưa<button type="button" class="copy">Copy</button></div>
+      <pre><code>brew --version</code></pre>
+    </div>
+    <div class="note os os-mac">
+      <span class="h">Đọc kết quả</span>
+      <ul>
+        <li>Hiện <code>Homebrew 4.x.x</code> (hoặc số nào đó) → máy <b>đã có</b>. Muốn gõ ngắn thì dùng dòng dưới cùng.</li>
+        <li>Hiện <code>zsh: command not found: brew</code> → máy <b>chưa có</b>. Hoàn toàn bình thường, đa số máy mới đều vậy. Bạn dùng đoạn lệnh dài ở trên là đủ, <b>không phải làm gì thêm</b>.</li>
+      </ul>
+    </div>
+
+    <p class="os os-mac">Chỉ dành cho ai vừa thấy số phiên bản ở trên — một dòng, kết quả y hệt. Cask tên <code>github</code> chính là GitHub Desktop.</p>
+    <div class="cmd os os-mac">
+      <div class="bar"><b>macOS</b> · chỉ khi đã có Homebrew<button type="button" class="copy">Copy</button></div>
       <pre><code>brew install --cask visual-studio-code github</code></pre>
     </div>
 
