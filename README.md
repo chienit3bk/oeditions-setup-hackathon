@@ -48,6 +48,9 @@ Sửa thẳng `index.html`. Cấu trúc bên trong:
 | Danh sách trang cho routing | `var PAGES = [...]` trong `<script>` |
 | Khối lệnh có nút copy | `<div class="cmd">` + `<button class="copy">` |
 | Nội dung chỉ hiện trên 1 OS | thêm class `os os-mac` hoặc `os os-win` |
+| Checklist cột phải | `<aside class="rail">` + `<details class="clg" data-page="...">` |
+
+**Quy ước link:** link ra ngoài phải có `target="_blank" rel="noopener noreferrer"` — người đọc đang làm theo từng bước, click một cái mà mất trang là phải dò lại từ đầu. CSS tự gắn mũi tên ↗ cho mọi thẻ có `target="_blank"` nên không cần thêm gì. Link nội bộ (`href="#..."`) thì **không** được đặt `target`, nó là routing của trang.
 
 Thêm một trang mới: thêm `<li>` vào nav, thêm `<section class="panel" id="p-tên">`, rồi thêm `'tên'` vào `PAGES`.
 

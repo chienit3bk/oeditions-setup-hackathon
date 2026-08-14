@@ -47,6 +47,8 @@
     -webkit-font-smoothing:antialiased;
   }
   a { color:var(--bot); text-underline-offset:3px; }
+  /* link ra ngoài mở tab mới — báo trước bằng mũi tên để không ai mất chỗ đang đọc */
+  a[target="_blank"]::after { content:"\2197"; display:inline-block; margin-left:2px; font-size:.8em; text-decoration:none; vertical-align:.08em; opacity:.75; }
   :focus-visible { outline:2px solid var(--bot); outline-offset:3px; border-radius:3px; }
 
   :root[data-os="mac"] .os-win { display:none !important; }
@@ -285,8 +287,8 @@
 
     <h2><span class="tag t-hum">Phần A</span> Cài Claude</h2>
     <ol>
-      <li class="os os-mac">Tải bản macOS tại <a href="https://claude.ai/download">claude.ai/download</a>, mở file rồi kéo icon Claude vào thư mục <b>Applications</b>.</li>
-      <li class="os os-win">Tải bản Windows tại <a href="https://claude.com/download">claude.com/download</a>, chạy file cài đặt, bấm Next → Install.</li>
+      <li class="os os-mac">Tải bản macOS tại <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, mở file rồi kéo icon Claude vào thư mục <b>Applications</b>.</li>
+      <li class="os os-win">Tải bản Windows tại <a href="https://claude.com/download" target="_blank" rel="noopener noreferrer">claude.com/download</a>, chạy file cài đặt, bấm Next → Install.</li>
       <li>Mở app → <b>Sign in</b> → trình duyệt mở ra → đăng nhập bằng tài khoản Claude công ty cấp → quay lại app.</li>
       <li>Thấy khung chat và gõ được câu hỏi vào đó là xong.</li>
     </ol>
@@ -295,13 +297,13 @@
     <p><b>GitHub là gì?</b> Nơi cả công ty lưu và chia sẻ code, giống Google Drive nhưng dành cho code — có lưu lịch sử ai sửa gì, lúc nào, vì sao.</p>
     <h3>B1 · Đăng ký</h3>
     <ol>
-      <li>Vào <a href="https://github.com/signup">github.com/signup</a>, đăng ký bằng <b>email công ty</b>.</li>
+      <li>Vào <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer">github.com/signup</a>, đăng ký bằng <b>email công ty</b>.</li>
       <li>Đặt tên tài khoản dễ nhận: <code>an-nguyen</code>, <code>chien-nv</code>… Cả team nhìn thấy tên này hằng ngày.</li>
       <li>Mở hộp thư, bấm link xác nhận email.</li>
     </ol>
     <h3>B2 · Bật bảo mật 2 lớp — bắt buộc</h3>
     <ol>
-      <li>Vào <a href="https://github.com/settings/security">github.com/settings/security</a> → <b>Enable two-factor authentication</b>.</li>
+      <li>Vào <a href="https://github.com/settings/security" target="_blank" rel="noopener noreferrer">github.com/settings/security</a> → <b>Enable two-factor authentication</b>.</li>
       <li>Chọn <b>Authenticator app</b> → mở app xác thực trên điện thoại → quét mã QR → nhập 6 số.</li>
     </ol>
     <div class="note stop">
@@ -589,7 +591,7 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
     </div>
     <div class="note warn">
       <span class="h">Ghi chú cho nhất quán</span>
-      <p>Hướng dẫn cài <b>Claude Code</b> bằng terminal có dùng <code>curl … | bash</code> và <code>irm … | iex</code>. Đó đúng là dạng lệnh cần cảnh giác — nó chấp nhận được chỉ vì tải từ <code>claude.ai</code>, tên miền chính chủ của Anthropic. Không thoải mái thì <b>tải app desktop</b> ở <a href="https://claude.ai/download">claude.ai/download</a>, kết quả như nhau.</p>
+      <p>Hướng dẫn cài <b>Claude Code</b> bằng terminal có dùng <code>curl … | bash</code> và <code>irm … | iex</code>. Đó đúng là dạng lệnh cần cảnh giác — nó chấp nhận được chỉ vì tải từ <code>claude.ai</code>, tên miền chính chủ của Anthropic. Không thoải mái thì <b>tải app desktop</b> ở <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, kết quả như nhau.</p>
     </div>
 
     <div class="pager">
