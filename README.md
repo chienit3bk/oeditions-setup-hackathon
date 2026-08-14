@@ -1,4 +1,4 @@
-# oedition-setup-hackathon
+# oeditions-setup-hackathon
 
 Trang hướng dẫn setup máy trước hackathon, dành cho **người chưa từng cài công cụ lập trình** — dev, support, marketing, PO đều dùng được.
 
