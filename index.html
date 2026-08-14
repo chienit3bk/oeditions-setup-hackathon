@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Hướng dẫn onboarding máy dev: cài Claude, tạo tài khoản GitHub, nối GitHub vào AI, và để Claude tự setup máy. Dùng chung cho macOS và Windows.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
+<title>Máy Mới Ngày Đầu</title>
+<style>
+  :root {
+    --ground:#F4F7F6; --surface:#FFFFFF; --surface-2:#EAEFEE;
+    --ink:#101A19; --ink-2:#354645; --muted:#61736F;
+    --line:#D8E1DF; --line-soft:#E7EDEC;
+    --bot:#0B6E63; --bot-soft:#E2F1EE;
+    --hum:#A05A18; --hum-soft:#F8ECDD;
+    --stop:#A32C2C; --stop-soft:#F9E7E5;
+    --code-bg:#10201E; --code-ink:#D7E6E2; --code-line:#1E332F;
+    --sans: system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Code", "Segoe UI Mono", Menlo, Consolas, monospace;
+    --r:10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#0C1413; --surface:#141E1D; --surface-2:#1B2726;
+      --ink:#E8EFED; --ink-2:#C2D0CD; --muted:#8DA09C;
+      --line:#26332F; --line-soft:#1E2A28;
+      --bot:#52CFBC; --bot-soft:#12302C;
+      --hum:#E0A55E; --hum-soft:#2A2013;
+      --stop:#EE8478; --stop-soft:#341C1A;
+      --code-bg:#0A1211; --code-ink:#CFE2DD; --code-line:#1C2C29;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#0C1413; --surface:#141E1D; --surface-2:#1B2726;
+    --ink:#E8EFED; --ink-2:#C2D0CD; --muted:#8DA09C;
+    --line:#26332F; --line-soft:#1E2A28;
+    --bot:#52CFBC; --bot-soft:#12302C;
+    --hum:#E0A55E; --hum-soft:#2A2013;
+    --stop:#EE8478; --stop-soft:#341C1A;
+    --code-bg:#0A1211; --code-ink:#CFE2DD; --code-line:#1C2C29;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a { color:var(--bot); text-underline-offset:3px; }
+  :focus-visible { outline:2px solid var(--bot); outline-offset:3px; border-radius:3px; }
+
+  :root[data-os="mac"] .os-win { display:none !important; }
+  :root[data-os="win"] .os-mac { display:none !important; }
+
+  /* ── top bar ─────────────────────────────── */
+  .top {
+    position:sticky; top:0; z-index:30;
+    background:color-mix(in srgb, var(--surface) 90%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .top .in {
+    max-width:1240px; margin:0 auto; padding:10px 22px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .brand { font-weight:700; letter-spacing:-0.02em; font-size:15.5px; display:flex; align-items:center; gap:9px; }
+  .brand .mk { width:9px; height:9px; border-radius:2px; background:var(--bot); flex:none; }
+  .oslabel { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-left:auto; }
+  .switch { display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:3px; gap:3px; background:var(--surface-2); }
+  .switch button {
+    font:600 13px/1 var(--sans); color:var(--muted); background:none; border:0;
+    cursor:pointer; padding:7px 15px; border-radius:999px;
+  }
+  .switch button[aria-pressed="true"] { background:var(--surface); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  .menubtn {
+    display:none; font:600 13px/1 var(--sans); background:var(--surface-2);
+    border:1px solid var(--line); color:var(--ink); padding:8px 13px; border-radius:8px; cursor:pointer;
+  }
+
+  /* ── layout ──────────────────────────────── */
+  .wrap { max-width:1240px; margin:0 auto; padding:0 22px; display:grid; grid-template-columns:246px minmax(0,1fr); gap:52px; }
+  nav.side { position:sticky; top:60px; align-self:start; padding:30px 0 60px; }
+  nav.side ol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; }
+  nav.side a {
+    display:flex; gap:11px; align-items:baseline; text-decoration:none;
+    padding:9px 12px; border-radius:8px; color:var(--ink-2); font-size:14.5px; line-height:1.35;
+  }
+  nav.side a .nu { font-family:var(--mono); font-size:11px; color:var(--muted); flex:none; }
+  nav.side a:hover { background:var(--surface-2); }
+  nav.side a.on { background:var(--bot-soft); color:var(--bot); font-weight:640; }
+  nav.side a.on .nu { color:var(--bot); }
+  nav.side .grp { font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); padding:16px 12px 6px; }
+
+  main { min-width:0; padding:30px 0 110px; }
+  .panel { display:none; flex-direction:column; gap:20px; }
+  .panel.on { display:flex; }
+  body.nojs .panel { display:flex !important; }
+
+  @media (max-width:920px) {
+    .wrap { grid-template-columns:1fr; gap:0; }
+    nav.side { position:static; padding:14px 0; border-bottom:1px solid var(--line); display:none; }
+    nav.side.open { display:block; }
+    .menubtn { display:block; }
+    .oslabel { display:none; }
+  }
+
+  /* ── type ────────────────────────────────── */
+  h1 { font-size:clamp(28px,4.4vw,40px); line-height:1.08; letter-spacing:-0.032em; font-weight:700; margin:0; text-wrap:balance; }
+  .lede { font-size:17.5px; color:var(--ink-2); max-width:62ch; margin:0; }
+  h2 { margin:26px 0 0; font-size:22px; letter-spacing:-0.02em; font-weight:670; text-wrap:balance; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  h3 { margin:14px 0 0; font-size:16.5px; letter-spacing:-0.012em; font-weight:650; }
+  p { margin:0; max-width:70ch; }
+  .panel > ol, .panel > ul, h2 + ol, h2 + ul, h3 + ol, h3 + ul, .stack ol, .stack ul { margin:0; padding-left:22px; display:flex; flex-direction:column; gap:7px; max-width:68ch; }
+  li > ul { margin-top:6px; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0; }
+  .tag { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; padding:4px 9px; border-radius:5px; font-weight:600; white-space:nowrap; }
+  .t-hum { background:var(--hum-soft); color:var(--hum); }
+  .t-bot { background:var(--bot-soft); color:var(--bot); }
+  code { font-family:var(--mono); font-size:.875em; background:var(--surface-2); border:1px solid var(--line-soft); padding:1px 5px; border-radius:5px; word-break:break-word; }
+
+  /* ── blocks ──────────────────────────────── */
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:12px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--line); border-radius:var(--r); padding:15px 17px; display:flex; flex-direction:column; gap:5px; }
+  .card.hum { border-top-color:var(--hum); }
+  .card.bot { border-top-color:var(--bot); }
+  .card .n { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); }
+  .card .t { font-weight:650; font-size:15px; }
+  .card .d { font-size:13.5px; color:var(--muted); line-height:1.5; }
+
+  .note { border:1px solid var(--line); border-left:3px solid var(--bot); background:var(--surface); border-radius:var(--r); padding:14px 17px; display:flex; flex-direction:column; gap:7px; font-size:14.5px; }
+  .note.warn { border-left-color:var(--hum); }
+  .note.stop { border-left-color:var(--stop); background:var(--stop-soft); }
+  .note .h { font-weight:670; letter-spacing:-0.01em; }
+  .note p { max-width:none; }
+  .note ul { margin:0; padding-left:20px; }
+
+  .cmd { border-radius:var(--r); overflow:hidden; border:1px solid var(--code-line); background:var(--code-bg); }
+  .cmd .bar { display:flex; align-items:center; gap:9px; padding:8px 9px 8px 14px; border-bottom:1px solid var(--code-line); font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#7E9B95; }
+  .cmd .bar b { color:var(--code-ink); font-weight:600; }
+  .cmd button.copy { margin-left:auto; font:600 11px/1 var(--mono); letter-spacing:.06em; background:#1B302C; color:#A9C8C1; border:1px solid #294742; padding:7px 12px; border-radius:6px; cursor:pointer; text-transform:uppercase; white-space:nowrap; }
+  .cmd button.copy:hover { background:#24403A; color:#DCEFEA; }
+  .cmd pre { margin:0; padding:14px 16px; overflow-x:auto; font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--code-ink); }
+  .cmd.tall pre { max-height:440px; overflow-y:auto; }
+  .duo { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:12px; align-items:start; }
+
+  .tw { overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; min-width:500px; }
+  th, td { text-align:left; padding:11px 15px; border-bottom:1px solid var(--line-soft); vertical-align:top; }
+  th { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:600; white-space:nowrap; }
+  tr:last-child td { border-bottom:0; }
+
+  .stack { display:flex; flex-direction:column; gap:14px; }
+
+  /* ── checklist ───────────────────────────── */
+  .cl { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden; }
+  .clhead { display:flex; align-items:center; gap:14px; padding:12px 17px; border-bottom:1px solid var(--line); flex-wrap:wrap; position:sticky; top:56px; background:var(--surface); z-index:5; }
+  .clhead .cnt { font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums; color:var(--bot); font-weight:600; }
+  .clhead .track { flex:1; min-width:110px; height:5px; border-radius:999px; background:var(--surface-2); overflow:hidden; }
+  .clhead .fill { height:100%; width:0; background:var(--bot); transition:width .25s ease; }
+  .clhead button { font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line); color:var(--muted); padding:6px 11px; border-radius:6px; cursor:pointer; }
+  .clg { padding:13px 17px; border-bottom:1px solid var(--line-soft); display:flex; flex-direction:column; gap:8px; }
+  .clg:last-child { border-bottom:0; }
+  .clg .gt { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  label.ck { display:flex; gap:11px; align-items:flex-start; font-size:14.5px; cursor:pointer; line-height:1.5; }
+  label.ck input { margin:4px 0 0; accent-color:var(--bot); flex:none; width:15px; height:15px; }
+  label.ck input:checked + span { color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); }
+
+  .pager { display:flex; justify-content:space-between; gap:12px; margin-top:34px; padding-top:22px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .pager a { display:inline-flex; flex-direction:column; gap:2px; text-decoration:none; padding:10px 15px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); max-width:48%; }
+  .pager a span { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); }
+  .pager a b { color:var(--ink); font-weight:640; font-size:14.5px; }
+  .pager a:hover { border-color:var(--bot); }
+
+  .toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--ink); color:var(--ground); font:600 13px/1 var(--sans); padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:60; }
+  .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="in">
+    <button class="menubtn" id="menubtn" aria-expanded="false">☰ Mục lục</button>
+    <span class="brand"><span class="mk"></span> Máy mới, ngày đầu</span>
+    <span class="oslabel">Máy của bạn</span>
+    <div class="switch" role="group" aria-label="Chọn hệ điều hành">
+      <button type="button" id="b-mac" aria-pressed="true">macOS</button>
+      <button type="button" id="b-win" aria-pressed="false">Windows</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <nav class="side" id="side">
+    <ol>
+      <li><a href="#bat-dau" data-p="bat-dau"><span class="nu">00</span> Bắt đầu ở đâu</a></li>
+      <li><a href="#nguoi-moi" data-p="nguoi-moi"><span class="nu">01</span> Claude + GitHub</a></li>
+      <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop</a></li>
+      <li><a href="#checklist" data-p="checklist"><span class="nu">03</span> Checklist</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- ══ 00 ══ -->
+  <section class="panel" id="p-bat-dau">
+    <p class="eyebrow">Setup trước hackathon</p>
+    <h1>Máy mới, ngày đầu</h1>
+    <p class="lede">Nhận máy → cài Claude → nối GitHub → dán một prompt và để nó tự cài. Trang này dùng chung cho cả macOS và Windows: chọn hệ điều hành ở góc trên, cả trang sẽ chỉ hiện lệnh của máy bạn.</p>
+
+    <h2>Ba bước, khoảng 20 phút</h2>
+    <div class="cards">
+      <div class="card hum">
+        <span class="n">Mục 01 · ~15 phút</span>
+        <span class="t">Claude + GitHub</span>
+        <span class="d">Cài Claude, tạo tài khoản GitHub, nối hai cái lại để AI đọc được code công ty. Toàn bộ bằng chuột.</span>
+      </div>
+      <div class="card bot">
+        <span class="n">Mục 02 · ~5 phút</span>
+        <span class="t">Cài 2 app</span>
+        <span class="d">VS Code + GitHub Desktop. Dán một đoạn lệnh là xong, kèm phần chứng minh lệnh đó an toàn.</span>
+      </div>
+      <div class="card">
+        <span class="n">Mục 03</span>
+        <span class="t">Đối chiếu</span>
+        <span class="d">Tick từng dòng xem đã đủ chưa. Trạng thái lưu lại trong trình duyệt.</span>
+      </div>
+    </div>
+
+    <h2>Cần xin trước</h2>
+    <ol>
+      <li><b>Tài khoản Claude của công ty</b> — nhắn Team Lead.</li>
+      <li><b>Lời mời vào GitHub của công ty</b> — gửi họ tên tài khoản GitHub sau khi tạo ở mục 01.</li>
+      <li><b>Điện thoại có app xác thực</b> — Google Authenticator, Microsoft Authenticator hoặc 1Password. GitHub bắt buộc bảo mật 2 lớp.</li>
+    </ol>
+
+    <h2>Claude Code, Chat, hay Cowork?</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Chỗ nào</th><th>Làm được gì</th><th>Dùng khi</th></tr></thead>
+        <tbody>
+          <tr><td><b>Tab Chat</b></td><td>Hỏi đáp, đọc code qua kết nối GitHub</td><td>Hằng ngày</td></tr>
+          <tr><td><b>Tab Code</b><br><span style="color:var(--muted)">hoặc lệnh <code>claude</code></span></td><td>Chạy lệnh <b>trên máy bạn</b> — tự cài phần mềm, tự sửa file</td><td>Cài đặt ở mục 02</td></tr>
+          <tr><td><b>Tab Cowork</b></td><td>Chạy trên máy chủ ở xa — <b>không cài được gì lên máy bạn</b></td><td>Không dùng cho setup</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pager"><span></span><a href="#nguoi-moi" data-p="nguoi-moi"><span>Tiếp theo</span><b>01 · Claude + GitHub →</b></a></div>
+  </section>
+
+  <!-- ══ 01 ══ -->
+  <section class="panel" id="p-nguoi-moi">
+    <p class="eyebrow">01</p>
+    <h1>Hướng dẫn cho người mới</h1>
+    <p class="lede">Không cần biết lập trình, không cần gõ lệnh. Khoảng 20 phút, làm 3 việc: cài Claude, tạo tài khoản GitHub, nối hai cái lại.</p>
+
+    <h2><span class="tag t-hum">Phần A</span> Cài Claude</h2>
+    <ol>
+      <li class="os os-mac">Tải bản macOS tại <a href="https://claude.ai/download">claude.ai/download</a>, mở file rồi kéo icon Claude vào thư mục <b>Applications</b>.</li>
+      <li class="os os-win">Tải bản Windows tại <a href="https://claude.com/download">claude.com/download</a>, chạy file cài đặt, bấm Next → Install.</li>
+      <li>Mở app → <b>Sign in</b> → trình duyệt mở ra → đăng nhập bằng tài khoản Claude công ty cấp → quay lại app.</li>
+      <li>Thấy khung chat và gõ được câu hỏi vào đó là xong.</li>
+    </ol>
+
+    <h2><span class="tag t-hum">Phần B</span> Tạo tài khoản GitHub</h2>
+    <p><b>GitHub là gì?</b> Nơi cả công ty lưu và chia sẻ code, giống Google Drive nhưng dành cho code — có lưu lịch sử ai sửa gì, lúc nào, vì sao.</p>
+    <h3>B1 · Đăng ký</h3>
+    <ol>
+      <li>Vào <a href="https://github.com/signup">github.com/signup</a>, đăng ký bằng <b>email công ty</b>.</li>
+      <li>Đặt tên tài khoản dễ nhận: <code>an-nguyen</code>, <code>chien-nv</code>… Cả team nhìn thấy tên này hằng ngày.</li>
+      <li>Mở hộp thư, bấm link xác nhận email.</li>
+    </ol>
+    <h3>B2 · Bật bảo mật 2 lớp — bắt buộc</h3>
+    <ol>
+      <li>Vào <a href="https://github.com/settings/security">github.com/settings/security</a> → <b>Enable two-factor authentication</b>.</li>
+      <li>Chọn <b>Authenticator app</b> → mở app xác thực trên điện thoại → quét mã QR → nhập 6 số.</li>
+    </ol>
+    <div class="note stop">
+      <span class="h">Lưu mã dự phòng ngay</span>
+      <p>Màn hình tiếp theo hiện một danh sách <b>recovery codes</b>. Cất vào trình quản lý mật khẩu hoặc in ra. Mất điện thoại mà không có mấy mã này là <b>mất tài khoản vĩnh viễn</b>, không ai lấy lại hộ được.</p>
+    </div>
+    <h3>B3 · Vào tổ chức của công ty</h3>
+    <ol>
+      <li>Gửi tên tài khoản GitHub cho Team Lead.</li>
+      <li>Nhận email mời → mở → <b>Join organization</b>.</li>
+      <li>Công ty dùng đăng nhập nội bộ (SSO) thì trình duyệt hỏi thêm một bước → <b>Authorize</b>.</li>
+    </ol>
+
+    <h2><span class="tag t-hum">Phần C</span> Nối GitHub vào Claude</h2>
+    <p>Nối xong bạn hỏi được kiểu: <i>"Đọc repo dự án X rồi giải thích chức năng thanh toán hoạt động thế nào"</i> · <i>"Viết giúp tôi tài liệu mô tả module này cho người mới"</i>.</p>
+    <div class="note warn">
+      <span class="h">Kết nối này để AI đọc code, không phải để nó cài đặt</span>
+      <p>Nó <b>không</b> cài phần mềm hộ bạn và <b>không</b> sửa code trên máy bạn. Muốn vậy thì dùng tab Code ở mục 03.</p>
+    </div>
+    <h3>Trong Claude</h3>
+    <ol>
+      <li>Mở tab <b>Chat</b> → bấm dấu <b>+</b> ở <b>góc dưới bên trái</b> khung chat.</li>
+      <li>Chọn <b>Add from GitHub</b>.</li>
+      <li>Lần đầu, nó chuyển sang GitHub xin quyền → chọn <b>Only select repositories</b> và tick đúng repo cần dùng (an toàn hơn <b>All repositories</b>).</li>
+      <li>Quay lại Claude → tìm repo theo tên hoặc dán link repo → dùng bộ duyệt file chọn thư mục/file cần đọc.</li>
+    </ol>
+    <p>Hai nút hay dùng sau đó: <b>Sync</b> (repo có code mới thì bấm để Claude đọc bản mới nhất — nó không tự cập nhật) và <b>Configure files</b> (đổi danh sách file).</p>
+    <p>Dùng lại nhiều lần cho cùng một dự án: tạo một <b>Project</b> rồi thêm repo vào <b>Project knowledge</b> (dấu <b>+</b> ở góc <b>trên bên phải</b> phần đó → <b>GitHub</b>). Từ đó mọi chat trong Project đều có sẵn code.</p>
+    <div class="note">
+      <span class="h">Giới hạn cần biết</span>
+      <ul>
+        <li>Claude chỉ đọc <b>tên file và nội dung file</b> trên <b>một nhánh</b>.</li>
+        <li>Không đọc lịch sử chỉnh sửa, không đọc Pull Request, không đọc bình luận.</li>
+        <li>Repo riêng tư của công ty có SSO thì <b>quản trị viên phải duyệt</b> — không thấy repo hiện ra thì nhắn Team Lead.</li>
+      </ul>
+    </div>
+    <h3>Trong ChatGPT (nếu bạn cũng dùng)</h3>
+    <ol>
+      <li><b>Settings → Apps</b> → tìm <b>GitHub</b> → bấm kết nối.</li>
+      <li>Nó chuyển sang GitHub để cài và cấp quyền → chọn repo cho phép truy cập.</li>
+      <li>Đổi danh sách repo sau này: <b>Settings → Apps → GitHub → Choose repositories</b>.</li>
+    </ol>
+    <div class="note">
+      <span class="h">Giới hạn cần biết</span>
+      <ul>
+        <li>Nối xong repo thường mất <b>khoảng 5 phút</b> mới hiện ra. Chưa thấy thì đợi rồi tải lại trang.</li>
+        <li>Công ty có thể chặn — vào <b>Settings → Apps → GitHub → bánh răng</b> bấm <b>Request</b> để xin duyệt.</li>
+      </ul>
+    </div>
+
+    <div class="note warn">
+      <span class="h">Đến đây là đủ nếu bạn chỉ cần đọc code và hỏi đáp</span>
+      <p>Muốn có thêm VS Code và GitHub Desktop trên máy thì đi tiếp mục 02.</p>
+    </div>
+
+    <div class="pager">
+      <a href="#bat-dau" data-p="bat-dau"><span>Quay lại</span><b>← 00 · Bắt đầu ở đâu</b></a>
+      <a href="#cai-app" data-p="cai-app"><span>Tiếp theo</span><b>02 · Cài VS Code + Desktop →</b></a>
+    </div>
+  </section>
+
+  <!-- ══ 02 ══ -->
+  <section class="panel" id="p-cai-app">
+    <p class="eyebrow">02</p>
+    <h1>Cài VS Code + GitHub Desktop</h1>
+    <p class="lede">Một đoạn lệnh dán vào là cài xong cả 2 app, kèm phần chứng minh vì sao đoạn lệnh đó an toàn để bạn tự kiểm tra trước khi chạy.</p>
+
+    <div class="note warn">
+      <span class="h">Dán vào đâu</span>
+      <p><b class="os os-mac">Terminal</b><b class="os os-win">PowerShell</b> hoặc <b>tab Code</b> của Claude. Tab <b>Cowork</b> không dùng được cho việc này — nó chạy trên máy chủ ở xa nên không cài phần mềm lên máy bạn được.</p>
+    </div>
+
+    <h2 class="os os-mac">Dán vào Terminal</h2>
+    <p class="os os-mac">Mở <b>Terminal</b>: bấm <code>Cmd + dấu cách</code>, gõ <code>Terminal</code>, Enter. Copy toàn bộ khối dưới, dán vào, bấm Enter. Chạy mất 2–4 phút.</p>
+    <div class="cmd tall os os-mac">
+      <div class="bar"><b>macOS</b> · cài cả 2 app<button type="button" class="copy">Copy</button></div>
+<pre><code>#!/bin/bash
+set -euo pipefail
+
+# Cài Visual Studio Code + GitHub Desktop từ trang chủ của Microsoft và GitHub.
+# Không dùng sudo. Không tải script lạ. Kiểm tra chữ ký số trước khi cài.
+
+if [ "$(uname -m)" = "arm64" ]; then
+  VSCODE_URL="https://update.code.visualstudio.com/latest/darwin-arm64/stable"
+  GHD_URL="https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64"
+else
+  VSCODE_URL="https://update.code.visualstudio.com/latest/darwin-universal/stable"
+  GHD_URL="https://central.github.com/deployments/desktop/desktop/latest/darwin"
+fi
+
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
+
+cai_app() {
+  ten="$1"; url="$2"; app="$3"
+
+  if [ -d "/Applications/$app" ] || [ -d "$HOME/Applications/$app" ]; then
+    echo "✅ $ten đã có sẵn trên máy, bỏ qua."
+    return
+  fi
+
+  echo "==> Đang tải $ten ..."
+  curl -fL --proto '=https' --tlsv1.2 -o "$TMP/app.zip" "$url"
+
+  echo "==> Đang giải nén ..."
+  mkdir -p "$TMP/out"
+  # Dùng ditto (công cụ gốc của macOS), KHÔNG dùng unzip:
+  # unzip làm hỏng chữ ký của app, khiến bước kiểm tra bên dưới báo lỗi oan.
+  ditto -x -k "$TMP/app.zip" "$TMP/out"
+  src="$(find "$TMP/out" -maxdepth 1 -name '*.app' -print -quit)"
+
+  echo "==> Kiểm tra chữ ký số (nếu bước này fail thì DỪNG, đừng cài) ..."
+  codesign --verify --strict "$src"
+  spctl --assess --type execute "$src"
+  echo "    Chữ ký hợp lệ:"
+  codesign -dv --verbose=2 "$src" 2>&amp;1 | grep -E '^(Authority|TeamIdentifier)=' || true
+
+  echo "==> Đang chép vào thư mục Applications ..."
+  if cp -R "$src" /Applications/ 2>/dev/null; then
+    echo "✅ $ten đã cài vào /Applications"
+  else
+    mkdir -p "$HOME/Applications"
+    cp -R "$src" "$HOME/Applications/"
+    echo "✅ $ten đã cài vào ~/Applications (thư mục riêng của bạn)"
+  fi
+
+  rm -rf "$TMP/out" "$TMP/app.zip"
+}
+
+cai_app "Visual Studio Code" "$VSCODE_URL" "Visual Studio Code.app"
+cai_app "GitHub Desktop"     "$GHD_URL"    "GitHub Desktop.app"
+
+echo ""
+echo "🎉 Xong. Mở Launchpad là thấy 2 app mới."</code></pre>
+    </div>
+    <div class="note os os-mac">
+      <span class="h">Đã có Homebrew rồi?</span>
+      <p>Thì chỉ cần một dòng — kết quả như nhau. Cask tên <code>github</code> chính là GitHub Desktop.</p>
+    </div>
+    <div class="cmd os os-mac">
+      <div class="bar"><b>macOS</b> · nếu đã có Homebrew<button type="button" class="copy">Copy</button></div>
+      <pre><code>brew install --cask visual-studio-code github</code></pre>
+    </div>
+
+    <h2 class="os os-win">Dán vào PowerShell</h2>
+    <p class="os os-win">Bấm nút <b>Start</b>, gõ <code>PowerShell</code>, Enter. Copy toàn bộ khối dưới, dán vào, bấm Enter. App nào đã cài rồi thì winget tự bỏ qua.</p>
+    <div class="cmd tall os os-win">
+      <div class="bar"><b>Windows</b> · cài cả 2 app<button type="button" class="copy">Copy</button></div>
+<pre><code>$ErrorActionPreference = 'Stop'
+
+# Cài Visual Studio Code + GitHub Desktop từ trang chủ của Microsoft và GitHub.
+# Ưu tiên winget (có sẵn trong Windows). Không có winget thì tải thẳng và kiểm tra chữ ký số.
+
+$apps = @(
+  @{ Ten='Visual Studio Code'; Id='Microsoft.VisualStudioCode';
+     Url='https://update.code.visualstudio.com/latest/win32-x64-user/stable'; File='VSCodeUserSetup.exe' },
+  @{ Ten='GitHub Desktop';     Id='GitHub.GitHubDesktop';
+     Url='https://central.github.com/deployments/desktop/desktop/latest/win32'; File='GitHubDesktopSetup.exe' }
+)
+
+$coWinget = $null -ne (Get-Command winget -ErrorAction SilentlyContinue)
+if (-not $coWinget) {
+  Write-Host "Máy chưa có winget, sẽ tải thẳng từ trang chủ." -ForegroundColor Yellow
+}
+
+foreach ($a in $apps) {
+  Write-Host ""
+  Write-Host "==> $($a.Ten)" -ForegroundColor Cyan
+
+  if ($coWinget) {
+    winget install --id $a.Id -e --source winget `
+      --accept-package-agreements --accept-source-agreements
+  }
+  else {
+    $file = Join-Path $env:TEMP $a.File
+    Write-Host "    Đang tải ..."
+    Invoke-WebRequest -Uri $a.Url -OutFile $file
+
+    Write-Host "    Kiểm tra chữ ký số ..."
+    $sig = Get-AuthenticodeSignature $file
+    if ($sig.Status -ne 'Valid') {
+      throw "❌ Chữ ký KHÔNG hợp lệ ($($sig.Status)). Dừng lại, không cài."
+    }
+    Write-Host "    Chữ ký hợp lệ. Nhà phát hành: $($sig.SignerCertificate.Subject)"
+
+    Start-Process -FilePath $file -Wait
+    Remove-Item $file -Force
+  }
+  Write-Host "✅ $($a.Ten) xong."
+}
+
+Write-Host ""
+Write-Host "🎉 Xong. Bấm Start là thấy 2 app mới." -ForegroundColor Green</code></pre>
+    </div>
+
+    <h2>Hoặc để Claude Code làm hộ</h2>
+    <div class="cmd tall">
+      <div class="bar"><b>Prompt</b> · dán vào tab Code<button type="button" class="copy">Copy</button></div>
+<pre><code>Cài giúp tôi Visual Studio Code và GitHub Desktop lên máy này.
+
+Yêu cầu bắt buộc:
+- Tự phát hiện máy tôi là macOS hay Windows và dùng đúng cách của máy đó.
+- macOS: nếu máy đã có Homebrew thì dùng `brew install --cask visual-studio-code github`.
+  Chưa có Homebrew thì tải thẳng từ trang chủ, ĐỪNG cài Homebrew (tôi không muốn cài thêm thứ tôi chưa cần):
+    VS Code        https://update.code.visualstudio.com/latest/darwin-universal/stable
+    GitHub Desktop https://central.github.com/deployments/desktop/desktop/latest/darwin
+  (máy Apple Silicon thì đổi darwin-universal thành darwin-arm64, và darwin thành darwin-arm64)
+- Windows: dùng winget
+    winget install --id Microsoft.VisualStudioCode -e --source winget
+    winget install --id GitHub.GitHubDesktop -e --source winget
+- App nào đã có trên máy thì bỏ qua, không cài đè. Kiểm tra trước khi cài.
+- KHÔNG dùng sudo / KHÔNG xin quyền admin. Nếu bắt buộc phải cần thì dừng lại hỏi tôi và giải thích vì sao.
+- KHÔNG tải script từ bất kỳ domain nào ngoài microsoft.com, visualstudio.com, github.com.
+- Trước khi cài, kiểm tra chữ ký số của file tải về (macOS: codesign + spctl, Windows: Get-AuthenticodeSignature). Chữ ký không hợp lệ thì DỪNG, báo cho tôi, không cài.
+- KHÔNG đụng vào file cá nhân của tôi, KHÔNG đọc ~/.ssh, KHÔNG tắt bất kỳ cơ chế bảo mật nào.
+- Trước mỗi lệnh, nói cho tôi biết lệnh đó làm gì bằng tiếng Việt.
+- Xong thì báo cáo: mỗi app đã cài phiên bản nào, nằm ở đâu.</code></pre>
+    </div>
+
+    <h2>Vì sao đoạn lệnh trên an toàn</h2>
+    <p>Bạn không cần tin ai — dưới đây là những gì tự kiểm chứng được.</p>
+    <div class="stack">
+      <div class="note"><span class="h">1 · Không có <code>sudo</code>, không xin quyền quản trị</span><p>Bản Mac chép app vào <code>/Applications</code>, không được thì tự chuyển sang <code>~/Applications</code> — thư mục riêng của bạn. Không chỗ nào đòi mật khẩu máy.</p></div>
+      <div class="note"><span class="h">2 · Không có kiểu <code>curl … | bash</code></span><p>Đây là dạng nguy hiểm nhất: tải file lạ từ mạng về chạy thẳng mà không ai đọc được nội dung. Đoạn lệnh trên chỉ tải <b>file cài đặt của chính 2 app đó</b>, còn toàn bộ lệnh thì bạn đang đọc bằng mắt.</p></div>
+      <div class="note"><span class="h">3 · Chỉ tải từ tên miền chính chủ</span><p><code>update.code.visualstudio.com</code> → chuyển tiếp sang <code>vscode.download.prss.microsoft.com</code> (CDN Microsoft) · <code>central.github.com</code> → <code>desktop.githubusercontent.com</code> (CDN GitHub). Tự kiểm tra: dán link vào trình duyệt xem nó chuyển đi đâu. Thấy tên miền khác → đừng chạy, báo team.</p></div>
+      <div class="note"><span class="h">4 · Bắt buộc kiểm tra chữ ký số trước khi cài</span><p>Mac dùng <code>codesign</code> + <code>spctl</code>, Windows dùng <code>Get-AuthenticodeSignature</code>. File bị chỉnh sửa dọc đường thì bước này fail và script <b>dừng ngay</b>, chưa cài gì cả.</p></div>
+      <div class="note"><span class="h">5 · Không tắt bất kỳ cơ chế bảo vệ nào</span><p>Không <code>spctl --master-disable</code>, không tắt Gatekeeper, không <code>Set-ExecutionPolicy Bypass</code>, không loại trừ thư mục khỏi Windows Defender. Ai bảo bạn làm mấy cái đó để "cài cho nhanh" — từ chối.</p></div>
+      <div class="note"><span class="h">6 · Không chạm vào dữ liệu của bạn</span><p>Chỉ tải 2 file vào thư mục tạm, giải nén, chép 2 app, rồi tự xoá thư mục tạm. Không đọc file cá nhân, không đụng <code>~/.ssh</code>, không gửi gì ra ngoài.</p></div>
+    </div>
+    <div class="note os os-mac">
+      <span class="h">Danh tính người ký — phải khớp đúng hai dòng này</span>
+      <p>Kiểm chứng ngày 14/08/2026. Ra tên khác → dừng ngay, đừng cài, báo team.</p>
+    </div>
+    <div class="cmd os os-mac">
+      <div class="bar"><b>Kết quả đúng</b><button type="button" class="copy">Copy</button></div>
+      <pre><code>Visual Studio Code → Developer ID Application: Microsoft Corporation (UBF8T346G9)
+GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre>
+    </div>
+
+    <h2>Cách tự kiểm tra bất kỳ đoạn lệnh nào</h2>
+    <p>Kỹ năng này quan trọng hơn cả trang này. <b>Dán lệnh lạ vào Terminal là một trong những cách bị chiếm máy phổ biến nhất hiện nay</b> — kẻ xấu hay gửi kèm câu "chạy cái này để sửa lỗi".</p>
+    <h3>Bắt AI đọc hộ trước khi chạy</h3>
+    <div class="cmd">
+      <div class="bar"><b>Prompt kiểm tra</b> · dán kèm đoạn lệnh cần soi<button type="button" class="copy">Copy</button></div>
+<pre><code>Đọc đoạn lệnh dưới đây và trả lời tôi bằng tiếng Việt:
+1. Nó làm chính xác những gì với máy tôi? Liệt kê từng việc.
+2. Nó tải dữ liệu từ những tên miền nào? Có tên miền nào không phải trang chủ chính thức không?
+3. Nó có xin quyền quản trị (sudo/admin) không? Để làm gì?
+4. Nó có đọc, sửa, xoá hay gửi đi file cá nhân nào của tôi không?
+5. Nó có tắt cơ chế bảo mật nào không?
+6. Có gì đáng ngờ không? Trả lời thẳng: NÊN CHẠY hay KHÔNG NÊN CHẠY.
+
+[dán đoạn lệnh vào đây]</code></pre>
+    </div>
+    <div class="note stop">
+      <span class="h">Dấu hiệu đỏ — thấy là dừng, đi hỏi team</span>
+      <ul>
+        <li><code>curl … | bash</code> hoặc <code>irm … | iex</code> từ tên miền bạn không nhận ra</li>
+        <li><code>sudo</code> mà không giải thích tại sao cần</li>
+        <li>Chuỗi dài loằng ngoằng khó đọc, <code>base64 -d</code>, <code>eval</code> — thường là để <b>giấu</b> lệnh thật</li>
+        <li>Đụng vào <code>~/.ssh</code>, <code>.env</code>, <code>~/.aws</code>, Keychain, trình duyệt, ví tiền điện tử</li>
+        <li><code>rm -rf</code> vào đường dẫn rộng như <code>~/</code>, <code>/</code>, <code>C:\</code></li>
+        <li><code>chmod 777</code>, tắt Gatekeeper / Defender / ExecutionPolicy</li>
+        <li>Gửi dữ liệu đi đâu đó: <code>curl -d @file https://…</code></li>
+        <li>Người gửi giục "chạy nhanh lên", "đừng hỏi ai", "khẩn cấp"</li>
+      </ul>
+    </div>
+    <div class="note warn">
+      <span class="h">Ghi chú cho nhất quán</span>
+      <p>Hướng dẫn cài <b>Claude Code</b> bằng terminal có dùng <code>curl … | bash</code> và <code>irm … | iex</code>. Đó đúng là dạng lệnh cần cảnh giác — nó chấp nhận được chỉ vì tải từ <code>claude.ai</code>, tên miền chính chủ của Anthropic. Không thoải mái thì <b>tải app desktop</b> ở <a href="https://claude.ai/download">claude.ai/download</a>, kết quả như nhau.</p>
+    </div>
+
+    <div class="pager">
+      <a href="#nguoi-moi" data-p="nguoi-moi"><span>Quay lại</span><b>← 01 · Claude + GitHub</b></a>
+      <a href="#checklist" data-p="checklist"><span>Tiếp theo</span><b>03 · Checklist →</b></a>
+    </div>
+  </section>
+
+  <!-- ══ 06 ══ -->
+  <section class="panel" id="p-checklist">
+    <p class="eyebrow">03</p>
+    <h1>Checklist</h1>
+    <p class="lede">Tick hết là xong. Trạng thái lưu trong trình duyệt này, đóng tab mở lại vẫn còn.</p>
+
+    <div class="cl">
+      <div class="clhead">
+        <span class="cnt" id="cnt">0 / 0</span>
+        <span class="track"><span class="fill" id="fill"></span></span>
+        <button type="button" id="reset">Xoá hết</button>
+      </div>
+      <div class="clg">
+        <span class="gt">Tài khoản</span>
+        <label class="ck"><input type="checkbox"><span>Cài xong app Claude và đăng nhập được</span></label>
+        <label class="ck"><input type="checkbox"><span>Có tài khoản GitHub, email công ty đã xác nhận</span></label>
+        <label class="ck"><input type="checkbox"><span><b>Đã bật 2FA</b> và cất recovery codes vào password manager</span></label>
+        <label class="ck"><input type="checkbox"><span>Đã join tổ chức GitHub của công ty</span></label>
+      </div>
+      <div class="clg">
+        <span class="gt">Kết nối AI ↔ GitHub</span>
+        <label class="ck"><input type="checkbox"><span>Bấm <b>+ → Add from GitHub</b> trong Claude và thấy được repo công ty</span></label>
+        <label class="ck"><input type="checkbox"><span>Hỏi thử Claude một câu về code trong repo, nó trả lời đúng</span></label>
+        <label class="ck"><input type="checkbox"><span>Biết bấm <b>Sync</b> khi repo có code mới — Claude không tự cập nhật</span></label>
+        <label class="ck"><input type="checkbox"><span>(Nếu dùng ChatGPT) đã nối GitHub trong <b>Settings → Apps</b></span></label>
+      </div>
+      <div class="clg">
+        <span class="gt">App trên máy</span>
+        <label class="ck"><input type="checkbox"><span>VS Code mở được</span></label>
+        <label class="ck"><input type="checkbox"><span>VS Code đã sign in GitHub (Settings Sync bật)</span></label>
+        <label class="ck"><input type="checkbox"><span>GitHub Desktop mở được và đã đăng nhập</span></label>
+        <label class="ck"><input type="checkbox"><span>Tên + email trong GitHub Desktop đúng như bạn muốn hiện trên lịch sử code</span></label>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="h">Không tự gỡ được?</span>
+      <p>Copy nguyên văn dòng lỗi, dán vào Claude kèm câu <i>"lỗi này là sao, sửa giúp tôi"</i>. Vẫn bí thì chụp màn hình lỗi gửi vào kênh chat của team.</p>
+    </div>
+
+    <div class="pager"><a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + Desktop</b></a><span></span></div>
+  </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var PAGES = ['bat-dau','nguoi-moi','cai-app','checklist'];
+
+  /* ── routing ─────────────────────────────── */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
+  var side = document.getElementById('side');
+
+  function show(page, push) {
+    if (PAGES.indexOf(page) === -1) page = PAGES[0];
+    PAGES.forEach(function (p) {
+      var el = document.getElementById('p-' + p);
+      if (el) el.classList.toggle('on', p === page);
+    });
+    navLinks.forEach(function (a) {
+      if (a.parentNode && a.parentNode.tagName === 'LI') a.classList.toggle('on', a.dataset.p === page);
+    });
+    if (push && location.hash !== '#' + page) history.pushState(null, '', '#' + page);
+    side.classList.remove('open');
+    document.getElementById('menubtn').setAttribute('aria-expanded', 'false');
+    window.scrollTo(0, 0);
+  }
+
+  navLinks.forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.p, true); });
+  });
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+  show(location.hash.slice(1) || PAGES[0], false);
+
+  document.getElementById('menubtn').addEventListener('click', function () {
+    var open = side.classList.toggle('open');
+    this.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  /* ── OS switch ───────────────────────────── */
+  var bMac = document.getElementById('b-mac'), bWin = document.getElementById('b-win');
+  function setOS(os, remember) {
+    root.setAttribute('data-os', os);
+    bMac.setAttribute('aria-pressed', os === 'mac' ? 'true' : 'false');
+    bWin.setAttribute('aria-pressed', os === 'win' ? 'true' : 'false');
+    if (remember) { try { localStorage.setItem('mmnd-os', os); } catch (e) {} }
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('mmnd-os'); } catch (e) {}
+  if (saved === 'mac' || saved === 'win') setOS(saved, false);
+  else setOS(/Win/i.test(navigator.userAgent || '') ? 'win' : 'mac', false);
+  bMac.addEventListener('click', function () { setOS('mac', true); });
+  bWin.addEventListener('click', function () { setOS('win', true); });
+
+  /* ── toast ───────────────────────────────── */
+  var toast = document.getElementById('toast'), tTimer;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(tTimer);
+    tTimer = setTimeout(function () { toast.classList.remove('on'); }, 2200);
+  }
+
+  /* ── copy ────────────────────────────────── */
+  document.querySelectorAll('button.copy').forEach(function (btn) {
+    btn.dataset.orig = btn.textContent;
+    btn.addEventListener('click', function () {
+      var block = btn.closest('.cmd'), pre = block && block.querySelector('pre');
+      if (!pre) return;
+      var done = function () {
+        btn.textContent = 'Đã copy';
+        say('Đã copy vào clipboard');
+        setTimeout(function () { btn.textContent = btn.dataset.orig; }, 1800);
+      };
+      var fallback = function () {
+        var sel = window.getSelection(), range = document.createRange();
+        range.selectNodeContents(pre);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        say('Đã bôi đen — bấm Cmd/Ctrl + C để copy');
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pre.innerText).then(done).catch(fallback);
+      } else fallback();
+    });
+  });
+
+  /* ── checklist ───────────────────────────── */
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('label.ck input'));
+  var cnt = document.getElementById('cnt'), fill = document.getElementById('fill');
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem('mmnd-check-v3') || '{}'); } catch (e) { store = {}; }
+  function render() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    cnt.textContent = done + ' / ' + boxes.length;
+    fill.style.width = (boxes.length ? (done / boxes.length) * 100 : 0) + '%';
+  }
+  boxes.forEach(function (b, i) {
+    if (store['i' + i]) b.checked = true;
+    b.addEventListener('change', function () {
+      store['i' + i] = b.checked;
+      try { localStorage.setItem('mmnd-check-v3', JSON.stringify(store)); } catch (e) {}
+      render();
+    });
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    store = {};
+    try { localStorage.removeItem('mmnd-check-v3'); } catch (e) {}
+    render();
+    say('Đã xoá checklist');
+  });
+  render();
+})();
+</script>
+</body>
+</html>
