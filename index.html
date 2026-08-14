@@ -78,7 +78,7 @@
   }
 
   /* ── layout ──────────────────────────────── */
-  .wrap { max-width:1240px; margin:0 auto; padding:0 22px; display:grid; grid-template-columns:246px minmax(0,1fr); gap:52px; }
+  .wrap { max-width:1500px; margin:0 auto; padding:0 22px; display:grid; grid-template-columns:224px minmax(0,1fr) 310px; gap:44px; align-items:start; }
   nav.side { position:sticky; top:60px; align-self:start; padding:30px 0 60px; }
   nav.side ol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; }
   nav.side a {
@@ -96,6 +96,9 @@
   .panel.on { display:flex; }
   body.nojs .panel { display:flex !important; }
 
+  @media (max-width:1240px) {
+    .wrap { grid-template-columns:224px minmax(0,1fr); gap:40px; }
+  }
   @media (max-width:920px) {
     .wrap { grid-template-columns:1fr; gap:0; }
     nav.side { position:static; padding:14px 0; border-bottom:1px solid var(--line); display:none; }
@@ -151,19 +154,37 @@
 
   .stack { display:flex; flex-direction:column; gap:14px; }
 
-  /* ── checklist ───────────────────────────── */
+  /* ── rail checklist (sticky phải) ────────── */
+  aside.rail { position:sticky; top:60px; align-self:start; padding:30px 0 60px; max-height:calc(100vh - 74px); overflow-y:auto; overscroll-behavior:contain; }
   .cl { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden; }
-  .clhead { display:flex; align-items:center; gap:14px; padding:12px 17px; border-bottom:1px solid var(--line); flex-wrap:wrap; position:sticky; top:56px; background:var(--surface); z-index:5; }
+  .clhead { display:flex; align-items:center; gap:10px; padding:13px 15px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .clhead .ttl { font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); width:100%; }
   .clhead .cnt { font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums; color:var(--bot); font-weight:600; }
-  .clhead .track { flex:1; min-width:110px; height:5px; border-radius:999px; background:var(--surface-2); overflow:hidden; }
+  .clhead .track { flex:1; min-width:60px; height:5px; border-radius:999px; background:var(--surface-2); overflow:hidden; }
   .clhead .fill { height:100%; width:0; background:var(--bot); transition:width .25s ease; }
-  .clhead button { font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line); color:var(--muted); padding:6px 11px; border-radius:6px; cursor:pointer; }
-  .clg { padding:13px 17px; border-bottom:1px solid var(--line-soft); display:flex; flex-direction:column; gap:8px; }
-  .clg:last-child { border-bottom:0; }
-  .clg .gt { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
-  label.ck { display:flex; gap:11px; align-items:flex-start; font-size:14.5px; cursor:pointer; line-height:1.5; }
-  label.ck input { margin:4px 0 0; accent-color:var(--bot); flex:none; width:15px; height:15px; }
+  .clhead button { font:600 10.5px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line); color:var(--muted); padding:6px 9px; border-radius:6px; cursor:pointer; }
+  .clhead button:hover { color:var(--ink); border-color:var(--muted); }
+
+  details.clg { border-bottom:1px solid var(--line-soft); border-left:3px solid transparent; }
+  details.clg:last-child { border-bottom:0; }
+  details.clg[data-active="1"] { border-left-color:var(--bot); background:color-mix(in srgb, var(--bot-soft) 45%, transparent); }
+  details.clg > summary {
+    list-style:none; cursor:pointer; padding:11px 15px; display:flex; align-items:center; gap:9px;
+    font-size:13.5px; font-weight:640; letter-spacing:-0.01em; user-select:none;
+  }
+  details.clg > summary::-webkit-details-marker { display:none; }
+  details.clg > summary:hover { background:var(--surface-2); }
+  details.clg > summary .cv { flex:none; width:9px; height:9px; border-right:1.6px solid var(--muted); border-bottom:1.6px solid var(--muted); transform:rotate(45deg); transition:transform .18s ease; margin-right:2px; }
+  details.clg[open] > summary .cv { transform:rotate(-135deg); }
+  details.clg > summary .gc { margin-left:auto; font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; color:var(--muted); flex:none; }
+  details.clg.done > summary { color:var(--bot); }
+  details.clg.done > summary .gc { color:var(--bot); }
+  details.clg.done > summary .cv { border-color:var(--bot); }
+  .clbody { padding:2px 15px 14px; display:flex; flex-direction:column; gap:9px; }
+  label.ck { display:flex; gap:10px; align-items:flex-start; font-size:13.5px; cursor:pointer; line-height:1.5; }
+  label.ck input { margin:3px 0 0; accent-color:var(--bot); flex:none; width:15px; height:15px; }
   label.ck input:checked + span { color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); }
+  .railfoot { font-size:12.5px; color:var(--muted); line-height:1.5; padding:12px 2px 0; }
 
   .pager { display:flex; justify-content:space-between; gap:12px; margin-top:34px; padding-top:22px; border-top:1px solid var(--line); flex-wrap:wrap; }
   .pager a { display:inline-flex; flex-direction:column; gap:2px; text-decoration:none; padding:10px 15px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); max-width:48%; }
@@ -174,6 +195,14 @@
   .toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--ink); color:var(--ground); font:600 13px/1 var(--sans); padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:60; }
   .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+
+  /* ── responsive cho rail (đặt cuối để thắng cascade) ── */
+  @media (max-width:1240px) {
+    aside.rail { position:static; max-height:none; overflow:visible; grid-column:2; padding:0 0 70px; }
+  }
+  @media (max-width:920px) {
+    aside.rail { grid-column:1; }
+  }
 </style>
 </head>
 <body>
@@ -196,7 +225,6 @@
       <li><a href="#bat-dau" data-p="bat-dau"><span class="nu">00</span> Bắt đầu ở đâu</a></li>
       <li><a href="#nguoi-moi" data-p="nguoi-moi"><span class="nu">01</span> Claude + GitHub</a></li>
       <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop</a></li>
-      <li><a href="#checklist" data-p="checklist"><span class="nu">03</span> Checklist</a></li>
     </ol>
   </nav>
 
@@ -221,9 +249,9 @@
         <span class="d">VS Code + GitHub Desktop. Dán một đoạn lệnh là xong, kèm phần chứng minh lệnh đó an toàn.</span>
       </div>
       <div class="card">
-        <span class="n">Mục 03</span>
-        <span class="t">Đối chiếu</span>
-        <span class="d">Tick từng dòng xem đã đủ chưa. Trạng thái lưu lại trong trình duyệt.</span>
+        <span class="n">Checklist bên phải</span>
+        <span class="t">Tick khi xong</span>
+        <span class="d">Luôn hiện ở cạnh phải màn hình. Xong một nhóm thì nhóm đó tự thu lại cho gọn.</span>
       </div>
     </div>
 
@@ -548,54 +576,54 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
 
     <div class="pager">
       <a href="#nguoi-moi" data-p="nguoi-moi"><span>Quay lại</span><b>← 01 · Claude + GitHub</b></a>
-      <a href="#checklist" data-p="checklist"><span>Tiếp theo</span><b>03 · Checklist →</b></a>
+      <span></span>
     </div>
   </section>
 
-  <!-- ══ 06 ══ -->
-  <section class="panel" id="p-checklist">
-    <p class="eyebrow">03</p>
-    <h1>Checklist</h1>
-    <p class="lede">Tick hết là xong. Trạng thái lưu trong trình duyệt này, đóng tab mở lại vẫn còn.</p>
-
-    <div class="cl">
-      <div class="clhead">
-        <span class="cnt" id="cnt">0 / 0</span>
-        <span class="track"><span class="fill" id="fill"></span></span>
-        <button type="button" id="reset">Xoá hết</button>
-      </div>
-      <div class="clg">
-        <span class="gt">Tài khoản</span>
-        <label class="ck"><input type="checkbox"><span>Cài xong app Claude và đăng nhập được</span></label>
-        <label class="ck"><input type="checkbox"><span>Có tài khoản GitHub, email công ty đã xác nhận</span></label>
-        <label class="ck"><input type="checkbox"><span><b>Đã bật 2FA</b> và cất recovery codes vào password manager</span></label>
-        <label class="ck"><input type="checkbox"><span>Đã join tổ chức GitHub của công ty</span></label>
-      </div>
-      <div class="clg">
-        <span class="gt">Kết nối AI ↔ GitHub</span>
-        <label class="ck"><input type="checkbox"><span>Bấm <b>+ → Add from GitHub</b> trong Claude và thấy được repo công ty</span></label>
-        <label class="ck"><input type="checkbox"><span>Hỏi thử Claude một câu về code trong repo, nó trả lời đúng</span></label>
-        <label class="ck"><input type="checkbox"><span>Biết bấm <b>Sync</b> khi repo có code mới — Claude không tự cập nhật</span></label>
-        <label class="ck"><input type="checkbox"><span>(Nếu dùng ChatGPT) đã nối GitHub trong <b>Settings → Apps</b></span></label>
-      </div>
-      <div class="clg">
-        <span class="gt">App trên máy</span>
-        <label class="ck"><input type="checkbox"><span>VS Code mở được</span></label>
-        <label class="ck"><input type="checkbox"><span>VS Code đã sign in GitHub (Settings Sync bật)</span></label>
-        <label class="ck"><input type="checkbox"><span>GitHub Desktop mở được và đã đăng nhập</span></label>
-        <label class="ck"><input type="checkbox"><span>Tên + email trong GitHub Desktop đúng như bạn muốn hiện trên lịch sử code</span></label>
-      </div>
-    </div>
-
-    <div class="note">
-      <span class="h">Không tự gỡ được?</span>
-      <p>Copy nguyên văn dòng lỗi, dán vào Claude kèm câu <i>"lỗi này là sao, sửa giúp tôi"</i>. Vẫn bí thì chụp màn hình lỗi gửi vào kênh chat của team.</p>
-    </div>
-
-    <div class="pager"><a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + Desktop</b></a><span></span></div>
-  </section>
 
   </main>
+
+  <aside class="rail" aria-label="Checklist">
+    <div class="cl">
+      <div class="clhead">
+        <span class="ttl">Checklist</span>
+        <span class="cnt" id="cnt">0 / 0</span>
+        <span class="track"><span class="fill" id="fill"></span></span>
+        <button type="button" id="reset">Xoá</button>
+      </div>
+
+      <details class="clg" data-page="nguoi-moi" open>
+        <summary><span class="cv"></span>Tài khoản<span class="gc">0/4</span></summary>
+        <div class="clbody">
+          <label class="ck"><input type="checkbox"><span>Cài xong app Claude và đăng nhập được</span></label>
+          <label class="ck"><input type="checkbox"><span>Có tài khoản GitHub, email công ty đã xác nhận</span></label>
+          <label class="ck"><input type="checkbox"><span><b>Đã bật 2FA</b> và cất recovery codes vào password manager</span></label>
+          <label class="ck"><input type="checkbox"><span>Đã join tổ chức GitHub của công ty</span></label>
+        </div>
+      </details>
+
+      <details class="clg" data-page="nguoi-moi" open>
+        <summary><span class="cv"></span>Kết nối AI ↔ GitHub<span class="gc">0/4</span></summary>
+        <div class="clbody">
+          <label class="ck"><input type="checkbox"><span>Bấm <b>+ → Add from GitHub</b> trong Claude và thấy được repo công ty</span></label>
+          <label class="ck"><input type="checkbox"><span>Hỏi thử Claude một câu về code trong repo, nó trả lời đúng</span></label>
+          <label class="ck"><input type="checkbox"><span>Biết bấm <b>Sync</b> khi repo có code mới — Claude không tự cập nhật</span></label>
+          <label class="ck"><input type="checkbox"><span>(Nếu dùng ChatGPT) đã nối GitHub trong <b>Settings → Apps</b></span></label>
+        </div>
+      </details>
+
+      <details class="clg" data-page="cai-app" open>
+        <summary><span class="cv"></span>App trên máy<span class="gc">0/4</span></summary>
+        <div class="clbody">
+          <label class="ck"><input type="checkbox"><span>VS Code mở được</span></label>
+          <label class="ck"><input type="checkbox"><span>VS Code đã sign in GitHub (Settings Sync bật)</span></label>
+          <label class="ck"><input type="checkbox"><span>GitHub Desktop mở được và đã đăng nhập</span></label>
+          <label class="ck"><input type="checkbox"><span>Tên + email trong GitHub Desktop đúng như bạn muốn hiện trên lịch sử code</span></label>
+        </div>
+      </details>
+    </div>
+    <p class="railfoot">Xong một nhóm thì nó tự thu lại. Trạng thái lưu trong trình duyệt này.</p>
+  </aside>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -603,7 +631,7 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
 <script>
 (function () {
   var root = document.documentElement;
-  var PAGES = ['bat-dau','nguoi-moi','cai-app','checklist'];
+  var PAGES = ['bat-dau','nguoi-moi','cai-app'];
 
   /* ── routing ─────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
@@ -619,6 +647,7 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
       if (a.parentNode && a.parentNode.tagName === 'LI') a.classList.toggle('on', a.dataset.p === page);
     });
     if (push && location.hash !== '#' + page) history.pushState(null, '', '#' + page);
+    if (window.__railFocus) window.__railFocus(page);
     side.classList.remove('open');
     document.getElementById('menubtn').setAttribute('aria-expanded', 'false');
     window.scrollTo(0, 0);
@@ -683,32 +712,66 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
     });
   });
 
-  /* ── checklist ───────────────────────────── */
+  /* ── checklist (rail phải, nhóm tự thu khi xong) ── */
+  var KEY = 'mmnd-check-v4';
+  var groups = Array.prototype.slice.call(document.querySelectorAll('details.clg'));
   var boxes = Array.prototype.slice.call(document.querySelectorAll('label.ck input'));
   var cnt = document.getElementById('cnt'), fill = document.getElementById('fill');
   var store = {};
-  try { store = JSON.parse(localStorage.getItem('mmnd-check-v3') || '{}'); } catch (e) { store = {}; }
-  function render() {
+  try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+  function syncGroup(g, delay) {
+    var gb = Array.prototype.slice.call(g.querySelectorAll('input'));
+    var done = gb.filter(function (b) { return b.checked; }).length;
+    var full = done === gb.length && gb.length > 0;
+    g.querySelector('.gc').textContent = done + '/' + gb.length;
+    var was = g.classList.contains('done');
+    g.classList.toggle('done', full);
+    if (full && !was) {
+      // vừa xong → thu lại, chờ chút cho người dùng thấy dấu tick cuối
+      if (delay) setTimeout(function () { if (g.classList.contains('done')) g.open = false; }, 320);
+      else g.open = false;
+    } else if (!full && was) {
+      g.open = true;                       // bỏ tick lại → mở ra
+    }
+  }
+
+  function renderAll(delay) {
+    groups.forEach(function (g) { syncGroup(g, delay); });
     var done = boxes.filter(function (b) { return b.checked; }).length;
     cnt.textContent = done + ' / ' + boxes.length;
     fill.style.width = (boxes.length ? (done / boxes.length) * 100 : 0) + '%';
   }
+
   boxes.forEach(function (b, i) {
     if (store['i' + i]) b.checked = true;
     b.addEventListener('change', function () {
       store['i' + i] = b.checked;
-      try { localStorage.setItem('mmnd-check-v3', JSON.stringify(store)); } catch (e) {}
-      render();
+      save();
+      renderAll(true);
     });
   });
+
   document.getElementById('reset').addEventListener('click', function () {
     boxes.forEach(function (b) { b.checked = false; });
     store = {};
-    try { localStorage.removeItem('mmnd-check-v3'); } catch (e) {}
-    render();
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    groups.forEach(function (g) { g.classList.remove('done'); g.open = true; });
+    renderAll(false);
     say('Đã xoá checklist');
   });
-  render();
+
+  // nhóm ứng với trang đang đọc được đánh dấu
+  window.__railFocus = function (page) {
+    groups.forEach(function (g) {
+      g.setAttribute('data-active', g.dataset.page === page ? '1' : '0');
+    });
+  };
+
+  renderAll(false);
+  window.__railFocus(location.hash.slice(1) || PAGES[0]);
 })();
 </script>
 </body>
