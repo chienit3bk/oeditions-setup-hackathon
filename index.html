@@ -156,6 +156,24 @@
 
   .stack { display:flex; flex-direction:column; gap:14px; }
 
+  /* ── khối tuỳ chọn: gập lại, mặc định đóng ── */
+  details.opt { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); }
+  details.opt > summary {
+    list-style:none; cursor:pointer; padding:13px 16px; display:flex; align-items:center; gap:11px;
+    font-size:15.5px; font-weight:650; letter-spacing:-0.014em; user-select:none; flex-wrap:wrap;
+  }
+  details.opt > summary::-webkit-details-marker { display:none; }
+  details.opt > summary:hover { background:var(--surface-2); }
+  details.opt[open] > summary { border-bottom:1px solid var(--line-soft); }
+  details.opt > summary .cv { flex:none; width:9px; height:9px; border-right:1.6px solid var(--muted); border-bottom:1.6px solid var(--muted); transform:rotate(45deg); transition:transform .18s ease; }
+  details.opt[open] > summary .cv { transform:rotate(-135deg); }
+  details.opt > summary .hint { margin-left:auto; font-size:13px; font-weight:400; color:var(--muted); }
+  details.opt[open] > summary .hint { visibility:hidden; }
+  .optbody { padding:15px 16px 17px; display:flex; flex-direction:column; gap:13px; }
+  .optbody > p { max-width:68ch; }
+  .optbody h4 { margin:0; font-size:15px; font-weight:650; letter-spacing:-0.012em; }
+  .optbody ol, .optbody ul { margin:0; padding-left:22px; display:flex; flex-direction:column; gap:7px; max-width:68ch; }
+
   /* ── rail checklist (sticky phải) ────────── */
   aside.rail { position:sticky; top:60px; align-self:start; padding:30px 0 60px; max-height:calc(100vh - 74px); overflow-y:auto; overscroll-behavior:contain; }
   .cl { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden; }
@@ -261,7 +279,7 @@
     <ol>
       <li><b>Tài khoản Claude của công ty</b> — nhắn Team Lead.</li>
       <li><b>Lời mời vào GitHub của công ty</b> — gửi họ tên tài khoản GitHub sau khi tạo ở mục 01.</li>
-      <li><b>Điện thoại có app xác thực</b> — Google Authenticator, Microsoft Authenticator hoặc 1Password. GitHub bắt buộc bảo mật 2 lớp.</li>
+      <li><b>Điện thoại có app xác thực</b> <span class="tag t-hum">Tuỳ chọn</span> — chỉ cần nếu bạn bật bảo mật 2 lớp cho GitHub. Có thể để sau.</li>
     </ol>
 
     <h2>Claude Code, Chat, hay Cowork?</h2>
@@ -283,15 +301,23 @@
   <section class="panel" id="p-nguoi-moi">
     <p class="eyebrow">01</p>
     <h1>Hướng dẫn cho người mới</h1>
-    <p class="lede">Không cần biết lập trình, không cần gõ lệnh. Khoảng 20 phút, làm 3 việc: cài Claude, tạo tài khoản GitHub, nối hai cái lại.</p>
+    <p class="lede">Không cần biết lập trình, không cần gõ lệnh. Khoảng 20 phút, làm 3 việc: có Claude, tạo tài khoản GitHub, rồi <b>nối GitHub vào Claude</b> — bước cuối là bước quan trọng nhất, làm ở Phần C.</p>
 
-    <h2><span class="tag t-hum">Phần A</span> Cài Claude</h2>
+    <h2><span class="tag t-hum">Phần A</span> Có Claude để dùng</h2>
+    <p>Hai đường, <b>chọn một là đủ</b> cho mục 01 — nối GitHub ở đường nào cũng ra kết quả y hệt vì connector gắn vào tài khoản chứ không gắn vào máy.</p>
+    <h3>A1 · Nhanh nhất: dùng trên web</h3>
+    <ol>
+      <li>Mở <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> → <b>Sign in</b> → đăng nhập bằng tài khoản Claude công ty cấp.</li>
+      <li>Thấy khung chat là xong, không cần cài gì.</li>
+    </ol>
+    <h3>A2 · App trên máy (nên cài, để dành cho mục 02)</h3>
     <ol>
       <li class="os os-mac">Tải bản macOS tại <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, mở file rồi kéo icon Claude vào thư mục <b>Applications</b>.</li>
       <li class="os os-win">Tải bản Windows tại <a href="https://claude.com/download" target="_blank" rel="noopener noreferrer">claude.com/download</a>, chạy file cài đặt, bấm Next → Install.</li>
-      <li>Mở app → <b>Sign in</b> → trình duyệt mở ra → đăng nhập bằng tài khoản Claude công ty cấp → quay lại app.</li>
+      <li>Mở app → <b>Sign in</b> → trình duyệt mở ra → đăng nhập → quay lại app.</li>
       <li>Thấy khung chat và gõ được câu hỏi vào đó là xong.</li>
     </ol>
+    <p><span style="color:var(--muted)">Chỉ app trên máy mới có tab <b>Code</b> để nó tự cài phần mềm hộ bạn ở mục 02. Bản web không làm được việc đó.</span></p>
 
     <h2><span class="tag t-hum">Phần B</span> Tạo tài khoản GitHub</h2>
     <p><b>GitHub là gì?</b> Nơi cả công ty lưu và chia sẻ code, giống Google Drive nhưng dành cho code — có lưu lịch sử ai sửa gì, lúc nào, vì sao.</p>
@@ -301,15 +327,20 @@
       <li>Đặt tên tài khoản dễ nhận: <code>an-nguyen</code>, <code>chien-nv</code>… Cả team nhìn thấy tên này hằng ngày.</li>
       <li>Mở hộp thư, bấm link xác nhận email.</li>
     </ol>
-    <h3>B2 · Bật bảo mật 2 lớp — bắt buộc</h3>
-    <ol>
-      <li>Vào <a href="https://github.com/settings/security" target="_blank" rel="noopener noreferrer">github.com/settings/security</a> → <b>Enable two-factor authentication</b>.</li>
-      <li>Chọn <b>Authenticator app</b> → mở app xác thực trên điện thoại → quét mã QR → nhập 6 số.</li>
-    </ol>
-    <div class="note stop">
-      <span class="h">Lưu mã dự phòng ngay</span>
-      <p>Màn hình tiếp theo hiện một danh sách <b>recovery codes</b>. Cất vào trình quản lý mật khẩu hoặc in ra. Mất điện thoại mà không có mấy mã này là <b>mất tài khoản vĩnh viễn</b>, không ai lấy lại hộ được.</p>
-    </div>
+    <details class="opt">
+      <summary><span class="cv"></span>B2 · Bật bảo mật 2 lớp (2FA) <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
+      <div class="optbody">
+        <p>Không cần cho buổi setup hôm nay — bỏ qua vẫn tạo được tài khoản và nối được vào Claude. Bật khi bạn có 5 phút rảnh, hoặc khi GitHub tự nhắc.</p>
+        <ol>
+          <li>Vào <a href="https://github.com/settings/security" target="_blank" rel="noopener noreferrer">github.com/settings/security</a> → <b>Enable two-factor authentication</b>.</li>
+          <li>Chọn <b>Authenticator app</b> → mở app xác thực trên điện thoại (Google Authenticator, Microsoft Authenticator hoặc 1Password) → quét mã QR → nhập 6 số.</li>
+        </ol>
+        <div class="note stop">
+          <span class="h">Nếu bật thì lưu mã dự phòng ngay</span>
+          <p>Màn hình tiếp theo hiện một danh sách <b>recovery codes</b>. Cất vào trình quản lý mật khẩu hoặc in ra. Mất điện thoại mà không có mấy mã này là <b>mất tài khoản vĩnh viễn</b>, không ai lấy lại hộ được.</p>
+        </div>
+      </div>
+    </details>
     <h3>B3 · Vào tổ chức của công ty</h3>
     <ol>
       <li>Gửi tên tài khoản GitHub cho Team Lead.</li>
@@ -318,41 +349,108 @@
     </ol>
 
     <h2><span class="tag t-hum">Phần C</span> Nối GitHub vào Claude</h2>
-    <p>Nối xong bạn hỏi được kiểu: <i>"Đọc repo dự án X rồi giải thích chức năng thanh toán hoạt động thế nào"</i> · <i>"Viết giúp tôi tài liệu mô tả module này cho người mới"</i>.</p>
+    <p>Đây là phần quan trọng nhất của mục 01. Nối xong bạn hỏi được kiểu: <i>"Đọc repo dự án X rồi giải thích chức năng thanh toán hoạt động thế nào"</i> · <i>"PR số 42 đang sửa gì?"</i> · <i>"Viết giúp tôi tài liệu mô tả module này cho người mới"</i>.</p>
+
+    <div class="note">
+      <span class="h">Nối một lần, dùng được cả app lẫn web</span>
+      <p>Connector gắn vào <b>tài khoản Claude</b>, không gắn vào máy. Nối ở <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> thì mở app Claude trên máy là đã có sẵn, và ngược lại. Không phải làm hai lần, cũng không phải cài gì thêm.</p>
+    </div>
+
+    <h3>Hai cách nối — khác nhau chỗ nào</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Cách</th><th>Claude làm được gì</th><th>Dữ liệu mới ra sao</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>C1 · Connector GitHub</b><br><span style="color:var(--muted)">Settings → Connectors</span></td>
+            <td>Tự đi tìm và đọc repo, issue, Pull Request, so sánh nhánh — bạn chỉ cần nêu tên repo</td>
+            <td><b>Luôn mới.</b> Mỗi lần hỏi là nó đọc lại từ GitHub</td>
+          </tr>
+          <tr>
+            <td><b>C2 · Add from GitHub</b><br><span style="color:var(--muted)">nút + trong khung chat</span></td>
+            <td>Đọc đúng những file bạn chọn tay, đính kèm vào chat hoặc Project</td>
+            <td><b>Ảnh chụp.</b> Repo đổi thì phải bấm <b>Sync</b>, nó không tự cập nhật</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Làm <b>C1 trước</b> — đó là cái dùng hằng ngày. C2 để dành cho lúc muốn ghim cứng một bộ file vào một Project.</p>
+
     <div class="note warn">
-      <span class="h">Kết nối này để AI đọc code, không phải để nó cài đặt</span>
-      <p>Nó <b>không</b> cài phần mềm hộ bạn và <b>không</b> sửa code trên máy bạn. Muốn vậy thì dùng tab Code ở mục 03.</p>
+      <span class="h">Kết nối này để Claude đọc code, không phải để nó cài đặt máy</span>
+      <p>Nó <b>không</b> cài phần mềm hộ bạn và <b>không</b> sửa file trên ổ cứng của bạn. Muốn vậy thì dùng tab <b>Code</b>, xem mục 02.</p>
     </div>
-    <h3>Trong Claude</h3>
+
+    <h3>C1 · Bật connector GitHub</h3>
     <ol>
-      <li>Mở tab <b>Chat</b> → bấm dấu <b>+</b> ở <b>góc dưới bên trái</b> khung chat.</li>
-      <li>Chọn <b>Add from GitHub</b>.</li>
-      <li>Lần đầu, nó chuyển sang GitHub xin quyền → chọn <b>Only select repositories</b> và tick đúng repo cần dùng (an toàn hơn <b>All repositories</b>).</li>
-      <li>Quay lại Claude → tìm repo theo tên hoặc dán link repo → dùng bộ duyệt file chọn thư mục/file cần đọc.</li>
+      <li>Mở Claude — <b>app trên máy hay claude.ai đều được</b>, các bước y hệt nhau.</li>
+      <li>Vào <b>Settings → Connectors</b>. Một số bản ghi menu này là <b>Customize → Connectors</b>; đường tắt: trong khung chat bấm <b>+</b> ở <b>góc dưới bên trái</b> → <b>Connectors</b> → <b>Manage connectors</b>.</li>
+      <li>Bấm dấu <b>+</b> cạnh chữ <b>Connectors</b> để mở thư mục connector → tìm <b>GitHub</b> → bấm <b>Connect</b>.</li>
+      <li>Trình duyệt nhảy sang GitHub xin quyền. Chọn <b>Only select repositories</b> rồi tick đúng repo cần dùng → <b>Install &amp; Authorize</b>.<br><span style="color:var(--muted)">Chọn <b>All repositories</b> cũng chạy, nhưng như vậy là cho Claude thấy mọi repo bạn có quyền — kể cả repo cá nhân.</span></li>
+      <li>Quay lại Claude. Thấy <b>GitHub</b> nằm trong danh sách đã kết nối là xong.</li>
     </ol>
-    <p>Hai nút hay dùng sau đó: <b>Sync</b> (repo có code mới thì bấm để Claude đọc bản mới nhất — nó không tự cập nhật) và <b>Configure files</b> (đổi danh sách file).</p>
-    <p>Dùng lại nhiều lần cho cùng một dự án: tạo một <b>Project</b> rồi thêm repo vào <b>Project knowledge</b> (dấu <b>+</b> ở góc <b>trên bên phải</b> phần đó → <b>GitHub</b>). Từ đó mọi chat trong Project đều có sẵn code.</p>
+    <p><b>Thử ngay cho chắc:</b> mở chat mới, gõ <i>"Liệt kê các repo tôi có quyền truy cập trên GitHub"</i>. Nó liệt kê ra đúng danh sách bạn vừa tick là kết nối chạy thật.</p>
+    <p>Bật/tắt cho từng cuộc chat: bấm <b>+</b> ở góc dưới bên trái → <b>Connectors</b> → gạt công tắc GitHub.</p>
+
+    <div class="note warn">
+      <span class="h">Không thấy GitHub trong thư mục connector?</span>
+      <p>Tài khoản <b>Team/Enterprise</b> phải được duyệt trước: Owner vào <b>Organization settings → Connectors → Browse connectors</b> → chọn GitHub → <b>Add to your team</b>. Chưa duyệt thì thành viên không nhìn thấy. Đây không phải lỗi máy bạn — nhắn Team Lead.</p>
+    </div>
+
+    <h3>C2 · Đính repo vào một chat hoặc một Project</h3>
+    <ol>
+      <li>Trong khung chat: bấm <b>+</b> ở <b>góc dưới bên trái</b> → <b>Add from GitHub</b>.</li>
+      <li>Tìm repo theo tên hoặc dán thẳng link repo.</li>
+      <li>Dùng bộ duyệt file để tick đúng thư mục/file cần đọc, rồi gửi tin nhắn.</li>
+    </ol>
+    <p>Hai nút hay dùng sau đó: <b>Sync</b> (repo có code mới thì bấm để Claude đọc bản mới nhất) và <b>Configure files</b> (đổi danh sách file đã chọn).</p>
+    <p>Dùng lại nhiều lần cho cùng một dự án: tạo một <b>Project</b> rồi thêm repo vào <b>Project knowledge</b> — dấu <b>+</b> ở góc <b>trên bên phải</b> phần đó → <b>GitHub</b>. Từ đó mọi chat trong Project đều có sẵn code, khỏi đính lại.</p>
     <div class="note">
-      <span class="h">Giới hạn cần biết</span>
+      <span class="h">Giới hạn của riêng cách C2</span>
       <ul>
-        <li>Claude chỉ đọc <b>tên file và nội dung file</b> trên <b>một nhánh</b>.</li>
-        <li>Không đọc lịch sử chỉnh sửa, không đọc Pull Request, không đọc bình luận.</li>
-        <li>Repo riêng tư của công ty có SSO thì <b>quản trị viên phải duyệt</b> — không thấy repo hiện ra thì nhắn Team Lead.</li>
+        <li>Chỉ lấy <b>tên file và nội dung file</b> trên <b>một nhánh</b>.</li>
+        <li>Không có lịch sử chỉnh sửa, không có Pull Request, không có bình luận. Cần mấy thứ đó thì hỏi qua connector ở C1.</li>
+        <li>Chọn ít file thôi — càng nhiều file càng ăn hết chỗ trống của cuộc hội thoại.</li>
       </ul>
     </div>
-    <h3>Trong ChatGPT (nếu bạn cũng dùng)</h3>
-    <ol>
-      <li><b>Settings → Apps</b> → tìm <b>GitHub</b> → bấm kết nối.</li>
-      <li>Nó chuyển sang GitHub để cài và cấp quyền → chọn repo cho phép truy cập.</li>
-      <li>Đổi danh sách repo sau này: <b>Settings → Apps → GitHub → Choose repositories</b>.</li>
-    </ol>
-    <div class="note">
-      <span class="h">Giới hạn cần biết</span>
-      <ul>
-        <li>Nối xong repo thường mất <b>khoảng 5 phút</b> mới hiện ra. Chưa thấy thì đợi rồi tải lại trang.</li>
-        <li>Công ty có thể chặn — vào <b>Settings → Apps → GitHub → bánh răng</b> bấm <b>Request</b> để xin duyệt.</li>
-      </ul>
+
+    <h3>Kẹt ở đâu thì xử lý thế nào</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Hiện tượng</th><th>Cách xử lý</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Repo riêng tư của công ty <b>không hiện ra</b></td>
+            <td>Tổ chức bật SSO. Vào <a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer">github.com/settings/applications</a> → mở mục <b>Claude</b> → bấm <b>Grant</b> ở phần <b>Organization access</b>.</td>
+          </tr>
+          <tr>
+            <td>Chỗ đó ghi <b>Request</b> chứ không phải Grant</td>
+            <td>Bạn không đủ quyền tự duyệt. Bấm <b>Request</b> rồi nhắn Team Lead duyệt hộ.</td>
+          </tr>
+          <tr>
+            <td>Đã kết nối nhưng Claude bảo không thấy repo</td>
+            <td>Repo đó chưa được tick lúc cấp quyền. Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a> → <b>Claude</b> → <b>Configure</b> → thêm repo vào danh sách.</td>
+          </tr>
+          <tr>
+            <td>Vừa nối xong mà chưa thấy gì</td>
+            <td>Đợi vài phút rồi tải lại trang, hoặc mở một cuộc chat mới.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <details class="opt">
+      <summary><span class="cv"></span>Nếu bạn cũng dùng ChatGPT <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
+      <div class="optbody">
+        <p>Không liên quan tới buổi setup này, để đây cho ai cần.</p>
+        <ol>
+          <li><b>Settings → Apps</b> → tìm <b>GitHub</b> → bấm kết nối.</li>
+          <li>Nó chuyển sang GitHub để cài và cấp quyền → chọn repo cho phép truy cập.</li>
+          <li>Đổi danh sách repo sau này: <b>Settings → Apps → GitHub → Choose repositories</b>.</li>
+          <li>Nối xong repo thường mất <b>khoảng 5 phút</b> mới hiện ra. Công ty chặn thì vào <b>Settings → Apps → GitHub → bánh răng</b> bấm <b>Request</b>.</li>
+        </ol>
+      </div>
+    </details>
 
     <div class="note warn">
       <span class="h">Đến đây là đủ nếu bạn chỉ cần đọc code và hỏi đáp</span>
@@ -613,22 +711,21 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
       </div>
 
       <details class="clg" data-page="nguoi-moi" open>
-        <summary><span class="cv"></span>Tài khoản<span class="gc">0/4</span></summary>
+        <summary><span class="cv"></span>Tài khoản<span class="gc">0/3</span></summary>
         <div class="clbody">
           <label class="ck"><input type="checkbox"><span>Cài xong app Claude và đăng nhập được</span></label>
           <label class="ck"><input type="checkbox"><span>Có tài khoản GitHub, email công ty đã xác nhận</span></label>
-          <label class="ck"><input type="checkbox"><span><b>Đã bật 2FA</b> và cất recovery codes vào password manager</span></label>
           <label class="ck"><input type="checkbox"><span>Đã join tổ chức GitHub của công ty</span></label>
         </div>
       </details>
 
       <details class="clg" data-page="nguoi-moi" open>
-        <summary><span class="cv"></span>Kết nối AI ↔ GitHub<span class="gc">0/4</span></summary>
+        <summary><span class="cv"></span>Nối GitHub vào Claude<span class="gc">0/4</span></summary>
         <div class="clbody">
-          <label class="ck"><input type="checkbox"><span>Bấm <b>+ → Add from GitHub</b> trong Claude và thấy được repo công ty</span></label>
-          <label class="ck"><input type="checkbox"><span>Hỏi thử Claude một câu về code trong repo, nó trả lời đúng</span></label>
-          <label class="ck"><input type="checkbox"><span>Biết bấm <b>Sync</b> khi repo có code mới — Claude không tự cập nhật</span></label>
-          <label class="ck"><input type="checkbox"><span>(Nếu dùng ChatGPT) đã nối GitHub trong <b>Settings → Apps</b></span></label>
+          <label class="ck"><input type="checkbox"><span>Bật <b>connector GitHub</b> trong <b>Settings → Connectors</b></span></label>
+          <label class="ck"><input type="checkbox"><span>Cấp quyền theo kiểu <b>Only select repositories</b>, đã tick repo cần dùng</span></label>
+          <label class="ck"><input type="checkbox"><span>Hỏi thử <i>"liệt kê repo tôi truy cập được"</i> — repo công ty hiện ra đúng</span></label>
+          <label class="ck"><input type="checkbox"><span>Biết chỗ đính file lẻ: <b>+ → Add from GitHub</b>, và phải bấm <b>Sync</b> khi repo đổi</span></label>
         </div>
       </details>
 
@@ -733,7 +830,7 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
   });
 
   /* ── checklist (rail phải, nhóm tự thu khi xong) ── */
-  var KEY = 'mmnd-check-v4';
+  var KEY = 'mmnd-check-v5';
   var groups = Array.prototype.slice.call(document.querySelectorAll('details.clg'));
   var boxes = Array.prototype.slice.call(document.querySelectorAll('label.ck input'));
   var cnt = document.getElementById('cnt'), fill = document.getElementById('fill');
