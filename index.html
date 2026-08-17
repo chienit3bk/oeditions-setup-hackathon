@@ -152,6 +152,8 @@
   .cmd button.copy { margin-left:auto; font:600 11px/1 var(--mono); letter-spacing:.06em; background:#1B302C; color:#A9C8C1; border:1px solid #294742; padding:7px 12px; border-radius:6px; cursor:pointer; text-transform:uppercase; white-space:nowrap; }
   .cmd button.copy:hover { background:#24403A; color:#DCEFEA; }
   .cmd pre { margin:0; padding:14px 16px; overflow-x:auto; font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--code-ink); }
+  /* huỷ kiểu "chip" của <code> khi nó nằm trong khối lệnh: nền sáng + chữ sáng = mất chữ */
+  .cmd pre code { background:none; border:0; padding:0; border-radius:0; font-size:inherit; color:inherit; }
   .cmd.tall pre { max-height:440px; overflow-y:auto; }
   .duo { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:12px; align-items:start; }
 
