@@ -15,6 +15,9 @@
     --hum:#A05A18; --hum-soft:#F8ECDD;
     --stop:#A32C2C; --stop-soft:#F9E7E5;
     --code-bg:#10201E; --code-ink:#D7E6E2; --code-line:#1E332F;
+    --sel-bg:#BCE0D9; --sel-ink:#08201D;
+    /* khối lệnh luôn nền tối ở cả 2 theme → cặp màu bôi đen riêng, không đổi theo theme */
+    --code-sel-bg:#20544C; --code-sel-ink:#EAF6F3;
     --sans: system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Code", "Segoe UI Mono", Menlo, Consolas, monospace;
     --r:10px;
@@ -28,6 +31,7 @@
       --hum:#E0A55E; --hum-soft:#2A2013;
       --stop:#EE8478; --stop-soft:#341C1A;
       --code-bg:#0A1211; --code-ink:#CFE2DD; --code-line:#1C2C29;
+      --sel-bg:#1E4A44; --sel-ink:#EAF6F3;
     }
   }
   :root[data-theme="dark"] {
@@ -38,9 +42,12 @@
     --hum:#E0A55E; --hum-soft:#2A2013;
     --stop:#EE8478; --stop-soft:#341C1A;
     --code-bg:#0A1211; --code-ink:#CFE2DD; --code-line:#1C2C29;
+    --sel-bg:#1E4A44; --sel-ink:#EAF6F3;
   }
 
   * { box-sizing: border-box; }
+  ::selection { background:var(--sel-bg); color:var(--sel-ink); }
+  .cmd ::selection { background:var(--code-sel-bg); color:var(--code-sel-ink); }
   body {
     margin:0; background:var(--ground); color:var(--ink);
     font-family:var(--sans); font-size:16px; line-height:1.65;
@@ -799,17 +806,37 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
   }
 
   /* ── copy ────────────────────────────────── */
+  /* navigator.clipboard chỉ có trên https/localhost, và vẫn từ chối khi tab không
+     được focus → luôn thử tiếp execCommand trước khi đành bôi đen cho người dùng */
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:-9999px;opacity:0;';
+    document.body.appendChild(ta);
+    var prev = document.activeElement;
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (prev && prev.focus) prev.focus();
+    return ok;
+  }
+
   document.querySelectorAll('button.copy').forEach(function (btn) {
     btn.dataset.orig = btn.textContent;
     btn.addEventListener('click', function () {
       var block = btn.closest('.cmd'), pre = block && block.querySelector('pre');
       if (!pre) return;
+      var text = pre.innerText;
       var done = function () {
         btn.textContent = 'Đã copy';
         say('Đã copy vào clipboard');
         setTimeout(function () { btn.textContent = btn.dataset.orig; }, 1800);
       };
       var fallback = function () {
+        if (legacyCopy(text)) return done();
         var sel = window.getSelection(), range = document.createRange();
         range.selectNodeContents(pre);
         sel.removeAllRanges();
@@ -817,7 +844,7 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
         say('Đã bôi đen — bấm Cmd/Ctrl + C để copy');
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(pre.innerText).then(done).catch(fallback);
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
       } else fallback();
     });
   });
