@@ -182,6 +182,7 @@
   .optbody > p { max-width:68ch; }
   .optbody h4 { margin:0; font-size:15px; font-weight:650; letter-spacing:-0.012em; }
   .optbody ol, .optbody ul { margin:0; padding-left:22px; display:flex; flex-direction:column; gap:7px; max-width:68ch; }
+  .optbody table code { white-space:nowrap; }
 
   /* ── rail checklist (sticky phải) ────────── */
   aside.rail { position:sticky; top:60px; align-self:start; padding:30px 0 60px; max-height:calc(100vh - 74px); overflow-y:auto; overscroll-behavior:contain; }
@@ -471,6 +472,32 @@
     <h1>Cài VS Code + GitHub Desktop</h1>
     <p class="lede">Một đoạn lệnh dán vào là cài xong cả 2 app, kèm phần chứng minh vì sao đoạn lệnh đó an toàn để bạn tự kiểm tra trước khi chạy.</p>
 
+    <h2>Hai app này để làm gì</h2>
+    <p>Ngắn gọn: <b>GitHub</b> giữ bản gốc trên mạng, <b>VS Code</b> là chỗ bạn đọc và sửa trên máy mình, <b>GitHub Desktop</b> đưa qua đưa lại giữa hai bên.</p>
+    <div class="cards">
+      <div class="card bot">
+        <span class="n">Trên mạng</span>
+        <span class="t">GitHub</span>
+        <span class="d">Nơi cả team để chung source code. Bản gốc nằm trên server, ai cũng lấy về được, và lưu lịch sử ai sửa gì lúc nào.</span>
+      </div>
+      <div class="card hum">
+        <span class="n">Trên máy bạn</span>
+        <span class="t">VS Code</span>
+        <span class="d">Công cụ mở source đã lấy về để đọc và sửa. Cũng là nơi Claude Code chạy khi bạn nhờ nó viết hộ.</span>
+      </div>
+      <div class="card">
+        <span class="n">Nối hai đầu</span>
+        <span class="t">GitHub Desktop</span>
+        <span class="d">Bấm nút để đẩy phần bạn vừa sửa lên GitHub, hoặc kéo phần người khác vừa sửa về máy. Không phải gõ lệnh.</span>
+      </div>
+    </div>
+    <p>Vòng lặp hằng ngày chỉ có vậy: <b>kéo bản mới nhất về</b> → <b>sửa trong VS Code</b> → <b>ghi lại thay đổi</b> → <b>đẩy lên</b> cho cả team thấy.</p>
+
+    <div class="note warn">
+      <span class="h">Chưa được duyệt vào tổ chức GitHub của công ty thì sao</span>
+      <p>Vẫn cài và thử được hết. Lấy tạm một repo công khai bất kỳ, hoặc tự tạo một repo riêng của bạn — thao tác y hệt. Repo công ty chỉ hiện ra sau khi Team Lead duyệt; chưa thấy nó <b>không phải</b> do bạn cài sai.</p>
+    </div>
+
     <div class="note warn">
       <span class="h">Dán vào đâu</span>
       <p><b class="os os-mac">Terminal</b><b class="os os-win">PowerShell</b> hoặc <b>tab Code</b> của Claude. Tab <b>Cowork</b> không dùng được cho việc này — nó chạy trên máy chủ ở xa nên không cài phần mềm lên máy bạn được.</p>
@@ -693,6 +720,50 @@ GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre
       <span class="h">Ghi chú cho nhất quán</span>
       <p>Hướng dẫn cài <b>Claude Code</b> bằng terminal có dùng <code>curl … | bash</code> và <code>irm … | iex</code>. Đó đúng là dạng lệnh cần cảnh giác — nó chấp nhận được chỉ vì tải từ <code>claude.ai</code>, tên miền chính chủ của Anthropic. Không thoải mái thì <b>tải app desktop</b> ở <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, kết quả như nhau.</p>
     </div>
+
+    <h2>Sau khi cài xong</h2>
+    <details class="opt">
+      <summary><span class="cv"></span>3 lệnh git cơ bản <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
+      <div class="optbody">
+        <p>Không cần cho buổi hôm nay — GitHub Desktop bấm nút là xong việc. Mở phần này khi bạn tò mò mấy cái nút đó thật ra chạy lệnh gì, hoặc khi muốn làm nhanh bằng Terminal.</p>
+        <p>Vòng lặp hằng ngày đúng ba bước, ngày nào cũng lặp lại theo thứ tự này:</p>
+        <div class="cmd">
+          <div class="bar"><b>Một vòng làm việc</b> · chạy trong thư mục dự án<button type="button" class="copy">Copy</button></div>
+<pre><code># 1 · Kéo bản mới nhất mọi người vừa đẩy lên
+git pull
+
+# 2 · Ghi lại phần bạn vừa sửa (add = chọn, commit = ghi kèm lời mô tả)
+git add .
+git commit -m "Sửa lỗi hiển thị giá ở trang giỏ hàng"
+
+# 3 · Đẩy lên GitHub cho cả team thấy
+git push</code></pre>
+        </div>
+        <div class="tw">
+          <table>
+            <tr><th>Lệnh</th><th>Làm gì</th><th>Trong GitHub Desktop</th></tr>
+            <tr><td><code>git pull</code></td><td>Lấy thay đổi mới nhất từ GitHub về máy</td><td><b>Fetch origin</b> → <b>Pull origin</b></td></tr>
+            <tr><td><code>git commit</code></td><td>Ghi lại một mốc thay đổi kèm lời mô tả</td><td>Gõ mô tả ở góc dưới bên trái → <b>Commit to …</b></td></tr>
+            <tr><td><code>git push</code></td><td>Đẩy các commit của bạn lên GitHub</td><td><b>Push origin</b></td></tr>
+          </table>
+        </div>
+        <div class="note">
+          <span class="h">Lệnh thứ tư nên thuộc: <code>git status</code></span>
+          <p>Không sửa gì cả, chỉ báo bạn đang ở nhánh nào và file nào đang thay đổi. Lỡ tay hay không nhớ mình đang làm gì thì gõ nó trước, luôn an toàn.</p>
+        </div>
+        <div class="note warn">
+          <span class="h">Hai thói quen đỡ đau đầu về sau</span>
+          <ul>
+            <li><b>Pull trước khi bắt đầu sửa.</b> Sửa trên bản cũ rồi mới pull là lúc dễ dính xung đột (conflict) nhất.</li>
+            <li><b>Lời commit tả việc, đừng tả file.</b> "Sửa lỗi tính phí ship" đọc hiểu ngay; "update code" thì 3 tháng sau không ai đoán ra.</li>
+          </ul>
+        </div>
+        <div class="note stop">
+          <span class="h">Gặp chữ "conflict" thì dừng, đừng đoán</span>
+          <p>Đó là lúc hai người sửa cùng một chỗ và git không tự quyết được. Chụp màn hình gửi team, hoặc dán nguyên thông báo lỗi vào Claude và hỏi phải làm gì. Xử đại có thể xoá mất phần người khác vừa làm.</p>
+        </div>
+      </div>
+    </details>
 
     <div class="pager">
       <a href="#nguoi-moi" data-p="nguoi-moi"><span>Quay lại</span><b>← 01 · Claude + GitHub</b></a>
