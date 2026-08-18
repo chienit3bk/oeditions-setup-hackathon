@@ -80,7 +80,7 @@
     font:600 13px/1 var(--sans); color:var(--muted); background:none; border:0;
     cursor:pointer; padding:7px 15px; border-radius:999px;
   }
-  .switch button[aria-pressed="true"] { background:var(--surface); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  .switch button[aria-pressed="true"] { background:var(--bot); color:var(--surface); box-shadow:0 1px 3px rgba(0,0,0,.18); }
   .menubtn {
     display:none; font:600 13px/1 var(--sans); background:var(--surface-2);
     border:1px solid var(--line); color:var(--ink); padding:8px 13px; border-radius:8px; cursor:pointer;
@@ -164,6 +164,12 @@
   tr:last-child td { border-bottom:0; }
 
   .stack { display:flex; flex-direction:column; gap:14px; }
+
+  /* nhắc OS ngay trong luồng đọc — nút ở thanh trên cùng dễ bị bỏ qua */
+  .osnow { display:flex; align-items:center; gap:10px 14px; flex-wrap:wrap; border:1px solid var(--line); border-left:3px solid var(--bot); background:var(--surface); border-radius:var(--r); padding:11px 15px; font-size:14.5px; }
+  .osnow .cur b { color:var(--bot); }
+  .osnow button { margin-left:auto; font:600 13px/1 var(--sans); background:var(--surface-2); border:1px solid var(--line); color:var(--ink); padding:8px 13px; border-radius:8px; cursor:pointer; white-space:nowrap; }
+  .osnow button:hover { border-color:var(--muted); }
 
   /* ── khối tuỳ chọn: gập lại, mặc định đóng ── */
   details.opt { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); }
@@ -264,7 +270,7 @@
   <section class="panel" id="p-bat-dau">
     <p class="eyebrow">Dành cho người chưa từng cài công cụ dev</p>
     <h1>Oeditions Hackathon Setup</h1>
-    <p class="lede">Nhận máy → cài Claude → nối GitHub → dán một prompt và để nó tự cài. Trang này dùng chung cho cả macOS và Windows: chọn hệ điều hành ở góc trên, cả trang sẽ chỉ hiện lệnh của máy bạn.</p>
+    <p class="lede">Nhận máy → cài Claude → nối GitHub → dán một prompt và để nó tự cài. Trang này dùng chung cho cả macOS và Windows — chọn hệ điều hành ở <b>góc trên bên phải</b> (hoặc bấm nút đổi ngay trong bài), cả trang sẽ chỉ hiện lệnh của máy bạn.</p>
 
     <h2>Ba bước, khoảng 20 phút</h2>
     <div class="cards">
@@ -281,9 +287,24 @@
       <div class="card">
         <span class="n">Checklist bên phải</span>
         <span class="t">Tick khi xong</span>
-        <span class="d">Luôn hiện ở cạnh phải màn hình. Xong một nhóm thì nhóm đó tự thu lại cho gọn.</span>
+        <span class="d">Xếp đúng theo tên bước trong bài — A1, B3, C1… Tick tới đâu biết mình đang ở đâu tới đó.</span>
       </div>
     </div>
+
+    <h2>Đã tự cài sẵn một phần rồi?</h2>
+    <p>Không phải làm lại từ đầu. Chạy 4 phép thử dưới — cái nào <b>chưa đạt</b> thì nhảy thẳng vào đúng bước đó, bỏ qua phần còn lại.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Thử cái này</th><th>Đạt là khi</th><th>Chưa đạt → đi đâu</th></tr></thead>
+        <tbody>
+          <tr><td>Mở app Claude trên máy</td><td>Đăng nhập được, và có tab <b>Code</b></td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · A2</a></td></tr>
+          <tr><td>Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a></td><td>Có mục <b>Claude</b>, và repo công ty nằm trong danh sách</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
+          <tr><td>Hỏi Claude <i>"liệt kê repo tôi truy cập được trên GitHub"</i></td><td>Nó kể ra đúng repo công ty</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
+          <tr><td>Mở VS Code và GitHub Desktop</td><td>Cả hai mở được, GitHub Desktop đã đăng nhập</td><td><a href="#cai-app" data-p="cai-app">02</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><span style="color:var(--muted)">Cả 4 đều đạt thì bạn xong rồi — chỉ cần tick nốt checklist bên phải.</span></p>
 
     <h2>Claude Code, Chat, hay Cowork?</h2>
     <div class="tw">
@@ -306,6 +327,16 @@
     <h1>Hướng dẫn cho người mới</h1>
     <p class="lede">Không cần biết lập trình, không cần gõ lệnh. Khoảng 20 phút, làm 3 việc: có Claude, tạo tài khoản GitHub, rồi <b>nối GitHub vào Claude</b> — bước cuối là bước quan trọng nhất, làm ở Phần C.</p>
 
+    <div class="note">
+      <span class="h">Đường ngắn nhất — đúng 3 việc bắt buộc</span>
+      <ol>
+        <li><b>A1</b> hoặc <b>A2</b> — có Claude để dùng (web là đủ; app trên máy thì cần cho mục 02)</li>
+        <li><b>B1</b> rồi <b>B3</b> — có tài khoản GitHub và đã vào tổ chức công ty</li>
+        <li><b>C1</b> — bật connector GitHub trong Claude</li>
+      </ol>
+      <p>Mọi khối gắn nhãn <span class="tag t-hum">Tuỳ chọn</span> đều bỏ qua được, đọc sau lúc nào cũng được. Checklist bên phải xếp theo đúng 3 phần A · B · C này.</p>
+    </div>
+
     <h2><span class="tag t-hum">Phần A</span> Có Claude để dùng</h2>
     <p>Hai đường, <b>chọn một là đủ</b> cho mục 01 — nối GitHub ở đường nào cũng ra kết quả y hệt vì connector gắn vào tài khoản chứ không gắn vào máy.</p>
     <h3>A1 · Nhanh nhất: dùng trên web</h3>
@@ -313,6 +344,10 @@
       <li>Mở <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> → <b>Sign in</b> → đăng nhập bằng tài khoản Claude công ty cấp.</li>
       <li>Thấy khung chat là xong, không cần cài gì.</li>
     </ol>
+    <div class="osnow">
+      <span class="cur">Trang đang hiện hướng dẫn cho <b class="os os-mac">macOS</b><b class="os os-win">Windows</b> — chọn ở góc trên bên phải, hoặc bấm ngay đây.</span>
+      <button type="button" class="osflip"><span class="os os-mac">Máy tôi là Windows</span><span class="os os-win">Máy tôi là macOS</span></button>
+    </div>
     <h3>A2 · App trên máy (nên cài, để dành cho mục 02)</h3>
     <ol>
       <li class="os os-mac">Tải bản macOS tại <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, mở file rồi kéo icon Claude vào thư mục <b>Applications</b>.</li>
@@ -359,25 +394,31 @@
       <p>Connector gắn vào <b>tài khoản Claude</b>, không gắn vào máy. Nối ở <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> thì mở app Claude trên máy là đã có sẵn, và ngược lại. Không phải làm hai lần, cũng không phải cài gì thêm.</p>
     </div>
 
-    <h3>Hai cách nối — khác nhau chỗ nào</h3>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Cách</th><th>Claude làm được gì</th><th>Dữ liệu mới ra sao</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><b>C1 · Connector GitHub</b><br><span style="color:var(--muted)">Settings → Connectors</span></td>
-            <td>Tự đi tìm và đọc repo, issue, Pull Request, so sánh nhánh — bạn chỉ cần nêu tên repo</td>
-            <td><b>Luôn mới.</b> Mỗi lần hỏi là nó đọc lại từ GitHub</td>
-          </tr>
-          <tr>
-            <td><b>C2 · Add from GitHub</b><br><span style="color:var(--muted)">nút + trong khung chat</span></td>
-            <td>Đọc đúng những file bạn chọn tay, đính kèm vào chat hoặc Project</td>
-            <td><b>Ảnh chụp.</b> Repo đổi thì phải bấm <b>Sync</b>, nó không tự cập nhật</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p>Làm <b>C1 trước</b> — đó là cái dùng hằng ngày. C2 để dành cho lúc muốn ghim cứng một bộ file vào một Project.</p>
+    <details class="opt">
+      <summary><span class="cv"></span>C1 và C2 khác nhau chỗ nào <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Chỉ cần khi tò mò</span></summary>
+      <div class="optbody">
+        <p>Không cần đọc để làm theo — cứ làm <b>C1</b> là đủ dùng hằng ngày.</p>
+        <h3>Hai cách nối — khác nhau chỗ nào</h3>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Cách</th><th>Claude làm được gì</th><th>Dữ liệu mới ra sao</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><b>C1 · Connector GitHub</b><br><span style="color:var(--muted)">Settings → Connectors</span></td>
+                <td>Tự đi tìm và đọc repo, issue, Pull Request, so sánh nhánh — bạn chỉ cần nêu tên repo</td>
+                <td><b>Luôn mới.</b> Mỗi lần hỏi là nó đọc lại từ GitHub</td>
+              </tr>
+              <tr>
+                <td><b>C2 · Add from GitHub</b><br><span style="color:var(--muted)">nút + trong khung chat</span></td>
+                <td>Đọc đúng những file bạn chọn tay, đính kèm vào chat hoặc Project</td>
+                <td><b>Ảnh chụp.</b> Repo đổi thì phải bấm <b>Sync</b>, nó không tự cập nhật</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Làm <b>C1 trước</b> — đó là cái dùng hằng ngày. C2 để dành cho lúc muốn ghim cứng một bộ file vào một Project.</p>
+      </div>
+    </details>
 
     <div class="note warn">
       <span class="h">Kết nối này để Claude đọc code, không phải để nó cài đặt máy</span>
@@ -400,47 +441,59 @@
       <p>Tài khoản <b>Team/Enterprise</b> phải được duyệt trước: Owner vào <b>Organization settings → Connectors → Browse connectors</b> → chọn GitHub → <b>Add to your team</b>. Chưa duyệt thì thành viên không nhìn thấy. Đây không phải lỗi máy bạn — nhắn Team Lead.</p>
     </div>
 
-    <h3>C2 · Đính repo vào một chat hoặc một Project</h3>
-    <ol>
-      <li>Trong khung chat: bấm <b>+</b> ở <b>góc dưới bên trái</b> → <b>Add from GitHub</b>.</li>
-      <li>Tìm repo theo tên hoặc dán thẳng link repo.</li>
-      <li>Dùng bộ duyệt file để tick đúng thư mục/file cần đọc, rồi gửi tin nhắn.</li>
-    </ol>
-    <p>Hai nút hay dùng sau đó: <b>Sync</b> (repo có code mới thì bấm để Claude đọc bản mới nhất) và <b>Configure files</b> (đổi danh sách file đã chọn).</p>
-    <p>Dùng lại nhiều lần cho cùng một dự án: tạo một <b>Project</b> rồi thêm repo vào <b>Project knowledge</b> — dấu <b>+</b> ở góc <b>trên bên phải</b> phần đó → <b>GitHub</b>. Từ đó mọi chat trong Project đều có sẵn code, khỏi đính lại.</p>
-    <div class="note">
-      <span class="h">Giới hạn của riêng cách C2</span>
-      <ul>
-        <li>Chỉ lấy <b>tên file và nội dung file</b> trên <b>một nhánh</b>.</li>
-        <li>Không có lịch sử chỉnh sửa, không có Pull Request, không có bình luận. Cần mấy thứ đó thì hỏi qua connector ở C1.</li>
-        <li>Chọn ít file thôi — càng nhiều file càng ăn hết chỗ trống của cuộc hội thoại.</li>
-      </ul>
-    </div>
+    <details class="opt">
+      <summary><span class="cv"></span>C2 · Đính repo vào một chat hoặc một Project <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
+      <div class="optbody">
+        <p>Cách thứ hai, dùng khi muốn ghim cứng một bộ file vào một Project. Bỏ qua được ở buổi setup hôm nay.</p>
+        <h3>C2 · Đính repo vào một chat hoặc một Project</h3>
+        <ol>
+          <li>Trong khung chat: bấm <b>+</b> ở <b>góc dưới bên trái</b> → <b>Add from GitHub</b>.</li>
+          <li>Tìm repo theo tên hoặc dán thẳng link repo.</li>
+          <li>Dùng bộ duyệt file để tick đúng thư mục/file cần đọc, rồi gửi tin nhắn.</li>
+        </ol>
+        <p>Hai nút hay dùng sau đó: <b>Sync</b> (repo có code mới thì bấm để Claude đọc bản mới nhất) và <b>Configure files</b> (đổi danh sách file đã chọn).</p>
+        <p>Dùng lại nhiều lần cho cùng một dự án: tạo một <b>Project</b> rồi thêm repo vào <b>Project knowledge</b> — dấu <b>+</b> ở góc <b>trên bên phải</b> phần đó → <b>GitHub</b>. Từ đó mọi chat trong Project đều có sẵn code, khỏi đính lại.</p>
+        <div class="note">
+          <span class="h">Giới hạn của riêng cách C2</span>
+          <ul>
+            <li>Chỉ lấy <b>tên file và nội dung file</b> trên <b>một nhánh</b>.</li>
+            <li>Không có lịch sử chỉnh sửa, không có Pull Request, không có bình luận. Cần mấy thứ đó thì hỏi qua connector ở C1.</li>
+            <li>Chọn ít file thôi — càng nhiều file càng ăn hết chỗ trống của cuộc hội thoại.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
 
-    <h3>Kẹt ở đâu thì xử lý thế nào</h3>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Hiện tượng</th><th>Cách xử lý</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>Repo riêng tư của công ty <b>không hiện ra</b></td>
-            <td>Tổ chức bật SSO. Vào <a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer">github.com/settings/applications</a> → mở mục <b>Claude</b> → bấm <b>Grant</b> ở phần <b>Organization access</b>.</td>
-          </tr>
-          <tr>
-            <td>Chỗ đó ghi <b>Request</b> chứ không phải Grant</td>
-            <td>Bạn không đủ quyền tự duyệt. Bấm <b>Request</b> rồi nhắn Team Lead duyệt hộ.</td>
-          </tr>
-          <tr>
-            <td>Đã kết nối nhưng Claude bảo không thấy repo</td>
-            <td>Repo đó chưa được tick lúc cấp quyền. Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a> → <b>Claude</b> → <b>Configure</b> → thêm repo vào danh sách.</td>
-          </tr>
-          <tr>
-            <td>Vừa nối xong mà chưa thấy gì</td>
-            <td>Đợi vài phút rồi tải lại trang, hoặc mở một cuộc chat mới.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <details class="opt">
+      <summary><span class="cv"></span>Kẹt ở đâu thì xử lý thế nào <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Mở khi gặp lỗi</span></summary>
+      <div class="optbody">
+        <p>Mở ra khi có gì đó không chạy. Không gặp lỗi thì khỏi đọc.</p>
+        <h3>Kẹt ở đâu thì xử lý thế nào</h3>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Hiện tượng</th><th>Cách xử lý</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Repo riêng tư của công ty <b>không hiện ra</b></td>
+                <td>Tổ chức bật SSO. Vào <a href="https://github.com/settings/applications" target="_blank" rel="noopener noreferrer">github.com/settings/applications</a> → mở mục <b>Claude</b> → bấm <b>Grant</b> ở phần <b>Organization access</b>.</td>
+              </tr>
+              <tr>
+                <td>Chỗ đó ghi <b>Request</b> chứ không phải Grant</td>
+                <td>Bạn không đủ quyền tự duyệt. Bấm <b>Request</b> rồi nhắn Team Lead duyệt hộ.</td>
+              </tr>
+              <tr>
+                <td>Đã kết nối nhưng Claude bảo không thấy repo</td>
+                <td>Repo đó chưa được tick lúc cấp quyền. Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a> → <b>Claude</b> → <b>Configure</b> → thêm repo vào danh sách.</td>
+              </tr>
+              <tr>
+                <td>Vừa nối xong mà chưa thấy gì</td>
+                <td>Đợi vài phút rồi tải lại trang, hoặc mở một cuộc chat mới.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
 
     <details class="opt">
       <summary><span class="cv"></span>Nếu bạn cũng dùng ChatGPT <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
@@ -496,6 +549,11 @@
     <div class="note warn">
       <span class="h">Chưa được duyệt vào tổ chức GitHub của công ty thì sao</span>
       <p>Vẫn cài và thử được hết. Lấy tạm một repo công khai bất kỳ, hoặc tự tạo một repo riêng của bạn — thao tác y hệt. Repo công ty chỉ hiện ra sau khi Team Lead duyệt; chưa thấy nó <b>không phải</b> do bạn cài sai.</p>
+    </div>
+
+    <div class="osnow">
+      <span class="cur">Trang đang hiện hướng dẫn cho <b class="os os-mac">macOS</b><b class="os os-win">Windows</b> — chọn ở góc trên bên phải, hoặc bấm ngay đây.</span>
+      <button type="button" class="osflip"><span class="os os-mac">Máy tôi là Windows</span><span class="os os-win">Máy tôi là macOS</span></button>
     </div>
 
     <div class="note warn">
@@ -668,60 +726,79 @@ Yêu cầu bắt buộc:
 - Xong thì báo cáo: mỗi app đã cài phiên bản nào, nằm ở đâu.</code></pre>
     </div>
 
-    <h2>Vì sao đoạn lệnh trên an toàn</h2>
-    <p>Bạn không cần tin ai — dưới đây là những gì tự kiểm chứng được.</p>
-    <div class="stack">
-      <div class="note"><span class="h">1 · Không có <code>sudo</code>, không xin quyền quản trị</span><p>Bản Mac chép app vào <code>/Applications</code>, không được thì tự chuyển sang <code>~/Applications</code> — thư mục riêng của bạn. Không chỗ nào đòi mật khẩu máy.</p></div>
-      <div class="note"><span class="h">2 · Không có kiểu <code>curl … | bash</code></span><p>Đây là dạng nguy hiểm nhất: tải file lạ từ mạng về chạy thẳng mà không ai đọc được nội dung. Đoạn lệnh trên chỉ tải <b>file cài đặt của chính 2 app đó</b>, còn toàn bộ lệnh thì bạn đang đọc bằng mắt.</p></div>
-      <div class="note"><span class="h">3 · Chỉ tải từ tên miền chính chủ</span><p><code>update.code.visualstudio.com</code> → chuyển tiếp sang <code>vscode.download.prss.microsoft.com</code> (CDN Microsoft) · <code>central.github.com</code> → <code>desktop.githubusercontent.com</code> (CDN GitHub). Tự kiểm tra: dán link vào trình duyệt xem nó chuyển đi đâu. Thấy tên miền khác → đừng chạy, báo team.</p></div>
-      <div class="note"><span class="h">4 · Bắt buộc kiểm tra chữ ký số trước khi cài</span><p>Mac dùng <code>codesign</code> + <code>spctl</code>, Windows dùng <code>Get-AuthenticodeSignature</code>. File bị chỉnh sửa dọc đường thì bước này fail và script <b>dừng ngay</b>, chưa cài gì cả.</p></div>
-      <div class="note"><span class="h">5 · Không tắt bất kỳ cơ chế bảo vệ nào</span><p>Không <code>spctl --master-disable</code>, không tắt Gatekeeper, không <code>Set-ExecutionPolicy Bypass</code>, không loại trừ thư mục khỏi Windows Defender. Ai bảo bạn làm mấy cái đó để "cài cho nhanh" — từ chối.</p></div>
-      <div class="note"><span class="h">6 · Không chạm vào dữ liệu của bạn</span><p>Chỉ tải 2 file vào thư mục tạm, giải nén, chép 2 app, rồi tự xoá thư mục tạm. Không đọc file cá nhân, không đụng <code>~/.ssh</code>, không gửi gì ra ngoài.</p></div>
-    </div>
-    <div class="note os os-mac">
-      <span class="h">Danh tính người ký — phải khớp đúng hai dòng này</span>
-      <p>Kiểm chứng ngày 14/08/2026. Ra tên khác → dừng ngay, đừng cài, báo team.</p>
-    </div>
-    <div class="cmd os os-mac">
-      <div class="bar"><b>Kết quả đúng</b><button type="button" class="copy">Copy</button></div>
-      <pre><code>Visual Studio Code → Developer ID Application: Microsoft Corporation (UBF8T346G9)
-GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre>
-    </div>
+    <details class="opt">
+      <summary><span class="cv"></span>Vì sao đoạn lệnh trên an toàn <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Phần chứng minh</span></summary>
+      <div class="optbody">
+        <p>Sáu điều bạn tự kiểm chứng được, không phải tin lời ai. Không quan tâm thì chạy lệnh luôn cũng không sao.</p>
+        <h2>Vì sao đoạn lệnh trên an toàn</h2>
+        <p>Bạn không cần tin ai — dưới đây là những gì tự kiểm chứng được.</p>
+        <div class="stack">
+          <div class="note"><span class="h">1 · Không có <code>sudo</code>, không xin quyền quản trị</span><p>Bản Mac chép app vào <code>/Applications</code>, không được thì tự chuyển sang <code>~/Applications</code> — thư mục riêng của bạn. Không chỗ nào đòi mật khẩu máy.</p></div>
+          <div class="note"><span class="h">2 · Không có kiểu <code>curl … | bash</code></span><p>Đây là dạng nguy hiểm nhất: tải file lạ từ mạng về chạy thẳng mà không ai đọc được nội dung. Đoạn lệnh trên chỉ tải <b>file cài đặt của chính 2 app đó</b>, còn toàn bộ lệnh thì bạn đang đọc bằng mắt.</p></div>
+          <div class="note"><span class="h">3 · Chỉ tải từ tên miền chính chủ</span><p><code>update.code.visualstudio.com</code> → chuyển tiếp sang <code>vscode.download.prss.microsoft.com</code> (CDN Microsoft) · <code>central.github.com</code> → <code>desktop.githubusercontent.com</code> (CDN GitHub). Tự kiểm tra: dán link vào trình duyệt xem nó chuyển đi đâu. Thấy tên miền khác → đừng chạy, báo team.</p></div>
+          <div class="note"><span class="h">4 · Bắt buộc kiểm tra chữ ký số trước khi cài</span><p>Mac dùng <code>codesign</code> + <code>spctl</code>, Windows dùng <code>Get-AuthenticodeSignature</code>. File bị chỉnh sửa dọc đường thì bước này fail và script <b>dừng ngay</b>, chưa cài gì cả.</p></div>
+          <div class="note"><span class="h">5 · Không tắt bất kỳ cơ chế bảo vệ nào</span><p>Không <code>spctl --master-disable</code>, không tắt Gatekeeper, không <code>Set-ExecutionPolicy Bypass</code>, không loại trừ thư mục khỏi Windows Defender. Ai bảo bạn làm mấy cái đó để "cài cho nhanh" — từ chối.</p></div>
+          <div class="note"><span class="h">6 · Không chạm vào dữ liệu của bạn</span><p>Chỉ tải 2 file vào thư mục tạm, giải nén, chép 2 app, rồi tự xoá thư mục tạm. Không đọc file cá nhân, không đụng <code>~/.ssh</code>, không gửi gì ra ngoài.</p></div>
+        </div>
+        <div class="note os os-mac">
+          <span class="h">Danh tính người ký — phải khớp đúng hai dòng này</span>
+          <p>Kiểm chứng ngày 14/08/2026. Ra tên khác → dừng ngay, đừng cài, báo team.</p>
+        </div>
+        <div class="cmd os os-mac">
+          <div class="bar"><b>Kết quả đúng</b><button type="button" class="copy">Copy</button></div>
+          <pre><code>Visual Studio Code → Developer ID Application: Microsoft Corporation (UBF8T346G9)
+    GitHub Desktop     → Developer ID Application: GitHub (VEKTX9H2N7)</code></pre>
+        </div>
+      </div>
+    </details>
 
-    <h2>Cách tự kiểm tra bất kỳ đoạn lệnh nào</h2>
-    <p>Kỹ năng này quan trọng hơn cả trang này. <b>Dán lệnh lạ vào Terminal là một trong những cách bị chiếm máy phổ biến nhất hiện nay</b> — kẻ xấu hay gửi kèm câu "chạy cái này để sửa lỗi".</p>
-    <h3>Bắt AI đọc hộ trước khi chạy</h3>
-    <div class="cmd">
-      <div class="bar"><b>Prompt kiểm tra</b> · dán kèm đoạn lệnh cần soi<button type="button" class="copy">Copy</button></div>
-<pre><code>Đọc đoạn lệnh dưới đây và trả lời tôi bằng tiếng Việt:
-1. Nó làm chính xác những gì với máy tôi? Liệt kê từng việc.
-2. Nó tải dữ liệu từ những tên miền nào? Có tên miền nào không phải trang chủ chính thức không?
-3. Nó có xin quyền quản trị (sudo/admin) không? Để làm gì?
-4. Nó có đọc, sửa, xoá hay gửi đi file cá nhân nào của tôi không?
-5. Nó có tắt cơ chế bảo mật nào không?
-6. Có gì đáng ngờ không? Trả lời thẳng: NÊN CHẠY hay KHÔNG NÊN CHẠY.
+    <details class="opt">
+      <summary><span class="cv"></span>Cách tự kiểm tra bất kỳ đoạn lệnh nào <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Kỹ năng nên có</span></summary>
+      <div class="optbody">
+        <p>Không cần cho hôm nay, nhưng là thứ đáng đọc nhất trang này — dán lệnh lạ vào Terminal là một trong những cách bị chiếm máy phổ biến nhất.</p>
+        <h2>Cách tự kiểm tra bất kỳ đoạn lệnh nào</h2>
+        <p>Kỹ năng này quan trọng hơn cả trang này. <b>Dán lệnh lạ vào Terminal là một trong những cách bị chiếm máy phổ biến nhất hiện nay</b> — kẻ xấu hay gửi kèm câu "chạy cái này để sửa lỗi".</p>
+        <h3>Bắt AI đọc hộ trước khi chạy</h3>
+        <div class="cmd">
+          <div class="bar"><b>Prompt kiểm tra</b> · dán kèm đoạn lệnh cần soi<button type="button" class="copy">Copy</button></div>
+    <pre><code>Đọc đoạn lệnh dưới đây và trả lời tôi bằng tiếng Việt:
+    1. Nó làm chính xác những gì với máy tôi? Liệt kê từng việc.
+    2. Nó tải dữ liệu từ những tên miền nào? Có tên miền nào không phải trang chủ chính thức không?
+    3. Nó có xin quyền quản trị (sudo/admin) không? Để làm gì?
+    4. Nó có đọc, sửa, xoá hay gửi đi file cá nhân nào của tôi không?
+    5. Nó có tắt cơ chế bảo mật nào không?
+    6. Có gì đáng ngờ không? Trả lời thẳng: NÊN CHẠY hay KHÔNG NÊN CHẠY.
 
-[dán đoạn lệnh vào đây]</code></pre>
-    </div>
-    <div class="note stop">
-      <span class="h">Dấu hiệu đỏ — thấy là dừng, đi hỏi team</span>
-      <ul>
-        <li><code>curl … | bash</code> hoặc <code>irm … | iex</code> từ tên miền bạn không nhận ra</li>
-        <li><code>sudo</code> mà không giải thích tại sao cần</li>
-        <li>Chuỗi dài loằng ngoằng khó đọc, <code>base64 -d</code>, <code>eval</code> — thường là để <b>giấu</b> lệnh thật</li>
-        <li>Đụng vào <code>~/.ssh</code>, <code>.env</code>, <code>~/.aws</code>, Keychain, trình duyệt, ví tiền điện tử</li>
-        <li><code>rm -rf</code> vào đường dẫn rộng như <code>~/</code>, <code>/</code>, <code>C:\</code></li>
-        <li><code>chmod 777</code>, tắt Gatekeeper / Defender / ExecutionPolicy</li>
-        <li>Gửi dữ liệu đi đâu đó: <code>curl -d @file https://…</code></li>
-        <li>Người gửi giục "chạy nhanh lên", "đừng hỏi ai", "khẩn cấp"</li>
-      </ul>
-    </div>
-    <div class="note warn">
-      <span class="h">Ghi chú cho nhất quán</span>
-      <p>Hướng dẫn cài <b>Claude Code</b> bằng terminal có dùng <code>curl … | bash</code> và <code>irm … | iex</code>. Đó đúng là dạng lệnh cần cảnh giác — nó chấp nhận được chỉ vì tải từ <code>claude.ai</code>, tên miền chính chủ của Anthropic. Không thoải mái thì <b>tải app desktop</b> ở <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, kết quả như nhau.</p>
-    </div>
+    [dán đoạn lệnh vào đây]</code></pre>
+        </div>
+        <div class="note stop">
+          <span class="h">Dấu hiệu đỏ — thấy là dừng, đi hỏi team</span>
+          <ul>
+            <li><code>curl … | bash</code> hoặc <code>irm … | iex</code> từ tên miền bạn không nhận ra</li>
+            <li><code>sudo</code> mà không giải thích tại sao cần</li>
+            <li>Chuỗi dài loằng ngoằng khó đọc, <code>base64 -d</code>, <code>eval</code> — thường là để <b>giấu</b> lệnh thật</li>
+            <li>Đụng vào <code>~/.ssh</code>, <code>.env</code>, <code>~/.aws</code>, Keychain, trình duyệt, ví tiền điện tử</li>
+            <li><code>rm -rf</code> vào đường dẫn rộng như <code>~/</code>, <code>/</code>, <code>C:\</code></li>
+            <li><code>chmod 777</code>, tắt Gatekeeper / Defender / ExecutionPolicy</li>
+            <li>Gửi dữ liệu đi đâu đó: <code>curl -d @file https://…</code></li>
+            <li>Người gửi giục "chạy nhanh lên", "đừng hỏi ai", "khẩn cấp"</li>
+          </ul>
+        </div>
+        <div class="note warn">
+          <span class="h">Ghi chú cho nhất quán</span>
+          <p>Hướng dẫn cài <b>Claude Code</b> bằng terminal có dùng <code>curl … | bash</code> và <code>irm … | iex</code>. Đó đúng là dạng lệnh cần cảnh giác — nó chấp nhận được chỉ vì tải từ <code>claude.ai</code>, tên miền chính chủ của Anthropic. Không thoải mái thì <b>tải app desktop</b> ở <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">claude.ai/download</a>, kết quả như nhau.</p>
+        </div>
+      </div>
+    </details>
 
     <h2>Sau khi cài xong</h2>
+    <h3>Mở app lần đầu</h3>
+    <ol>
+      <li><b>VS Code</b> → biểu tượng người ở <b>góc dưới bên trái</b> → <b>Sign in with GitHub</b>. Bật <b>Settings Sync</b> để cài đặt của bạn theo sang máy khác.</li>
+      <li><b>GitHub Desktop</b> → <b>Sign in to GitHub.com</b> → trình duyệt mở ra → <b>Authorize</b>.</li>
+      <li>Vẫn trong GitHub Desktop: <b>Settings → Git</b>, xem lại <b>Name</b> và <b>Email</b>. Hai dòng này hiện lên lịch sử code, cả team nhìn thấy hằng ngày.</li>
+    </ol>
+
     <details class="opt">
       <summary><span class="cv"></span>3 lệnh git cơ bản <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
       <div class="optbody">
@@ -784,31 +861,36 @@ git push</code></pre>
       </div>
 
       <details class="clg" data-page="nguoi-moi" open>
-        <summary><span class="cv"></span>Tài khoản<span class="gc">0/3</span></summary>
+        <summary><span class="cv"></span>01 · Phần A — Có Claude<span class="gc">0/2</span></summary>
         <div class="clbody">
-          <label class="ck"><input type="checkbox"><span>Cài xong app Claude và đăng nhập được</span></label>
-          <label class="ck"><input type="checkbox"><span>Có tài khoản GitHub, email công ty đã xác nhận</span></label>
-          <label class="ck"><input type="checkbox"><span>Đã join tổ chức GitHub của công ty</span></label>
+          <label class="ck"><input type="checkbox"><span><b>A1</b> · Đăng nhập được vào claude.ai</span></label>
+          <label class="ck"><input type="checkbox"><span><b>A2</b> · App Claude trên máy mở được, thấy tab <b>Code</b></span></label>
         </div>
       </details>
 
       <details class="clg" data-page="nguoi-moi" open>
-        <summary><span class="cv"></span>Nối GitHub vào Claude<span class="gc">0/4</span></summary>
+        <summary><span class="cv"></span>01 · Phần B — Tài khoản GitHub<span class="gc">0/2</span></summary>
         <div class="clbody">
-          <label class="ck"><input type="checkbox"><span>Bật <b>connector GitHub</b> trong <b>Settings → Connectors</b></span></label>
-          <label class="ck"><input type="checkbox"><span>Cấp quyền theo kiểu <b>Only select repositories</b>, đã tick repo cần dùng</span></label>
-          <label class="ck"><input type="checkbox"><span>Hỏi thử <i>"liệt kê repo tôi truy cập được"</i> — repo công ty hiện ra đúng</span></label>
-          <label class="ck"><input type="checkbox"><span>Biết chỗ đính file lẻ: <b>+ → Add from GitHub</b>, và phải bấm <b>Sync</b> khi repo đổi</span></label>
+          <label class="ck"><input type="checkbox"><span><b>B1</b> · Đăng ký xong, đã bấm link xác nhận trong email công ty</span></label>
+          <label class="ck"><input type="checkbox"><span><b>B3</b> · Đã bấm <b>Join organization</b> vào tổ chức của công ty</span></label>
+        </div>
+      </details>
+
+      <details class="clg" data-page="nguoi-moi" open>
+        <summary><span class="cv"></span>01 · Phần C — Nối GitHub vào Claude<span class="gc">0/2</span></summary>
+        <div class="clbody">
+          <label class="ck"><input type="checkbox"><span><b>C1</b> · Bật <b>connector GitHub</b> ở <b>Settings → Connectors</b>, cấp quyền <b>Only select repositories</b></span></label>
+          <label class="ck"><input type="checkbox"><span><b>C1</b> · Hỏi thử <i>"liệt kê repo tôi truy cập được"</i> — repo công ty hiện ra đúng</span></label>
         </div>
       </details>
 
       <details class="clg" data-page="cai-app" open>
-        <summary><span class="cv"></span>App trên máy<span class="gc">0/4</span></summary>
+        <summary><span class="cv"></span>02 · Cài 2 app<span class="gc">0/4</span></summary>
         <div class="clbody">
-          <label class="ck"><input type="checkbox"><span>VS Code mở được</span></label>
-          <label class="ck"><input type="checkbox"><span>VS Code đã sign in GitHub (Settings Sync bật)</span></label>
-          <label class="ck"><input type="checkbox"><span>GitHub Desktop mở được và đã đăng nhập</span></label>
-          <label class="ck"><input type="checkbox"><span>Tên + email trong GitHub Desktop đúng như bạn muốn hiện trên lịch sử code</span></label>
+          <label class="ck"><input type="checkbox"><span>Chạy xong đoạn lệnh cài, không báo lỗi</span></label>
+          <label class="ck"><input type="checkbox"><span><b>Mở app lần đầu</b> · VS Code mở được và đã <b>Sign in with GitHub</b></span></label>
+          <label class="ck"><input type="checkbox"><span><b>Mở app lần đầu</b> · GitHub Desktop mở được và đã đăng nhập</span></label>
+          <label class="ck"><input type="checkbox"><span><b>Mở app lần đầu</b> · <b>Name</b> + <b>Email</b> trong <b>Settings → Git</b> đúng như bạn muốn hiện trên lịch sử code</span></label>
         </div>
       </details>
     </div>
@@ -868,6 +950,11 @@ git push</code></pre>
   else setOS(/Win/i.test(navigator.userAgent || '') ? 'win' : 'mac', false);
   bMac.addEventListener('click', function () { setOS('mac', true); });
   bWin.addEventListener('click', function () { setOS('win', true); });
+  document.querySelectorAll('button.osflip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      setOS(root.getAttribute('data-os') === 'win' ? 'mac' : 'win', true);
+    });
+  });
 
   /* ── toast ───────────────────────────────── */
   var toast = document.getElementById('toast'), tTimer;
@@ -923,7 +1010,7 @@ git push</code></pre>
   });
 
   /* ── checklist (rail phải, nhóm tự thu khi xong) ── */
-  var KEY = 'mmnd-check-v5';
+  var KEY = 'mmnd-check-v6';
   var groups = Array.prototype.slice.call(document.querySelectorAll('details.clg'));
   var boxes = Array.prototype.slice.call(document.querySelectorAll('label.ck input'));
   var cnt = document.getElementById('cnt'), fill = document.getElementById('fill');
