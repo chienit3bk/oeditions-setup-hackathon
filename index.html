@@ -1193,6 +1193,88 @@ bảo tôi tự mời người đó ở Settings > Collaborators trên web.</cod
     </div>
     <p><span style="color:var(--muted)">Slot giới hạn, đăng ký sớm để giữ chỗ track mình muốn.</span></p>
 
+
+    <h2>Đóng góp cá nhân được tính thế nào</h2>
+    <div class="note stop">
+      <span class="h">Luật, gọn trong một câu</span>
+      <p>Mỗi thành viên phải chiếm <b>10%–30%</b> của đội, xét trên <b>cả</b> số commit <b>lẫn</b> số dòng code thêm mới. <b>Thiếu một trong hai là tính vi phạm.</b></p>
+      <p>Đội 6 người chia đều nhau là <b>16,7%/người</b> — nằm giữa khoảng, rất an toàn. Không cần chia chính xác, chỉ cần đừng có ai quá ít hoặc quá nhiều.</p>
+    </div>
+
+    <h3>Hai con số đó tính ra sao</h3>
+    <div class="cmd">
+      <div class="bar">Công thức<button type="button" class="copy">Copy</button></div>
+      <pre><code>% commit của bạn = số commit bạn là tác giả / tổng commit của repo
+% dòng của bạn   = số dòng bạn THÊM vào       / tổng dòng cả đội thêm vào</code></pre>
+    </div>
+    <p>Máy đọc <code>git log</code> của <b>nhánh chính</b>. Dòng bị xoá không tính, chỉ tính dòng thêm.</p>
+    <p><b>Không tính</b> dòng của file máy tự sinh — nên đừng lo <code>npm install</code> làm lệch tỉ lệ, và cũng đừng trông chờ nó làm đẹp tỉ lệ của bạn:</p>
+    <p><span style="color:var(--muted)"><code>package-lock.json</code>, <code>yarn.lock</code>, <code>pnpm-lock.yaml</code>, <code>go.sum</code>, <code>Cargo.lock</code>, <code>Gemfile.lock</code>, thư mục <code>dist/</code>, <code>build/</code>, <code>out/</code>, <code>vendor/</code>, <code>node_modules/</code>, <code>coverage/</code>, <code>generated/</code>, <code>.next/</code>, <code>.nuxt/</code>, file <code>*.min.js</code>, <code>*.min.css</code>, <code>*.map</code>, <code>*.snap</code>, và file nhị phân (ảnh, font, zip…).</span></p>
+
+    <h3>Sáu việc nên làm</h3>
+    <ol>
+      <li><b>Ai làm phần nào thì tự commit phần đó.</b> Đừng để một người gom code cả đội rồi commit hộ — người đó vọt lên trên 30%, những người kia rơi xuống dưới 10%.</li>
+      <li><b>Khai báo git đúng và thống nhất trên mọi máy.</b> Kiểm tra <code>git config user.name</code> và <code>git config user.email</code>. Cùng một người mà mỗi máy một email sẽ bị đếm thành <b>hai tác giả</b> — cả hai đều dưới sàn. Lỡ rồi thì thêm file <code>.mailmap</code> ở gốc repo (<code>Lê An &lt;email-chinh&gt; &lt;email-cu&gt;</code>) là gộp lại được.</li>
+      <li><b>Đừng để một người dựng toàn bộ scaffold.</b> <code>create-next-app</code>, code sinh sẵn, file cấu hình copy về — chúng vẫn được tính là dòng của người commit. Ai dựng khung thì nên bớt phần việc code sau đó, hoặc chia khung cho vài người.</li>
+      <li><b>Người làm thiết kế / tài liệu / demo / PM vẫn phải có commit.</b> Git không nhìn thấy Figma, slide hay video. Hãy đưa sản phẩm của mình vào repo: file <code>.md</code> tài liệu, ghi chú thiết kế, kịch bản demo, script test… Đó là commit thật và tính vào tỉ lệ.</li>
+      <li><b>Pair programming thì luân phiên người commit.</b> Dòng <code>Co-authored-by</code> được ghi nhận là bằng chứng cộng tác, nhưng <b>không</b> chia lại phần trăm — 100% thuộc về người đứng tên commit.</li>
+      <li><b>Người chỉ đi merge sẽ trượt.</b> Commit merge được đếm là commit nhưng thêm 0 dòng, nên % commit lên còn % dòng vẫn 0. Người đó cần có commit code thật.</li>
+    </ol>
+
+    <h3>Tự kiểm tra xem có phạm quy không</h3>
+    <p>Đứng ở <b>nhánh chính</b> trong repo của đội (<code>git checkout main</code>), dán cả khối vào Terminal/PowerShell. Kết quả ra đúng như cách BTC tính, và tự chấm <b>DAT</b> hay <b>!!</b> cho từng người:</p>
+    <div class="cmd tall">
+      <div class="bar">Tự kiểm tra · chạy trong repo của đội<button type="button" class="copy">Copy</button></div>
+      <pre><code>git log --numstat --format=&#x27;@%aN&#x27; | awk -F&#x27;\t&#x27; &#x27;
+/^@/ { a = substr($0, 2); c[a]++; tc++; next }
+NF == 3 &amp;&amp; $1 ~ /^[0-9]+$/ {
+  f = $3
+  # File đổi tên được git ghi rút gọn — lấy lại tên MỚI rồi mới lọc
+  if (f ~ / =&gt; /) {
+    if (f ~ /\{/) { sub(/\{[^}]* =&gt; /, &quot;&quot;, f); sub(/\}/, &quot;&quot;, f) }
+    else { sub(/^.* =&gt; /, &quot;&quot;, f) }
+  }
+  if (f ~ /(^|\/)(dist|build|out|vendor|node_modules|coverage|generated|\.next|\.nuxt)\//) next
+  if (f ~ /(package-lock\.json|yarn\.lock|pnpm-lock\.yaml|go\.sum|Cargo\.lock|Gemfile\.lock)$/) next
+  if (f ~ /\.(lock|min\.js|min\.css|map|snap)$/) next
+  l[a] += $1; tl += $1
+}
+END {
+  printf &quot;%-24s %8s %8s   %s\n&quot;, &quot;THANH VIEN&quot;, &quot;COMMIT&quot;, &quot;DONG&quot;, &quot;KET QUA&quot;
+  for (a in c) {
+    pc = 100*c[a]/tc; pl = tl ? 100*l[a]/tl : 0
+    if (pc &gt;= 10 &amp;&amp; pc &lt;= 30 &amp;&amp; pl &gt;= 10 &amp;&amp; pl &lt;= 30) k = &quot;DAT&quot;
+    else if (pc &lt; 10 &amp;&amp; pl &lt; 10)                      k = &quot;!! THIEU ca hai&quot;
+    else if (pc &gt; 30 || pl &gt; 30)                      k = &quot;!! VUOT 30%&quot;
+    else                                              k = &quot;!! LECH mot chi so&quot;
+    printf &quot;%-24s %7.1f%% %7.1f%%   %s\n&quot;, a, pc, pl, k
+  }
+}&#x27; | (read h; echo &quot;$h&quot;; sort)</code></pre>
+    </div>
+    <div class="note">
+      <span class="h">Đọc kết quả</span>
+      <ul>
+        <li><b>DAT</b> — cả hai chỉ số nằm trong 10–30%, không sao.</li>
+        <li><b>!! THIEU ca hai</b> — dưới sàn cả commit lẫn dòng, cần nhận thêm việc.</li>
+        <li><b>!! VUOT 30%</b> — ôm quá nhiều, nên nhường phần việc cho người khác.</li>
+        <li><b>!! LECH mot chi so</b> — hay gặp nhất là nhiều commit nhưng 0% dòng: dấu hiệu chỉ đi merge.</li>
+        <li><b>Không hiện tên trong bảng</b> = chưa có commit nào. Đây là ca nặng nhất.</li>
+      </ul>
+      <p>Chạy lại sau mỗi chặng, ai lệch thì còn kịp cân lại phần việc ở chặng sau.</p>
+    </div>
+
+    <h3>Vài điều cần biết</h3>
+    <ul>
+      <li><b>Squash merge xoá dấu vết.</b> Nếu đội gộp mọi PR thành một commit của một người, cả đội sẽ hiện ra như một người làm. <b>Giữ lịch sử commit thật.</b></li>
+      <li><b>Đừng chẻ nhỏ commit để lấy số.</b> Giám khảo đọc cả tiêu đề commit và nội dung thay đổi; commit rỗng hoặc sửa khoảng trắng để đủ chỉ tiêu là phản tác dụng.</li>
+      <li><b>Kết quả là số học, không phải AI phán đoán.</b> Máy tính một lần rồi đưa cùng con số đó cho cả hai giám khảo; giám khảo không tính lại. Đội thấy sai số thì báo BTC kèm lệnh <code>git log</code> để đối chiếu.</li>
+      <li><b>Đội quá ít người thì ngưỡng này không áp được</b> — 3 người thì tối đa 3 × 30% = 90%, không thể đủ 100%. Trường hợp đó BTC xử lý riêng, <b>không trừ điểm đội</b>.</li>
+    </ul>
+    <div class="note warn">
+      <span class="h">Ngưỡng 10–30% là mặc định</span>
+      <p>BTC sẽ xác nhận ngưỡng chính thức trước khi giải bắt đầu — theo dõi <b>#oeditions</b>.</p>
+    </div>
+
     <div class="note warn">
       <span class="h">Phần chưa chốt</span>
       <p>Tài liệu gốc còn để trống mục <b>Rules</b> — được dùng AI tool nào, có giới hạn tech stack không, xử lý vi phạm ngoài bảng trừ điểm ra sao. BTC bổ sung sau, theo dõi <b>#oeditions</b>.</p>
@@ -1261,10 +1343,11 @@ bảo tôi tự mời người đó ở Settings > Collaborators trên web.</cod
       </details>
 
       <details class="clg" data-page="luat" open>
-        <summary><span class="cv"></span>04 · Trước ngày thi<span class="gc">0/2</span></summary>
+        <summary><span class="cv"></span>04 · Trước ngày thi<span class="gc">0/3</span></summary>
         <div class="clbody">
           <label class="ck"><input type="checkbox" data-id="e1"><span><b>E1</b> · Đã chọn <b>track</b> và giữ được slot</span></label>
           <label class="ck"><input type="checkbox" data-id="e2"><span><b>E2</b> · Đã chốt <b>thứ tự driver 6 chặng</b> và báo BTC</span></label>
+          <label class="ck"><input type="checkbox" data-id="e3"><span><b>E3</b> · Đã chạy lệnh tự kiểm tra — cả đội đều <b>10–30%</b></span></label>
         </div>
       </details>
     </div>
