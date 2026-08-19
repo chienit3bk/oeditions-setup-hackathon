@@ -372,7 +372,7 @@
     </ol>
     <div class="note warn">
       <span class="h">Chưa được cấp tài khoản Claude thì làm gì</span>
-      <p>Nhắn <b>ban tổ chức</b> trong nhóm để xin cấp, kèm email công ty của bạn. Trong lúc chờ, bạn vẫn làm được <b>Phần B</b> (tài khoản GitHub) và cả <b>mục 02</b> — chỉ Phần C là phải có tài khoản Claude.</p>
+      <p>Liên hệ <b>chiennv</b> hoặc <b>tungot</b> để được setup — hai bạn này set trực tiếp sáng <b>thứ Bảy</b> (ngày thi). Trong lúc chờ, bạn vẫn làm được <b>Phần B</b> (tài khoản GitHub) và cả <b>mục 02</b> — chỉ Phần C là phải có tài khoản Claude.</p>
     </div>
     <div class="osnow">
       <span class="cur">Trang đang hiện hướng dẫn cho <b class="os os-mac">macOS</b><b class="os os-win">Windows</b> — chọn ở góc trên bên phải, hoặc bấm ngay đây.</span>
@@ -939,7 +939,7 @@ git push</code></pre>
     <div class="note stop">
       <span class="h">Ai làm phần nào thì tự commit phần đó</span>
       <p class="lk-while">Đóng góp của từng người được đo bằng <b>lịch sử GitHub</b>, nên đừng gom code cho một người commit hộ. Kiểm tra <code>git config user.name</code> và <code>user.email</code> giống nhau trên mọi máy bạn dùng — khai lệch là bị đếm thành hai người.</p>
-      <p class="lk-after">Đóng góp được đo bằng lịch sử GitHub, mỗi người phải đạt <b>10–30%</b> — gom code cho một người commit hộ là <b>cả đội bị −5 điểm</b>. Kiểm tra <code>git config user.name</code> và <code>user.email</code> trên mọi máy trước, khai sai là bị đếm thành hai người. Chi tiết ở <a href="#luat" data-p="luat">mục 04</a>.</p>
+      <p class="lk-after">Đóng góp được đo bằng lịch sử GitHub, mỗi người phải đạt <b>10–30%</b> — gom code cho một người commit hộ là <b>cả đội bị −20 điểm</b>. Kiểm tra <code>git config user.name</code> và <code>user.email</code> trên mọi máy trước, khai sai là bị đếm thành hai người. Chi tiết ở <a href="#luat" data-p="luat">mục 04</a>.</p>
     </div>
 
     <div class="lock lk-while">
@@ -1038,7 +1038,7 @@ chỗ duy nhất nó được ghi nhận.
     <h2 class="lk-after">Contribution rule — 10% đến 30%</h2>
     <div class="lk-after note stop">
       <span class="h">Mỗi thành viên phải chiếm 10%–30% tổng đóng góp code của đội</span>
-      <p>Đo bằng <b>GitHub</b>. Có <b>một người</b> lệch ra ngoài khoảng này là cả đội bị <b>−5 điểm</b>.</p>
+      <p>Đo bằng <b>GitHub</b>. Có <b>một người</b> lệch ra ngoài khoảng này là cả đội bị <b>−20 điểm</b>.</p>
       <p>Đội 6 người chia đều nhau là <b>16,7%/người</b> — nằm giữa khoảng, rất an toàn. Không cần chia chính xác, chỉ cần đừng có ai quá ít hoặc quá nhiều.</p>
     </div>
     <p class="lk-after">Cách đo, danh sách file không tính, và <b>lệnh tự kiểm tra</b> nằm ở <a href="#luat" data-p="luat" onclick="document.getElementById('dong-gop').scrollIntoView({behavior:'smooth'});return false;">cuối trang này</a>. Chạy thử trong lúc thi để còn kịp cân lại phần việc.</p>
@@ -1078,8 +1078,8 @@ chỗ duy nhất nó được ghi nhận.
     </div>
     <p class="lk-after"><span style="color:var(--muted)">Ví dụ: team cao nhất 40 vote → 20 điểm. Team X được 25 vote → (25 / 40) × 20 = <b>12,5 điểm</b>.</span></p>
 
-    <h2 class="lk-after">Trừ điểm — mỗi lỗi <b>−5</b></h2>
-    <p class="lk-after">Trừ thẳng vào tổng 100, các lỗi <b>cộng dồn</b>. Bốn lỗi đầu là lỗi <b>quên nộp</b> — tránh được hoàn toàn bằng chuẩn bị trước. Lỗi thứ năm là lỗi <b>chia việc</b>, phải theo dõi trong lúc thi.</p>
+    <h2 class="lk-after">Trừ điểm</h2>
+    <p class="lk-after">Trừ thẳng vào tổng 100, các lỗi <b>cộng dồn</b>. Bốn lỗi đầu là lỗi <b>quên nộp</b>, mỗi lỗi <b>−5</b> — tránh được hoàn toàn bằng chuẩn bị trước. Lỗi thứ năm là lỗi <b>chia việc</b>, nặng hơn hẳn (<b>−20</b>), phải theo dõi trong lúc thi.</p>
     <div class="lk-after tw">
       <table>
         <thead><tr><th>Vi phạm</th><th>Trừ</th></tr></thead>
@@ -1088,14 +1088,14 @@ chỗ duy nhất nó được ghi nhận.
           <tr><td>Thiếu Spec</td><td><b>−5</b></td></tr>
           <tr><td>Thiếu Prototype</td><td><b>−5</b></td></tr>
           <tr><td>Thiếu Responsibility note</td><td><b>−5</b></td></tr>
-          <tr><td><b>Vi phạm Contribution rule</b> — có thành viên đóng góp <b>dưới 10%</b> hoặc <b>trên 30%</b></td><td><b>−5</b></td></tr>
+          <tr><td><b>Vi phạm Contribution rule</b> — có thành viên đóng góp <b>dưới 10%</b> hoặc <b>trên 30%</b></td><td><b>−20</b></td></tr>
         </tbody>
       </table>
     </div>
     <div class="lk-after note stop">
-      <span class="h">Mất trắng 20 điểm mà không viết sai dòng code nào</span>
-      <p>Thiếu cả Spec, Prototype, Responsibility note và lệch contribution rule là <b>−20</b> — bằng đúng toàn bộ điểm Demo. Ba lỗi đầu tránh được bằng khung <code>README.md</code> dựng sẵn; lỗi thứ tư tránh được bằng cách chạy lệnh tự kiểm tra vài lần trong ngày thi.</p>
-      <p>Điểm cuối = tổng 4 tiêu chí − tổng trừ, <b>không xuống dưới 0</b>. Trừ tối đa <b>−25</b>.</p>
+      <span class="h">Mất trắng 35 điểm mà không viết sai dòng code nào</span>
+      <p>Thiếu cả Spec, Prototype, Responsibility note và lệch contribution rule là <b>−35</b> — hơn cả tổng điểm Thuyết trình và Demo cộng lại. Ba lỗi đầu tránh được bằng khung <code>README.md</code> dựng sẵn; lỗi contribution tránh được bằng cách chạy lệnh tự kiểm tra vài lần trong ngày thi.</p>
+      <p>Điểm cuối = tổng 4 tiêu chí − tổng trừ, <b>không xuống dưới 0</b>. Trừ tối đa <b>−40</b>.</p>
     </div>
 
     <h2 class="lk-after">Năm track để chọn</h2>
