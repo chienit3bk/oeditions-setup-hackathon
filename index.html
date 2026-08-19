@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-reveal="2026-08-21T18:00:00">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,6 +101,14 @@
   nav.side .grp { font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); padding:16px 12px 6px; }
 
   main { min-width:0; padding:30px 0 110px; }
+  /* ── khoá theo giờ: .lk-after chỉ hiện sau mốc, .lk-while chỉ hiện trước mốc ── */
+  :root[data-locked="1"] .lk-after { display:none !important; }
+  :root:not([data-locked="1"]) .lk-while { display:none !important; }
+  .lock { border:1px solid var(--line); border-left:3px solid var(--hum); background:var(--surface); border-radius:var(--r); padding:18px 20px; display:flex; flex-direction:column; gap:8px; }
+  .lock .h { font-weight:670; font-size:16px; letter-spacing:-0.014em; }
+  .lock .when { font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--hum); }
+  .lock p { font-size:14.5px; color:var(--ink-2); max-width:62ch; }
+
   .panel { display:none; flex-direction:column; gap:20px; }
   .panel.on { display:flex; }
   body.nojs .panel { display:flex !important; }
@@ -262,7 +270,7 @@
       <li><a href="#nguoi-moi" data-p="nguoi-moi"><span class="nu">01</span> Claude + GitHub</a></li>
       <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop</a></li>
       <li><a href="#hackathon" data-p="hackathon"><span class="nu">03</span> Setup repo hackathon</a></li>
-      <li><a href="#luat" data-p="luat"><span class="nu">04</span> Luật thi &amp; chấm điểm</a></li>
+      <li class="lk-after"><a href="#luat" data-p="luat"><span class="nu">04</span> Luật thi &amp; chấm điểm</a></li>
     </ol>
   </nav>
 
@@ -892,7 +900,7 @@ git push</code></pre>
     <p class="eyebrow">03</p>
     <h1>Setup repo cho ngày hackathon</h1>
     <p class="lede">Trong team sẽ có người biết tạo repo, nên phần này chỉ ghi các <b>ràng buộc bắt buộc</b> và khung README. Khoảng 10 phút, làm ngay khi BTC công bố team.</p>
-    <p><span style="color:var(--muted)"><b>21/8 · 14:30</b> công bố team → làm mục này ngay &nbsp;·&nbsp; <b>17:30</b> reveal đề &nbsp;·&nbsp; <b>22/8 · 9h15–15h00</b> thi (<a href="#luat" data-p="luat">mục 04</a>).</span></p>
+    <p><span style="color:var(--muted)"><b>21/8 · 14:30</b> công bố team → làm mục này ngay &nbsp;·&nbsp; <b>17:30</b> reveal đề &nbsp;·&nbsp; <b>22/8 · 9h15–15h00</b> thi<span class="lk-after"> (<a href="#luat" data-p="luat">mục 04</a>)</span>.</span></p>
 
     <div class="note">
       <span class="h">Bốn quy tắc bắt buộc</span>
@@ -930,12 +938,18 @@ git push</code></pre>
     <p>Mỗi người clone repo về máy, sửa thử một dòng rồi <b>push</b> — để phát hiện trục trặc lúc còn kịp sửa, đừng để sáng 22/8. Chưa cài VS Code / GitHub Desktop thì quay lại <a href="#cai-app" data-p="cai-app">mục 02</a>.</p>
     <div class="note stop">
       <span class="h">Ai làm phần nào thì tự commit phần đó</span>
-      <p>Đóng góp được đo bằng lịch sử GitHub, mỗi người phải đạt <b>10–30%</b> — gom code cho một người commit hộ là <b>cả đội bị −5 điểm</b>. Kiểm tra <code>git config user.name</code> và <code>user.email</code> trên mọi máy trước, khai sai là bị đếm thành hai người. Chi tiết ở <a href="#luat" data-p="luat">mục 04</a>.</p>
+      <p class="lk-while">Đóng góp của từng người được đo bằng <b>lịch sử GitHub</b>, nên đừng gom code cho một người commit hộ. Kiểm tra <code>git config user.name</code> và <code>user.email</code> giống nhau trên mọi máy bạn dùng — khai lệch là bị đếm thành hai người.</p>
+      <p class="lk-after">Đóng góp được đo bằng lịch sử GitHub, mỗi người phải đạt <b>10–30%</b> — gom code cho một người commit hộ là <b>cả đội bị −5 điểm</b>. Kiểm tra <code>git config user.name</code> và <code>user.email</code> trên mọi máy trước, khai sai là bị đếm thành hai người. Chi tiết ở <a href="#luat" data-p="luat">mục 04</a>.</p>
     </div>
 
-    <h2><span class="tag t-hum">D5</span> README mô tả bài thi</h2>
-    <p>Repo <b>bắt buộc</b> có <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần: <b>Spec</b>, <b>Prototype</b>, <b>Product</b>, <b>Responsibility note</b>. Thiếu Spec, Prototype hay Responsibility note là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>) — nên dựng khung sẵn từ hôm nay, ngày thi chỉ điền vào.</p>
-    <div class="cmd tall">
+    <div class="lock lk-while">
+      <span class="when">Mở 18:00 · thứ Sáu 21/8</span>
+      <span class="h">Phần README mô tả bài thi chưa mở</span>
+      <p>Đề bài và khung <code>README.md</code> sẽ hiện ở đây sau khi BTC công bố đề. Từ giờ tới lúc đó bạn cứ làm xong <b>D1 → D4</b> là đủ — repo dựng sẵn, cả team clone được về máy.</p>
+    </div>
+    <h2 class="lk-after"><span class="tag t-hum">D5</span> README mô tả bài thi</h2>
+    <p class="lk-after">Repo <b>bắt buộc</b> có <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần: <b>Spec</b>, <b>Prototype</b>, <b>Product</b>, <b>Responsibility note</b>. Thiếu Spec, Prototype hay Responsibility note là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>) — nên dựng khung sẵn từ hôm nay, ngày thi chỉ điền vào.</p>
+    <div class="cmd tall lk-after">
       <div class="bar">README.md · khung sẵn, chỉ việc điền<button type="button" class="copy">Copy</button></div>
 <pre><code># &lt;Tên dự án&gt; — Team &lt;tên team&gt;
 
@@ -980,21 +994,27 @@ chỗ duy nhất nó được ghi nhận.
 | &lt;tên&gt; | &lt;phần việc&gt; | &lt;PR / commit / file&gt; |
 </code></pre>
     </div>
-    <p><span style="color:var(--muted)">Bắt đầu code: mở thư mục vừa clone trong <b>tab Code</b> của app Claude, hoặc <code>cd</code> vào rồi gõ <code>claude</code>. Connector ở mục 01 chỉ để Claude <b>đọc</b> repo trên mạng — đẩy code lên vẫn dùng đăng nhập git của bạn.</span></p>
+    <p class="lk-after"><span style="color:var(--muted)">Bắt đầu code: mở thư mục vừa clone trong <b>tab Code</b> của app Claude, hoặc <code>cd</code> vào rồi gõ <code>claude</code>. Connector ở mục 01 chỉ để Claude <b>đọc</b> repo trên mạng — đẩy code lên vẫn dùng đăng nhập git của bạn.</span></p>
 
     <div class="pager">
       <a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + GitHub Desktop</b></a>
-      <a href="#luat" data-p="luat"><span>Tiếp theo</span><b>04 · Luật thi &amp; chấm điểm →</b></a>
+      <a class="lk-after" href="#luat" data-p="luat"><span>Tiếp theo</span><b>04 · Luật thi &amp; chấm điểm →</b></a>
     </div>
   </section>
 
   <!-- ══ 04 ══ -->
   <section class="panel" id="p-luat">
-    <p class="eyebrow">04</p>
-    <h1>Luật thi &amp; cách chấm điểm</h1>
-    <p class="lede">Oekathon 2026: <b>team tự phân bổ công việc</b>, thi 5,75 tiếng ngày thứ Bảy 22/8. Ràng buộc duy nhất về cách chia việc là mỗi người phải đóng góp <b>10%–30%</b> code của đội.</p>
+    <div class="lock lk-while">
+      <span class="when">Mở 18:00 · thứ Sáu 21/8</span>
+      <span class="h">Luật thi &amp; cách chấm điểm chưa mở</span>
+      <p>Thể thức, thang điểm, bảng trừ điểm và danh sách track sẽ hiện ở đây sau khi BTC công bố đề. Trước lúc đó, việc duy nhất cần làm là <a href="#hackathon" data-p="hackathon">setup repo ở mục 03</a>.</p>
+    </div>
 
-    <div class="note">
+    <p class="lk-after eyebrow">04</p>
+    <h1 class="lk-after">Luật thi &amp; cách chấm điểm</h1>
+    <p class="lk-after lede">Oekathon 2026: <b>team tự phân bổ công việc</b>, thi 5,75 tiếng ngày thứ Bảy 22/8. Ràng buộc duy nhất về cách chia việc là mỗi người phải đóng góp <b>10%–30%</b> code của đội.</p>
+
+    <div class="lk-after note">
       <span class="h">Ba việc phải xong trước 22/8</span>
       <ol>
         <li><b>Chọn track</b> — mỗi track có slot giới hạn, hết slot là phải đổi.</li>
@@ -1003,8 +1023,8 @@ chỗ duy nhất nó được ghi nhận.
       </ol>
     </div>
 
-    <h2>Ngày thi chạy thế nào</h2>
-    <div class="tw">
+    <h2 class="lk-after">Ngày thi chạy thế nào</h2>
+    <div class="lk-after tw">
       <table>
         <tbody>
           <tr><th>Ngày</th><td>Thứ Bảy, <b>22/8</b></td></tr>
@@ -1015,17 +1035,17 @@ chỗ duy nhất nó được ghi nhận.
       </table>
     </div>
 
-    <h2>Contribution rule — 10% đến 30%</h2>
-    <div class="note stop">
+    <h2 class="lk-after">Contribution rule — 10% đến 30%</h2>
+    <div class="lk-after note stop">
       <span class="h">Mỗi thành viên phải chiếm 10%–30% tổng đóng góp code của đội</span>
       <p>Đo bằng <b>GitHub</b>. Có <b>một người</b> lệch ra ngoài khoảng này là cả đội bị <b>−5 điểm</b>.</p>
       <p>Đội 6 người chia đều nhau là <b>16,7%/người</b> — nằm giữa khoảng, rất an toàn. Không cần chia chính xác, chỉ cần đừng có ai quá ít hoặc quá nhiều.</p>
     </div>
-    <p>Cách đo, danh sách file không tính, và <b>lệnh tự kiểm tra</b> nằm ở <a href="#luat" data-p="luat" onclick="document.getElementById('dong-gop').scrollIntoView({behavior:'smooth'});return false;">cuối trang này</a>. Chạy thử trong lúc thi để còn kịp cân lại phần việc.</p>
+    <p class="lk-after">Cách đo, danh sách file không tính, và <b>lệnh tự kiểm tra</b> nằm ở <a href="#luat" data-p="luat" onclick="document.getElementById('dong-gop').scrollIntoView({behavior:'smooth'});return false;">cuối trang này</a>. Chạy thử trong lúc thi để còn kịp cân lại phần việc.</p>
 
-    <h2>Bốn thứ phải nộp</h2>
-    <p>Dựng sẵn khung <code>README.md</code> ở <a href="#hackathon" data-p="hackathon">mục 03 · D5</a> từ hôm nay, ngày thi chỉ việc điền.</p>
-    <div class="tw">
+    <h2 class="lk-after">Bốn thứ phải nộp</h2>
+    <p class="lk-after">Dựng sẵn khung <code>README.md</code> ở <a href="#hackathon" data-p="hackathon">mục 03 · D5</a> từ hôm nay, ngày thi chỉ việc điền.</p>
+    <div class="lk-after tw">
       <table>
         <thead><tr><th>Output</th><th>Mô tả</th></tr></thead>
         <tbody>
@@ -1037,8 +1057,8 @@ chỗ duy nhất nó được ghi nhận.
       </table>
     </div>
 
-    <h2>Chấm 100 điểm</h2>
-    <div class="tw">
+    <h2 class="lk-after">Chấm 100 điểm</h2>
+    <div class="lk-after tw">
       <table>
         <thead><tr><th>Tiêu chí</th><th>Điểm</th><th>Ai chấm</th></tr></thead>
         <tbody>
@@ -1050,17 +1070,17 @@ chỗ duy nhất nó được ghi nhận.
       </table>
     </div>
 
-    <h3>Vote khán giả tính thế nào</h3>
-    <p>Poll trên Slack ngay sau khi tất cả các team thuyết trình + demo xong, đóng poll rồi tính điểm luôn. Team nhiều vote nhất được trọn <b>20 điểm</b>, các team còn lại quy theo tỷ lệ:</p>
-    <div class="cmd">
+    <h3 class="lk-after">Vote khán giả tính thế nào</h3>
+    <p class="lk-after">Poll trên Slack ngay sau khi tất cả các team thuyết trình + demo xong, đóng poll rồi tính điểm luôn. Team nhiều vote nhất được trọn <b>20 điểm</b>, các team còn lại quy theo tỷ lệ:</p>
+    <div class="lk-after cmd">
       <div class="bar">Công thức<button type="button" class="copy">Copy</button></div>
       <pre><code>Điểm khán giả = (vote của team / vote của team cao nhất) × 20</code></pre>
     </div>
-    <p><span style="color:var(--muted)">Ví dụ: team cao nhất 40 vote → 20 điểm. Team X được 25 vote → (25 / 40) × 20 = <b>12,5 điểm</b>.</span></p>
+    <p class="lk-after"><span style="color:var(--muted)">Ví dụ: team cao nhất 40 vote → 20 điểm. Team X được 25 vote → (25 / 40) × 20 = <b>12,5 điểm</b>.</span></p>
 
-    <h2>Trừ điểm — mỗi lỗi <b>−5</b></h2>
-    <p>Trừ thẳng vào tổng 100, các lỗi <b>cộng dồn</b>. Bốn lỗi đầu là lỗi <b>quên nộp</b> — tránh được hoàn toàn bằng chuẩn bị trước. Lỗi thứ năm là lỗi <b>chia việc</b>, phải theo dõi trong lúc thi.</p>
-    <div class="tw">
+    <h2 class="lk-after">Trừ điểm — mỗi lỗi <b>−5</b></h2>
+    <p class="lk-after">Trừ thẳng vào tổng 100, các lỗi <b>cộng dồn</b>. Bốn lỗi đầu là lỗi <b>quên nộp</b> — tránh được hoàn toàn bằng chuẩn bị trước. Lỗi thứ năm là lỗi <b>chia việc</b>, phải theo dõi trong lúc thi.</p>
+    <div class="lk-after tw">
       <table>
         <thead><tr><th>Vi phạm</th><th>Trừ</th></tr></thead>
         <tbody>
@@ -1072,14 +1092,14 @@ chỗ duy nhất nó được ghi nhận.
         </tbody>
       </table>
     </div>
-    <div class="note stop">
+    <div class="lk-after note stop">
       <span class="h">Mất trắng 20 điểm mà không viết sai dòng code nào</span>
       <p>Thiếu cả Spec, Prototype, Responsibility note và lệch contribution rule là <b>−20</b> — bằng đúng toàn bộ điểm Demo. Ba lỗi đầu tránh được bằng khung <code>README.md</code> dựng sẵn; lỗi thứ tư tránh được bằng cách chạy lệnh tự kiểm tra vài lần trong ngày thi.</p>
       <p>Điểm cuối = tổng 4 tiêu chí − tổng trừ, <b>không xuống dưới 0</b>. Trừ tối đa <b>−25</b>.</p>
     </div>
 
-    <h2>Năm track để chọn</h2>
-    <div class="tw">
+    <h2 class="lk-after">Năm track để chọn</h2>
+    <div class="lk-after tw">
       <table>
         <thead><tr><th>Track</th><th>Đề bài</th><th>Slot</th></tr></thead>
         <tbody>
@@ -1091,24 +1111,24 @@ chỗ duy nhất nó được ghi nhận.
         </tbody>
       </table>
     </div>
-    <p><span style="color:var(--muted)">Slot giới hạn, đăng ký sớm để giữ chỗ track mình muốn.</span></p>
+    <p class="lk-after"><span style="color:var(--muted)">Slot giới hạn, đăng ký sớm để giữ chỗ track mình muốn.</span></p>
 
 
-    <h2 id="dong-gop">Đóng góp cá nhân được tính thế nào</h2>
-    <p>Đây là phần chi tiết của <b>Contribution rule</b> ở đầu trang — xét trên <b>cả</b> số commit <b>lẫn</b> số dòng code thêm mới, thiếu một trong hai là tính vi phạm.</p>
+    <h2 class="lk-after" id="dong-gop">Đóng góp cá nhân được tính thế nào</h2>
+    <p class="lk-after">Đây là phần chi tiết của <b>Contribution rule</b> ở đầu trang — xét trên <b>cả</b> số commit <b>lẫn</b> số dòng code thêm mới, thiếu một trong hai là tính vi phạm.</p>
 
-    <h3>Hai con số đó tính ra sao</h3>
-    <div class="cmd">
+    <h3 class="lk-after">Hai con số đó tính ra sao</h3>
+    <div class="lk-after cmd">
       <div class="bar">Công thức<button type="button" class="copy">Copy</button></div>
       <pre><code>% commit của bạn = số commit bạn là tác giả / tổng commit của repo
 % dòng của bạn   = số dòng bạn THÊM vào       / tổng dòng cả đội thêm vào</code></pre>
     </div>
-    <p>Máy đọc <code>git log</code> của <b>nhánh chính</b>. Dòng bị xoá không tính, chỉ tính dòng thêm.</p>
-    <p><b>Không tính</b> dòng của file máy tự sinh — nên đừng lo <code>npm install</code> làm lệch tỉ lệ, và cũng đừng trông chờ nó làm đẹp tỉ lệ của bạn:</p>
-    <p><span style="color:var(--muted)"><code>package-lock.json</code>, <code>yarn.lock</code>, <code>pnpm-lock.yaml</code>, <code>go.sum</code>, <code>Cargo.lock</code>, <code>Gemfile.lock</code>, thư mục <code>dist/</code>, <code>build/</code>, <code>out/</code>, <code>vendor/</code>, <code>node_modules/</code>, <code>coverage/</code>, <code>generated/</code>, <code>.next/</code>, <code>.nuxt/</code>, file <code>*.min.js</code>, <code>*.min.css</code>, <code>*.map</code>, <code>*.snap</code>, và file nhị phân (ảnh, font, zip…).</span></p>
+    <p class="lk-after">Máy đọc <code>git log</code> của <b>nhánh chính</b>. Dòng bị xoá không tính, chỉ tính dòng thêm.</p>
+    <p class="lk-after"><b>Không tính</b> dòng của file máy tự sinh — nên đừng lo <code>npm install</code> làm lệch tỉ lệ, và cũng đừng trông chờ nó làm đẹp tỉ lệ của bạn:</p>
+    <p class="lk-after"><span style="color:var(--muted)"><code>package-lock.json</code>, <code>yarn.lock</code>, <code>pnpm-lock.yaml</code>, <code>go.sum</code>, <code>Cargo.lock</code>, <code>Gemfile.lock</code>, thư mục <code>dist/</code>, <code>build/</code>, <code>out/</code>, <code>vendor/</code>, <code>node_modules/</code>, <code>coverage/</code>, <code>generated/</code>, <code>.next/</code>, <code>.nuxt/</code>, file <code>*.min.js</code>, <code>*.min.css</code>, <code>*.map</code>, <code>*.snap</code>, và file nhị phân (ảnh, font, zip…).</span></p>
 
-    <h3>Sáu việc nên làm</h3>
-    <ol>
+    <h3 class="lk-after">Sáu việc nên làm</h3>
+    <ol class="lk-after">
       <li><b>Ai làm phần nào thì tự commit phần đó.</b> Đừng để một người gom code cả đội rồi commit hộ — người đó vọt lên trên 30%, những người kia rơi xuống dưới 10%.</li>
       <li><b>Khai báo git đúng và thống nhất trên mọi máy.</b> Kiểm tra <code>git config user.name</code> và <code>git config user.email</code>. Cùng một người mà mỗi máy một email sẽ bị đếm thành <b>hai tác giả</b> — cả hai đều dưới sàn. Lỡ rồi thì thêm file <code>.mailmap</code> ở gốc repo (<code>Lê An &lt;email-chinh&gt; &lt;email-cu&gt;</code>) là gộp lại được.</li>
       <li><b>Đừng để một người dựng toàn bộ scaffold.</b> <code>create-next-app</code>, code sinh sẵn, file cấu hình copy về — chúng vẫn được tính là dòng của người commit. Ai dựng khung thì nên bớt phần việc code sau đó, hoặc chia khung cho vài người.</li>
@@ -1117,9 +1137,9 @@ chỗ duy nhất nó được ghi nhận.
       <li><b>Người chỉ đi merge sẽ trượt.</b> Commit merge được đếm là commit nhưng thêm 0 dòng, nên % commit lên còn % dòng vẫn 0. Người đó cần có commit code thật.</li>
     </ol>
 
-    <h3>Tự kiểm tra xem có phạm quy không</h3>
-    <p>Đứng ở <b>nhánh chính</b> trong repo của đội (<code>git checkout main</code>), dán cả khối vào Terminal/PowerShell. Kết quả ra đúng như cách BTC tính, và tự chấm <b>DAT</b> hay <b>!!</b> cho từng người:</p>
-    <div class="cmd tall">
+    <h3 class="lk-after">Tự kiểm tra xem có phạm quy không</h3>
+    <p class="lk-after">Đứng ở <b>nhánh chính</b> trong repo của đội (<code>git checkout main</code>), dán cả khối vào Terminal/PowerShell. Kết quả ra đúng như cách BTC tính, và tự chấm <b>DAT</b> hay <b>!!</b> cho từng người:</p>
+    <div class="lk-after cmd tall">
       <div class="bar">Tự kiểm tra · chạy trong repo của đội<button type="button" class="copy">Copy</button></div>
       <pre><code>git log --numstat --format=&#x27;@%aN&#x27; | awk -F&#x27;\t&#x27; &#x27;
 /^@/ { a = substr($0, 2); c[a]++; tc++; next }
@@ -1147,7 +1167,7 @@ END {
   }
 }&#x27; | (read h; echo &quot;$h&quot;; sort)</code></pre>
     </div>
-    <div class="note">
+    <div class="lk-after note">
       <span class="h">Đọc kết quả</span>
       <ul>
         <li><b>DAT</b> — cả hai chỉ số nằm trong 10–30%, không sao.</li>
@@ -1159,15 +1179,15 @@ END {
       <p>Chạy lại vài lần trong ngày thi — quãng giữa buổi và trước khi nộp — ai lệch thì còn kịp cân lại phần việc.</p>
     </div>
 
-    <h3>Vài điều cần biết</h3>
-    <ul>
+    <h3 class="lk-after">Vài điều cần biết</h3>
+    <ul class="lk-after">
       <li><b>Squash merge xoá dấu vết.</b> Nếu đội gộp mọi PR thành một commit của một người, cả đội sẽ hiện ra như một người làm. <b>Giữ lịch sử commit thật.</b></li>
       <li><b>Đừng chẻ nhỏ commit để lấy số.</b> Giám khảo đọc cả tiêu đề commit và nội dung thay đổi; commit rỗng hoặc sửa khoảng trắng để đủ chỉ tiêu là phản tác dụng.</li>
       <li><b>Kết quả là số học, không phải AI phán đoán.</b> Máy tính một lần rồi đưa cùng con số đó cho cả hai giám khảo; giám khảo không tính lại. Đội thấy sai số thì báo BTC kèm lệnh <code>git log</code> để đối chiếu.</li>
       <li><b>Đội quá ít người thì ngưỡng này không áp được</b> — 3 người thì tối đa 3 × 30% = 90%, không thể đủ 100%. Trường hợp đó BTC xử lý riêng, <b>không trừ điểm đội</b>.</li>
     </ul>
 
-    <div class="pager">
+    <div class="lk-after pager">
       <a href="#hackathon" data-p="hackathon"><span>Quay lại</span><b>← 03 · Setup repo hackathon</b></a>
       <span></span>
     </div>
@@ -1225,11 +1245,11 @@ END {
           <label class="ck"><input type="checkbox" data-id="d2"><span><b>D2</b> · Mời cả team — và mọi người đã bấm <b>Accept invitation</b></span></label>
           <label class="ck"><input type="checkbox" data-id="d3"><span><b>D3</b> · Mời <b>juzser</b> vào repo + gửi link repo lên Slack</span></label>
           <label class="ck"><input type="checkbox" data-id="d4"><span><b>D4</b> · Cả team clone được về máy và <b>push</b> thử thành công</span></label>
-          <label class="ck"><input type="checkbox" data-id="d5"><span><b>D5</b> · <code>README.md</code> đã có khung 4 phần của bài thi</span></label>
+          <label class="ck lk-after"><input type="checkbox" data-id="d5"><span><b>D5</b> · <code>README.md</code> đã có khung 4 phần của bài thi</span></label>
         </div>
       </details>
 
-      <details class="clg" data-page="luat" open>
+      <details class="clg lk-after" data-page="luat" open>
         <summary><span class="cv"></span>04 · Trước ngày thi<span class="gc">0/3</span></summary>
         <div class="clbody">
           <label class="ck"><input type="checkbox" data-id="e1"><span><b>E1</b> · Đã chọn <b>track</b> và giữ được slot</span></label>
@@ -1247,6 +1267,25 @@ END {
 <script>
 (function () {
   var root = document.documentElement;
+
+  /* ── khoá theo giờ ──────────────────────────
+     Nội dung cuộc thi chỉ hiện từ mốc ở data-reveal của thẻ <html>.
+     Mốc không kèm múi giờ nên trình duyệt hiểu là GIỜ MÁY người xem. */
+  var REVEAL = new Date(root.getAttribute('data-reveal') || 0);
+  var onUnlock = [];
+  function locked() { return new Date() < REVEAL; }
+  function applyLock() {
+    var isLocked = locked();
+    root.setAttribute('data-locked', isLocked ? '1' : '0');
+    if (!isLocked) onUnlock.forEach(function (f) { f(); });
+    return isLocked;
+  }
+  if (applyLock()) {
+    var lockTimer = setInterval(function () {
+      if (!applyLock()) clearInterval(lockTimer);
+    }, 20000);
+  }
+
   var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat'];
 
   /* ── routing ─────────────────────────────── */
@@ -1378,8 +1417,11 @@ END {
     }
   }
 
+  function visible(b) { return !(locked() && b.closest('.lk-after')); }
+
   function syncGroup(g, delay) {
-    var gb = Array.prototype.slice.call(g.querySelectorAll('input'));
+    var gb = Array.prototype.slice.call(g.querySelectorAll('input')).filter(visible);
+    if (!gb.length) { g.querySelector('.gc').textContent = ''; return; }
     var done = gb.filter(function (b) { return b.checked; }).length;
     var full = done === gb.length && gb.length > 0;
     g.querySelector('.gc').textContent = done + '/' + gb.length;
@@ -1396,9 +1438,10 @@ END {
 
   function renderAll(delay) {
     groups.forEach(function (g) { syncGroup(g, delay); });
-    var done = boxes.filter(function (b) { return b.checked; }).length;
-    cnt.textContent = done + ' / ' + boxes.length;
-    fill.style.width = (boxes.length ? (done / boxes.length) * 100 : 0) + '%';
+    var live = boxes.filter(visible);
+    var done = live.filter(function (b) { return b.checked; }).length;
+    cnt.textContent = done + ' / ' + live.length;
+    fill.style.width = (live.length ? (done / live.length) * 100 : 0) + '%';
   }
 
   boxes.forEach(function (b) {
@@ -1428,6 +1471,7 @@ END {
   };
 
   renderAll(false);
+  onUnlock.push(function () { renderAll(false); });
   window.__railFocus(location.hash.slice(1) || PAGES[0]);
 })();
 </script>
