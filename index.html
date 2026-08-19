@@ -262,6 +262,7 @@
       <li><a href="#nguoi-moi" data-p="nguoi-moi"><span class="nu">01</span> Claude + GitHub</a></li>
       <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop</a></li>
       <li><a href="#hackathon" data-p="hackathon"><span class="nu">03</span> Setup repo hackathon</a></li>
+      <li><a href="#luat" data-p="luat"><span class="nu">04</span> Luật thi &amp; chấm điểm</a></li>
     </ol>
   </nav>
 
@@ -295,10 +296,15 @@
         <span class="t">Setup repo hackathon</span>
         <span class="d">Làm ngay khi BTC công bố team: tạo repo private, mời cả team và BTC vào repo.</span>
       </div>
+      <div class="card bot">
+        <span class="n">Mục 04 · đọc trước</span>
+        <span class="t">Luật thi &amp; chấm điểm</span>
+        <span class="d">Thể thức code tiếp sức 6 chặng, thang 100 điểm, bảng trừ điểm và 5 track để chọn.</span>
+      </div>
       <div class="card">
         <span class="n">Checklist bên phải</span>
         <span class="t">Tick khi xong</span>
-        <span class="d">Xếp đúng theo tên bước trong bài — A1, B3, C1, D2… Tick tới đâu biết mình đang ở đâu tới đó.</span>
+        <span class="d">Xếp đúng theo tên bước trong bài — A1, B3, C1, D2, E1… Tick tới đâu biết mình đang ở đâu tới đó.</span>
       </div>
     </div>
 
@@ -900,7 +906,7 @@ git push</code></pre>
     <p class="eyebrow">03</p>
     <h1>Setup repo cho ngày hackathon</h1>
     <p class="lede">Làm ngay khi BTC công bố team. Bốn bước, khoảng 10 phút.</p>
-    <p><span style="color:var(--muted)"><b>21/8 · 14:30</b> công bố team → làm mục này ngay &nbsp;·&nbsp; <b>17:30</b> reveal đề &nbsp;·&nbsp; <b>22/8 · 09:00–16:00</b> code.</span></p>
+    <p><span style="color:var(--muted)"><b>21/8 · 14:30</b> công bố team → làm mục này ngay &nbsp;·&nbsp; <b>17:30</b> reveal đề &nbsp;·&nbsp; <b>22/8 · 9h30–15h00</b> thi, 6 chặng tiếp sức (<a href="#luat" data-p="luat">mục 04</a>).</span></p>
 
     <div class="note">
       <span class="h">Bốn quy tắc bắt buộc</span>
@@ -962,10 +968,11 @@ git push</code></pre>
         <li>Đụng cùng một file thì <b>mỗi người một nhánh</b>: GitHub Desktop → <b>Current branch</b> → <b>New branch</b>, xong tạo Pull Request để gộp vào <code>main</code>.</li>
       </ul>
       <p>Gặp chữ <b>conflict</b> thì dừng, đừng đoán — dán nguyên thông báo vào Claude và hỏi, hoặc nhắn <b>#oeditions</b>.</p>
+      <p><b>Bắt buộc theo luật:</b> hết mỗi chặng, driver phải <b>tạo PR và merge vào <code>main</code></b> trước khi bàn giao — quên là <b>−5 điểm</b>. Xem <a href="#luat" data-p="luat">mục 04</a>.</p>
     </div>
 
     <h2><span class="tag t-hum">D5</span> README mô tả bài thi</h2>
-    <p>Repo <b>bắt buộc</b> có file <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần dưới. Dựng khung sẵn từ hôm nay, ngày thi chỉ điền nội dung vào.</p>
+    <p>Repo <b>bắt buộc</b> có file <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần dưới. Dựng khung sẵn từ hôm nay, ngày thi chỉ điền nội dung vào — thiếu Spec, Prototype hay Responsibility note là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>).</p>
     <div class="tw">
       <table>
         <thead><tr><th>Phần</th><th>Viết gì trong đó</th></tr></thead>
@@ -981,6 +988,9 @@ git push</code></pre>
     <div class="cmd tall">
       <div class="bar">README.md · khung sẵn, chỉ việc điền<button type="button" class="copy">Copy</button></div>
 <pre><code># &lt;Tên dự án&gt; — Team &lt;tên team&gt;
+
+**Track:** &lt;1 People &amp; Culture | 2 Workflow Automation | 3 Entertainment &amp;
+Relax | 4 Growth &amp; Learning | 5 The Mystery&gt;
 
 &lt;Một câu: sản phẩm này làm được gì cho ai.&gt;
 
@@ -1010,10 +1020,22 @@ thư mục prototype/ rồi chèn vào đây.&gt;
 
 ## 4. Responsibility note
 
-| Thành viên | Làm phần nào |
+Ghi rõ từng người làm CHẶNG NÀO, VIỆC GÌ, PR NÀO.
+
+| Chặng | Driver | Làm gì trong chặng | PR |
+|---|---|---|---|
+| 1 | &lt;tên&gt; | &lt;việc&gt; | #1 |
+| 2 | &lt;tên&gt; | &lt;việc&gt; | #2 |
+| 3 | &lt;tên&gt; | &lt;việc&gt; | #3 |
+| 4 | &lt;tên&gt; | &lt;việc&gt; | #4 |
+| 5 | &lt;tên&gt; | &lt;việc&gt; | #5 |
+| 6 | &lt;tên&gt; | &lt;việc&gt; | #6 |
+
+**Thành viên không làm driver** — vẫn phải ghi đóng góp:
+
+| Thành viên | Đóng góp |
 |---|---|
-| &lt;tên&gt; | &lt;phần đã làm&gt; |
-| &lt;tên&gt; | &lt;phần đã làm&gt; |
+| &lt;tên&gt; | &lt;research / design / test / thuyết trình…&gt; |
 </code></pre>
     </div>
     <p>Sửa xong thì <b>Commit to main</b> → <b>Push origin</b> như bước D4.</p>
@@ -1052,6 +1074,132 @@ bảo tôi tự mời người đó ở Settings > Collaborators trên web.</cod
 
     <div class="pager">
       <a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + GitHub Desktop</b></a>
+      <a href="#luat" data-p="luat"><span>Tiếp theo</span><b>04 · Luật thi &amp; chấm điểm →</b></a>
+    </div>
+  </section>
+
+
+  <!-- ══ 04 ══ -->
+  <section class="panel" id="p-luat">
+    <p class="eyebrow">04</p>
+    <h1>Luật thi &amp; cách chấm điểm</h1>
+    <p class="lede">Oekathon 2026 chạy theo thể thức <b>code tiếp sức</b>: 5,5 tiếng chia 6 chặng, mỗi chặng một người cầm lái và phải bàn giao bằng Pull Request.</p>
+
+    <div class="note">
+      <span class="h">Hai việc phải làm xong trước ngày 22/8</span>
+      <ol>
+        <li><b>Chọn track</b> — mỗi track có slot giới hạn, hết slot là phải đổi.</li>
+        <li><b>Chốt thứ tự driver cho 6 chặng</b> và báo BTC. Chốt rồi <b>không được đổi</b>, kể cả trong lúc thi.</li>
+      </ol>
+    </div>
+
+    <h2>Sáu chặng tiếp sức</h2>
+    <p>Ngày <b>22/8</b>, từ <b>9h30</b> đến <b>15h00</b>. Năm chặng đầu mỗi chặng 60 phút, chặng cuối 30 phút để chốt sản phẩm và chuẩn bị demo.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Chặng</th><th>Khung giờ</th><th>Dài</th><th>Kết thúc chặng phải làm gì</th></tr></thead>
+        <tbody>
+          <tr><td><b>1</b></td><td>9h30 – 10h30</td><td>60'</td><td>PR vào branch chính</td></tr>
+          <tr><td><b>2</b></td><td>10h30 – 11h30</td><td>60'</td><td>PR vào branch chính</td></tr>
+          <tr><td><b>3</b></td><td>11h30 – 12h30</td><td>60'</td><td>PR vào branch chính</td></tr>
+          <tr><td><b>4</b></td><td>12h30 – 13h30</td><td>60'</td><td>PR vào branch chính</td></tr>
+          <tr><td><b>5</b></td><td>13h30 – 14h30</td><td>60'</td><td>PR vào branch chính</td></tr>
+          <tr><td><b>6</b></td><td>14h30 – 15h00</td><td>30'</td><td>PR vào branch chính — <b>chốt sản phẩm + chuẩn bị demo</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note warn">
+      <span class="h">Chặng 3 và 4 đang đè vào giờ nghỉ trưa — BTC còn cân nhắc</span>
+      <p>Bảng trên là theo bản concept mới nhất. Giờ ăn trưa có thể làm lệch chặng 3–4, BTC sẽ chốt lại và báo trên <b>#oeditions</b>. Cứ chuẩn bị theo bảng này, có thay đổi thì chỉ dịch giờ chứ thể thức không đổi.</p>
+    </div>
+
+    <h2>Ai làm driver chặng nào</h2>
+    <ul>
+      <li>Mỗi chặng có <b>đúng 1 driver</b> code chính — như người cầm gậy tiếp sức. Người còn lại làm navigator, research, design, test, chuẩn bị thuyết trình… theo role của mình.</li>
+      <li>Team <b>ít hơn 6 người</b> → một số người làm driver 2 chặng.</li>
+      <li>Team <b>nhiều hơn 6 người</b> → có người không làm driver, nhưng <b>vẫn phải có đóng góp ghi trong Responsibility note</b>.</li>
+      <li>Team <b>chưa đủ mặt thì chưa được bắt đầu</b> chặng 1. BTC điểm danh đầu giờ rồi mới tính giờ chính thức.</li>
+    </ul>
+
+    <h2>Bốn thứ phải nộp</h2>
+    <p>Tất cả đẩy lên repo GitHub của đội — dựng sẵn khung ở <a href="#hackathon" data-p="hackathon">mục 03 · D5</a> từ hôm nay.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Output</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Spec</b></td><td>Mô tả ngắn gọn vấn đề đang giải quyết &amp; hướng giải pháp</td></tr>
+          <tr><td><b>2 · Prototype</b></td><td>Bản demo/mockup thể hiện ý tưởng — UI mockup, flow, wireframe…</td></tr>
+          <tr><td><b>3 · Product</b></td><td>Phần build thật, phải chạy được dù chỉ ở mức MVP</td></tr>
+          <tr><td><b>4 · Responsibility note</b></td><td>Từng thành viên làm <b>chặng nào, việc gì, PR nào</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Chấm 100 điểm</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Tiêu chí</th><th>Điểm</th><th>Ai chấm</th></tr></thead>
+        <tbody>
+          <tr><td><b>Commitment</b></td><td><b>30</b></td><td>Giám khảo/BTC — mức độ tham gia, đóng góp, ownership của <b>từng thành viên</b> xuyên suốt cuộc thi</td></tr>
+          <tr><td><b>Idea</b></td><td><b>30</b></td><td>Khán giả vote tối đa <b>20</b> + giám khảo tối đa <b>10</b></td></tr>
+          <tr><td><b>Thuyết trình</b></td><td><b>20</b></td><td>Giám khảo — rõ ràng, súc tích, thuyết phục</td></tr>
+          <tr><td><b>Demo</b></td><td><b>20</b></td><td>Giám khảo — thể hiện đúng trải nghiệm cốt lõi, chứng minh ý tưởng khả thi</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Vote khán giả tính thế nào</h3>
+    <p>Poll trên Slack ngay sau khi tất cả các team thuyết trình + demo xong, đóng poll rồi tính điểm luôn. Team nhiều vote nhất được trọn <b>20 điểm</b>, các team còn lại quy theo tỷ lệ:</p>
+    <div class="cmd">
+      <div class="bar">Công thức<button type="button" class="copy">Copy</button></div>
+      <pre><code>Điểm khán giả = (vote của team / vote của team cao nhất) × 20</code></pre>
+    </div>
+    <p><span style="color:var(--muted)">Ví dụ: team cao nhất 40 vote → 20 điểm. Team X được 25 vote → (25 / 40) × 20 = <b>12,5 điểm</b>.</span></p>
+
+    <h2>Trừ điểm — mỗi lỗi <b>−5</b></h2>
+    <p>Trừ thẳng vào tổng 100. Các lỗi <b>cộng dồn</b>, vi phạm nhiều lần thì trừ nhiều lần.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Vi phạm</th><th>Trừ</th></tr></thead>
+        <tbody>
+          <tr><td>Driver không PR &amp; merge vào <code>main</code> trước khi bàn giao</td><td><b>−5</b></td></tr>
+          <tr><td>Driver sau không code tiếp trên code người trước — làm lại từ đầu, bỏ qua nhánh đã merge</td><td><b>−5</b></td></tr>
+          <tr><td>Nộp bài muộn so với deadline</td><td><b>−5</b></td></tr>
+          <tr><td>Thiếu Spec</td><td><b>−5</b></td></tr>
+          <tr><td>Thiếu Prototype</td><td><b>−5</b></td></tr>
+          <tr><td>Thiếu Responsibility note</td><td><b>−5</b></td></tr>
+          <tr><td>Bàn giao muộn ở một chặng <span style="color:var(--muted)">(tính riêng từng chặng, tối đa 6 lần)</span></td><td><b>−5</b>/chặng</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note stop">
+      <span class="h">Trừ điểm ăn rất nhanh — đây là chỗ dễ mất giải nhất</span>
+      <p>Chỉ cần bàn giao muộn 3 chặng và thiếu Prototype là <b>−20</b>, bằng đúng toàn bộ điểm Demo. Đặt hẹn giờ cho từng chặng, và PR trước khi hết giờ chứ đừng đợi đúng phút cuối.</p>
+      <p>Điểm cuối = tổng 4 tiêu chí − tổng trừ, <b>không xuống dưới 0</b>.</p>
+    </div>
+
+    <h2>Năm track để chọn</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Track</th><th>Đề bài</th><th>Slot</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · People &amp; Culture</b></td><td>Giải pháp AI giúp môi trường làm việc tốt hơn cho OE-ers.<br><span style="color:var(--muted)">Admin Team · People Management · Employee Experience · Culture · Connection · Onboarding</span></td><td><b>3</b></td></tr>
+          <tr><td><b>2 · Workflow Automation</b></td><td>Tìm một workflow lặp đi lặp lại, thủ công, chậm — tái thiết kế bằng AI. Biến việc "không ai muốn làm" thành việc AI xử lý được.<br><span style="color:var(--muted)">Repetitive Tasks · Automation · Productivity · Meetings · Calls · Merchant Management · Weekly Scrum</span></td><td><b>3</b></td></tr>
+          <tr><td><b>3 · Entertainment &amp; Relax</b></td><td>Không phải thứ gì AI làm ra cũng phải "năng suất". Dùng AI cho công việc thường ngày vui hơn, thư giãn hơn.<br><span style="color:var(--muted)">Games · Happy Hour · Office Life · Social Activities · Fun · Wellbeing</span></td><td><b>3</b></td></tr>
+          <tr><td><b>4 · Growth &amp; Learning</b></td><td>Xây thứ giúp bạn học điều mới, giỏi hơn trong công việc, hoặc giúp kiến thức dễ tìm — dễ hiểu — dễ chia sẻ hơn.<br><span style="color:var(--muted)">Self-improvement · Learning · Knowledge Management · Mentoring · Personal Growth</span></td><td><b>3</b></td></tr>
+          <tr><td><b>5 · The Mystery</b></td><td>Ý tưởng không thuộc track nào ở trên? Sân chơi của bạn — hữu ích, kỳ lạ, tham vọng, hoặc hoàn toàn bất ngờ.<br><span style="color:var(--muted)">Anything Goes · Experiments · Weird · Surprise Us</span></td><td><b>5</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><span style="color:var(--muted)">Slot giới hạn, đăng ký sớm để giữ chỗ track mình muốn.</span></p>
+
+    <div class="note warn">
+      <span class="h">Phần chưa chốt</span>
+      <p>Tài liệu gốc còn để trống mục <b>Rules</b> — được dùng AI tool nào, có giới hạn tech stack không, xử lý vi phạm ngoài bảng trừ điểm ra sao. BTC bổ sung sau, theo dõi <b>#oeditions</b>.</p>
+    </div>
+
+    <div class="pager">
+      <a href="#hackathon" data-p="hackathon"><span>Quay lại</span><b>← 03 · Setup repo hackathon</b></a>
       <span></span>
     </div>
   </section>
@@ -1106,9 +1254,17 @@ bảo tôi tự mời người đó ở Settings > Collaborators trên web.</cod
         <div class="clbody">
           <label class="ck"><input type="checkbox" data-id="d1"><span><b>D1</b> · Tạo repo ở <b>tài khoản cá nhân</b>, để <b>Private</b></span></label>
           <label class="ck"><input type="checkbox" data-id="d2"><span><b>D2</b> · Mời cả team — và mọi người đã bấm <b>Accept invitation</b></span></label>
-          <label class="ck"><input type="checkbox" data-id="d3"><span><b>D3</b> · Mời <b>sonnh@ownego.com</b> + gửi link repo lên Slack</span></label>
+          <label class="ck"><input type="checkbox" data-id="d3"><span><b>D3</b> · Mời <b>juzser</b> vào repo + gửi link repo lên Slack</span></label>
           <label class="ck"><input type="checkbox" data-id="d4"><span><b>D4</b> · Clone được về máy và <b>push</b> thử thành công</span></label>
           <label class="ck"><input type="checkbox" data-id="d5"><span><b>D5</b> · <code>README.md</code> đã có khung 4 phần của bài thi</span></label>
+        </div>
+      </details>
+
+      <details class="clg" data-page="luat" open>
+        <summary><span class="cv"></span>04 · Trước ngày thi<span class="gc">0/2</span></summary>
+        <div class="clbody">
+          <label class="ck"><input type="checkbox" data-id="e1"><span><b>E1</b> · Đã chọn <b>track</b> và giữ được slot</span></label>
+          <label class="ck"><input type="checkbox" data-id="e2"><span><b>E2</b> · Đã chốt <b>thứ tự driver 6 chặng</b> và báo BTC</span></label>
         </div>
       </details>
     </div>
@@ -1121,7 +1277,7 @@ bảo tôi tự mời người đó ở Settings > Collaborators trên web.</cod
 <script>
 (function () {
   var root = document.documentElement;
-  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon'];
+  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat'];
 
   /* ── routing ─────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
