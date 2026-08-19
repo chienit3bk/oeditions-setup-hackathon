@@ -279,12 +279,12 @@
       <p>Riêng <b>C1</b> có thể phải <b>chờ người khác duyệt</b>: tài khoản Claude Team/Enterprise cần Owner bật connector GitHub cho cả team. Thử sớm — không thấy GitHub trong danh sách connector thì nhắn <b>#oeditions</b> ngay, đừng để sáng 22/8.</p>
     </div>
 
-    <h2>Ba bước setup, khoảng 20 phút</h2>
+    <h2>Bốn mục, khoảng 30 phút</h2>
     <div class="cards">
       <div class="card hum">
         <span class="n">Mục 01 · ~15 phút</span>
         <span class="t">Claude + GitHub</span>
-        <span class="d">Cài Claude, tạo tài khoản GitHub, nối hai cái lại để AI đọc được code công ty. Toàn bộ bằng chuột.</span>
+        <span class="d">Cài Claude, tạo tài khoản GitHub, nối hai cái lại để AI đọc được repo của bạn. Toàn bộ bằng chuột.</span>
       </div>
       <div class="card bot">
         <span class="n">Mục 02 · ~5 phút</span>
@@ -309,7 +309,7 @@
     </div>
 
     <h2>Đã tự cài sẵn một phần rồi?</h2>
-    <p>Không phải làm lại từ đầu. Chạy 4 phép thử dưới — cái nào <b>chưa đạt</b> thì nhảy thẳng vào đúng bước đó, bỏ qua phần còn lại.</p>
+    <p>Không phải làm lại từ đầu. Chạy 5 phép thử dưới — cái nào <b>chưa đạt</b> thì nhảy thẳng vào đúng bước đó, bỏ qua phần còn lại.</p>
     <div class="tw">
       <table>
         <thead><tr><th>Thử cái này</th><th>Đạt là khi</th><th>Chưa đạt → đi đâu</th></tr></thead>
@@ -318,7 +318,7 @@
           <tr><td>Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a></td><td>Có mục <b>Claude</b> trong danh sách</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
           <tr><td>Hỏi Claude <i>"liệt kê repo tôi truy cập được trên GitHub"</i></td><td>Nó kể ra đúng repo bạn đã tick</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
           <tr><td>Mở VS Code và GitHub Desktop</td><td>Cả hai mở được, GitHub Desktop đã đăng nhập</td><td><a href="#cai-app" data-p="cai-app">02</a></td></tr>
-          <tr><td>Đã biết team và repo của team chưa</td><td>Repo <b>private</b> đã tạo, cả team và <b>sonnh@ownego.com</b> đã được mời</td><td><a href="#hackathon" data-p="hackathon">03 · D1–D3</a></td></tr>
+          <tr><td>Đã biết team và repo của team chưa</td><td>Repo <b>private</b> đã tạo, cả team và <b>juzser</b> đã được mời</td><td><a href="#hackathon" data-p="hackathon">03 · D1–D3</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -650,32 +650,37 @@ echo ""
 echo "🎉 Xong. Mở Launchpad là thấy 2 app mới."
 SCRIPT</code></pre>
     </div>
-    <h3 class="os os-mac">Homebrew là gì? Tôi có cần không?</h3>
-    <div class="note os os-mac">
-      <span class="h">Không cần. Bạn đã xong rồi.</span>
-      <p>Đoạn lệnh ở trên chạy được trên <b>mọi máy Mac</b>, không cần Homebrew. Nếu bạn chưa nghe tên Homebrew bao giờ thì bỏ qua cả phần này cũng không sao.</p>
-      <p><b>Homebrew</b> là một công cụ cài phần mềm bằng dòng lệnh — hình dung như một cái “App Store cho Terminal”. Ai đã cài sẵn từ trước thì có cách gõ ngắn hơn, chỉ khác nhau ở chỗ đó thôi, hai cách cài ra cùng một app.</p>
-      <p><b>Đừng cài Homebrew chỉ để làm bước này.</b> Cài nó mất thêm ~10 phút và thêm một thứ bạn chưa cần đến.</p>
-    </div>
+    <details class="opt os os-mac">
+      <summary><span class="cv"></span>Homebrew là gì? Tôi có cần không? <span class="tag t-hum">Tuỳ chọn</span><span class="hint">Bấm để mở</span></summary>
+      <div class="optbody">
+        <p><b>Không cần — bạn đã xong rồi.</b> Đoạn lệnh ở trên chạy được trên mọi máy Mac. Mở phần này chỉ khi tò mò, hoặc khi máy bạn đã có sẵn Homebrew và muốn gõ cách ngắn hơn.</p>
+      <div class="note">
+        <span class="h">Không cần. Bạn đã xong rồi.</span>
+        <p>Đoạn lệnh ở trên chạy được trên <b>mọi máy Mac</b>, không cần Homebrew. Nếu bạn chưa nghe tên Homebrew bao giờ thì bỏ qua cả phần này cũng không sao.</p>
+        <p><b>Homebrew</b> là một công cụ cài phần mềm bằng dòng lệnh — hình dung như một cái “App Store cho Terminal”. Ai đã cài sẵn từ trước thì có cách gõ ngắn hơn, chỉ khác nhau ở chỗ đó thôi, hai cách cài ra cùng một app.</p>
+        <p><b>Đừng cài Homebrew chỉ để làm bước này.</b> Cài nó mất thêm ~10 phút và thêm một thứ bạn chưa cần đến.</p>
+      </div>
 
-    <p class="os os-mac">Muốn biết máy mình đã có sẵn chưa, dán dòng này vào Terminal rồi Enter:</p>
-    <div class="cmd os os-mac">
-      <div class="bar"><b>macOS</b> · kiểm tra xem máy đã có Homebrew chưa<button type="button" class="copy">Copy</button></div>
-      <pre><code>brew --version</code></pre>
-    </div>
-    <div class="note os os-mac">
-      <span class="h">Đọc kết quả</span>
-      <ul>
-        <li>Hiện <code>Homebrew 4.x.x</code> (hoặc số nào đó) → máy <b>đã có</b>. Muốn gõ ngắn thì dùng dòng dưới cùng.</li>
-        <li>Hiện <code>zsh: command not found: brew</code> → máy <b>chưa có</b>. Hoàn toàn bình thường, đa số máy mới đều vậy. Bạn dùng đoạn lệnh dài ở trên là đủ, <b>không phải làm gì thêm</b>.</li>
-      </ul>
-    </div>
+      <p>Muốn biết máy mình đã có sẵn chưa, dán dòng này vào Terminal rồi Enter:</p>
+      <div class="cmd">
+        <div class="bar"><b>macOS</b> · kiểm tra xem máy đã có Homebrew chưa<button type="button" class="copy">Copy</button></div>
+        <pre><code>brew --version</code></pre>
+      </div>
+      <div class="note">
+        <span class="h">Đọc kết quả</span>
+        <ul>
+          <li>Hiện <code>Homebrew 4.x.x</code> (hoặc số nào đó) → máy <b>đã có</b>. Muốn gõ ngắn thì dùng dòng dưới cùng.</li>
+          <li>Hiện <code>zsh: command not found: brew</code> → máy <b>chưa có</b>. Hoàn toàn bình thường, đa số máy mới đều vậy. Bạn dùng đoạn lệnh dài ở trên là đủ, <b>không phải làm gì thêm</b>.</li>
+        </ul>
+      </div>
 
-    <p class="os os-mac">Chỉ dành cho ai vừa thấy số phiên bản ở trên — một dòng, kết quả y hệt. Cask tên <code>github</code> chính là GitHub Desktop.</p>
-    <div class="cmd os os-mac">
-      <div class="bar"><b>macOS</b> · chỉ khi đã có Homebrew<button type="button" class="copy">Copy</button></div>
-      <pre><code>brew install --cask visual-studio-code github</code></pre>
-    </div>
+      <p>Chỉ dành cho ai vừa thấy số phiên bản ở trên — một dòng, kết quả y hệt. Cask tên <code>github</code> chính là GitHub Desktop.</p>
+      <div class="cmd">
+        <div class="bar"><b>macOS</b> · chỉ khi đã có Homebrew<button type="button" class="copy">Copy</button></div>
+        <pre><code>brew install --cask visual-studio-code github</code></pre>
+      </div>
+      </div>
+    </details>
 
     <h2 class="os os-win">Dán vào PowerShell</h2>
     <p class="os os-win">Bấm nút <b>Start</b>, gõ <code>PowerShell</code>, Enter. Copy toàn bộ khối dưới, dán vào, bấm Enter. App nào đã cài rồi thì winget tự bỏ qua.</p>
@@ -829,7 +834,7 @@ Yêu cầu bắt buộc:
     <ol>
       <li><b>VS Code</b> → biểu tượng người ở <b>góc dưới bên trái</b> → <b>Sign in with GitHub</b>. Bật <b>Settings Sync</b> để cài đặt của bạn theo sang máy khác.</li>
       <li><b>GitHub Desktop</b> → <b>Sign in to GitHub.com</b> → trình duyệt mở ra → <b>Authorize</b>.</li>
-      <li>Vẫn trong GitHub Desktop: <b>Settings → Git</b>, xem lại <b>Name</b> và <b>Email</b>. Hai dòng này hiện lên lịch sử code, cả team nhìn thấy hằng ngày.</li>
+      <li>Vẫn trong GitHub Desktop: <b>Settings → Git</b>, xem lại <b>Name</b> và <b>Email</b>. Hai dòng này hiện lên lịch sử code — và ngày hackathon chúng quyết định <b>% đóng góp</b> của bạn được tính cho ai, nên phải giống nhau trên mọi máy bạn dùng (<a href="#luat" data-p="luat">mục 04</a>).</li>
     </ol>
 
     <details class="opt">
@@ -885,7 +890,7 @@ git push</code></pre>
   <section class="panel" id="p-hackathon">
     <p class="eyebrow">03</p>
     <h1>Setup repo cho ngày hackathon</h1>
-    <p class="lede">Làm ngay khi BTC công bố team. Bốn bước, khoảng 10 phút.</p>
+    <p class="lede">Trong team sẽ có người biết tạo repo, nên phần này chỉ ghi các <b>ràng buộc bắt buộc</b> và khung README. Khoảng 10 phút, làm ngay khi BTC công bố team.</p>
     <p><span style="color:var(--muted)"><b>21/8 · 14:30</b> công bố team → làm mục này ngay &nbsp;·&nbsp; <b>17:30</b> reveal đề &nbsp;·&nbsp; <b>22/8 · 9h15–15h00</b> thi (<a href="#luat" data-p="luat">mục 04</a>).</span></p>
 
     <div class="note">
@@ -893,78 +898,42 @@ git push</code></pre>
       <ul>
         <li>Repo để ở <b>tài khoản cá nhân</b> của một thành viên — <b>không</b> tạo trong tổ chức <code>ownego</code>.</li>
         <li>Để <b>Private</b>.</li>
-        <li>Mời <b>cả team</b> và <b>sonnh@ownego.com</b> vào repo.</li>
+        <li>Mời <b>cả team</b> và <b>BTC</b> vào repo.</li>
         <li>Sau hackathon, repo nào ngon mới transfer về <code>ownego</code>.</li>
       </ul>
     </div>
 
-    <h2><span class="tag t-bot">D1</span> Tạo repo — một người trong team làm</h2>
-    <p>Mở <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">github.com/new</a>, điền 4 ô:</p>
-    <ul>
-      <li><b>Owner</b> — chọn <b>tên tài khoản của bạn</b>. Ai đã có sẵn tổ chức nào đó trong dropdown thì nhớ đừng chọn nhầm, nhất là <code>ownego</code>.</li>
-      <li><b>Repository name</b> — <code>oeditions-&lt;tên-team&gt;</code>, không dấu, không khoảng trắng.</li>
-      <li>Chọn <b>Private</b> — mặc định đang là Public.</li>
-      <li>Tick <b>Add a README file</b> — repo rỗng sẽ khó clone về.</li>
-    </ul>
-    <div class="note warn">
-      <span class="h">Lỡ chọn nhầm Owner</span>
-      <p>Sửa được: <b>Settings → General → Transfer ownership</b>, chuyển về tài khoản bạn.</p>
-    </div>
+    <h2><span class="tag t-bot">D1</span> Tạo repo</h2>
+    <p>Một người tạo ở <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">github.com/new</a>: <b>Owner</b> là tài khoản cá nhân của bạn (đừng chọn nhầm <code>ownego</code> nếu nó có trong dropdown), tên <code>oeditions-&lt;tên-team&gt;</code>, chọn <b>Private</b>, tick <b>Add a README file</b>.</p>
     <div class="note stop">
-      <span class="h">Tạo xong phải thêm repo này vào connector, không thì Claude không thấy nó</span>
-      <p>Ở <a href="#nguoi-moi" data-p="nguoi-moi">mục 01 · C1</a> bạn cấp quyền theo kiểu <b>Only select repositories</b>, mà lúc đó repo này chưa tồn tại nên chắc chắn <b>không</b> nằm trong danh sách. Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a> → <b>Claude</b> → <b>Configure</b> → tick thêm repo mới. <b>Mỗi người trong team tự làm</b> cho tài khoản của mình.</p>
+      <span class="h">Tạo xong phải thêm repo vào connector, không thì Claude không đọc được nó</span>
+      <p>Ở <a href="#nguoi-moi" data-p="nguoi-moi">mục 01 · C1</a> bạn cấp quyền kiểu <b>Only select repositories</b>, mà lúc đó repo này chưa tồn tại. Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a> → <b>Claude</b> → <b>Configure</b> → tick thêm repo mới. <b>Mỗi người trong team tự làm</b> cho tài khoản của mình.</p>
     </div>
 
-    <h2><span class="tag t-bot">D2</span> Mời cả team vào repo</h2>
-    <p>Trong repo: <b>Settings</b> → <b>Collaborators</b> → <b>Add people</b> → gõ <b>username GitHub</b> hoặc <b>email</b> của từng người. Quyền <b>Write</b> mặc định là đủ.</p>
+    <h2><span class="tag t-bot">D2</span> Mời cả team</h2>
+    <p>Repo → <b>Settings</b> → <b>Collaborators</b> → <b>Add people</b>, gõ username GitHub hoặc email từng người. Quyền <b>Write</b> mặc định là đủ.</p>
     <div class="note warn">
       <span class="h">Mời xong chưa phải là xong</span>
-      <p>Mỗi người phải tự bấm <b>Accept invitation</b> trong email hoặc ở <a href="https://github.com/notifications" target="_blank" rel="noopener noreferrer">github.com/notifications</a>. Chưa accept thì repo không hiện ra trong GitHub Desktop — lý do số 1 khiến sáng hôm thi có người ngồi chờ.</p>
+      <p>Mỗi người phải tự bấm <b>Accept invitation</b> trong email hoặc ở <a href="https://github.com/notifications" target="_blank" rel="noopener noreferrer">github.com/notifications</a>. Chưa accept thì repo không hiện ra — lý do số 1 khiến sáng hôm thi có người ngồi chờ.</p>
     </div>
 
     <h2><span class="tag t-hum">D3</span> Mời BTC vào repo</h2>
-    <p>Vẫn ở <b>Add people</b>, gõ <b>username GitHub</b> này rồi chọn đúng tài khoản <i>Son Nguyen H.</i>:</p>
+    <p>Vẫn ở <b>Add people</b>, gõ username này rồi chọn đúng tài khoản <i>Son Nguyen H.</i>, xong gửi link repo vào thread hackathon trên Slack:</p>
     <div class="cmd">
       <div class="bar"><b>Bắt buộc</b> · mời username này vào repo<button type="button" class="copy">Copy</button></div>
       <pre><code>juzser</code></pre>
     </div>
-    <p><span style="color:var(--muted)">Mời bằng email <code>sonnh@ownego.com</code> cũng ra đúng tài khoản này (email đó đã xác thực trên GitHub), nhưng gõ username thì khớp ngay và nhìn thấy được mình chọn đúng người.</span></p>
-    <p>Xong thì gửi link repo vào thread hackathon trên Slack.</p>
-    <div class="note stop">
-      <span class="h">Repo Private thì không ai tự nhìn thấy</span>
-      <p>Chưa mời thì BTC không mở được repo của team bạn. Làm ngay lúc tạo repo, đừng để đến hôm thi.</p>
-    </div>
+    <p><span style="color:var(--muted)">Mời bằng email <code>sonnh@ownego.com</code> cũng ra đúng tài khoản này. Repo Private mà quên mời thì BTC không mở được repo của team bạn.</span></p>
 
-    <h2><span class="tag t-bot">D4</span> Clone thử về máy</h2>
-    <p><b>GitHub Desktop</b> → <b>File</b> → <b>Clone repository</b> → tab <b>GitHub.com</b> → chọn repo → <b>Clone</b>. Sửa thử một dòng trong <code>README.md</code>, rồi <b>Commit to main</b> → <b>Push origin</b>. Thấy thay đổi hiện trên web là máy bạn đã sẵn sàng.</p>
-    <div class="note warn">
-      <span class="h">Không thấy repo trong danh sách?</span>
-      <p>Chưa bấm <b>Accept invitation</b>, hoặc GitHub Desktop đang đăng nhập nhầm tài khoản (<b>Settings → Accounts</b>). Chưa cài 2 app thì quay lại <a href="#cai-app" data-p="cai-app">mục 02</a> trước.</p>
-    </div>
-    <div class="note">
-      <span class="h">Ngày thi 4–6 người cùng đẩy code — hai thói quen tránh xung đột</span>
-      <ul>
-        <li><b>Luôn Fetch/Pull trước khi bắt đầu sửa</b>, và pull lại trước mỗi lần Push. Sửa trên bản cũ là lúc dễ dính conflict nhất.</li>
-        <li>Đụng cùng một file thì <b>mỗi người một nhánh</b>: GitHub Desktop → <b>Current branch</b> → <b>New branch</b>, xong tạo Pull Request để gộp vào <code>main</code>.</li>
-      </ul>
-      <p>Gặp chữ <b>conflict</b> thì dừng, đừng đoán — dán nguyên thông báo vào Claude và hỏi, hoặc nhắn <b>#oeditions</b>.</p>
-      <p><b>Quan trọng:</b> ai làm phần nào thì <b>tự commit phần đó</b> bằng tài khoản của mình. Đóng góp được đo bằng lịch sử GitHub, và mỗi người phải đạt <b>10–30%</b> — gom code cho một người commit hộ là cả đội bị trừ điểm. Xem <a href="#luat" data-p="luat">mục 04</a>.</p>
+    <h2><span class="tag t-bot">D4</span> Cả team clone thử trước ngày thi</h2>
+    <p>Mỗi người clone repo về máy, sửa thử một dòng rồi <b>push</b> — để phát hiện trục trặc lúc còn kịp sửa, đừng để sáng 22/8. Chưa cài VS Code / GitHub Desktop thì quay lại <a href="#cai-app" data-p="cai-app">mục 02</a>.</p>
+    <div class="note stop">
+      <span class="h">Ai làm phần nào thì tự commit phần đó</span>
+      <p>Đóng góp được đo bằng lịch sử GitHub, mỗi người phải đạt <b>10–30%</b> — gom code cho một người commit hộ là <b>cả đội bị −5 điểm</b>. Kiểm tra <code>git config user.name</code> và <code>user.email</code> trên mọi máy trước, khai sai là bị đếm thành hai người. Chi tiết ở <a href="#luat" data-p="luat">mục 04</a>.</p>
     </div>
 
     <h2><span class="tag t-hum">D5</span> README mô tả bài thi</h2>
-    <p>Repo <b>bắt buộc</b> có file <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần dưới. Dựng khung sẵn từ hôm nay, ngày thi chỉ điền nội dung vào — thiếu Spec, Prototype hay Responsibility note là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>).</p>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Phần</th><th>Viết gì trong đó</th></tr></thead>
-        <tbody>
-          <tr><td><b>1 · Spec</b></td><td>Mô tả ngắn vấn đề &amp; giải pháp</td></tr>
-          <tr><td><b>2 · Prototype</b></td><td>Bản demo/mockup thể hiện ý tưởng</td></tr>
-          <tr><td><b>3 · Product</b></td><td>Phần đã build thật — không chỉ mockup</td></tr>
-          <tr><td><b>4 · Responsibility note</b></td><td>Ghi rõ contribution của từng thành viên</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p>Mở <code>README.md</code> trong VS Code, xoá hết nội dung cũ rồi dán khung này vào:</p>
+    <p>Repo <b>bắt buộc</b> có <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần: <b>Spec</b>, <b>Prototype</b>, <b>Product</b>, <b>Responsibility note</b>. Thiếu Spec, Prototype hay Responsibility note là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>) — nên dựng khung sẵn từ hôm nay, ngày thi chỉ điền vào.</p>
     <div class="cmd tall">
       <div class="bar">README.md · khung sẵn, chỉ việc điền<button type="button" class="copy">Copy</button></div>
 <pre><code># &lt;Tên dự án&gt; — Team &lt;tên team&gt;
@@ -1010,46 +979,13 @@ chỗ duy nhất nó được ghi nhận.
 | &lt;tên&gt; | &lt;phần việc&gt; | &lt;PR / commit / file&gt; |
 </code></pre>
     </div>
-    <p>Sửa xong thì <b>Commit to main</b> → <b>Push origin</b> như bước D4.</p>
-
-    <div class="note">
-      <span class="h">Mở repo bằng Claude Code để bắt đầu code</span>
-      <p>Trong <b>app Claude</b> → tab <b>Code</b> → mở thư mục vừa clone. Hoặc trong Terminal/PowerShell: <code>cd</code> vào thư mục đó rồi gõ <code>claude</code>.</p>
-      <p><span style="color:var(--muted)">Lưu ý: connector GitHub ở <a href="#nguoi-moi" data-p="nguoi-moi">mục 01 · C1</a> chỉ để Claude <b>đọc</b> repo trên mạng. Claude Code chạy trên máy bạn thì đẩy code lên bằng đăng nhập git/GitHub Desktop của chính bạn — hai thứ khác nhau, không thay thế nhau.</span></p>
-    </div>
-
-    <details class="opt">
-      <summary><span class="cv"></span>Nhờ Claude làm hộ D1 và D2<span class="hint">Tuỳ chọn</span></summary>
-      <div class="optbody">
-        <p>Làm bằng chuột ở trên đã đủ và ít sai hơn. Ai muốn thử thì mở <b>tab Code</b> của Claude (hoặc gõ <code>claude</code> trong Terminal/PowerShell) và dán:</p>
-        <div class="cmd tall">
-          <div class="bar">Prompt · dán vào tab Code của Claude<button type="button" class="copy">Copy</button></div>
-<pre><code>Tôi đang tham gia hackathon và cần dựng repo cho team. Giúp tôi:
-
-1. Kiểm tra máy đã có GitHub CLI (lệnh `gh`) và đã đăng nhập chưa.
-   Nếu chưa thì hướng dẫn tôi cài trước, đừng làm tiếp.
-
-2. Tạo repo GitHub tên "oeditions-team-X": PRIVATE, thuộc TÀI KHOẢN
-   CÁ NHÂN của tôi (KHÔNG thuộc tổ chức ownego), có sẵn README.md.
-
-3. Mời các thành viên sau làm collaborator, quyền write:
-   &lt;username-github-1&gt;, &lt;username-github-2&gt;
-
-4. In ra link repo và trạng thái lời mời của từng người.
-
-Nếu tôi chỉ có email chứ không có username GitHub thì đừng đoán —
-bảo tôi tự mời người đó ở Settings > Collaborators trên web.</code></pre>
-        </div>
-        <p>Sửa <code>oeditions-team-X</code> và danh sách username thành của team bạn trước khi gửi. Riêng <code>sonnh@ownego.com</code> thì cứ mời bằng email trên web như bước <b>D3</b>.</p>
-      </div>
-    </details>
+    <p><span style="color:var(--muted)">Bắt đầu code: mở thư mục vừa clone trong <b>tab Code</b> của app Claude, hoặc <code>cd</code> vào rồi gõ <code>claude</code>. Connector ở mục 01 chỉ để Claude <b>đọc</b> repo trên mạng — đẩy code lên vẫn dùng đăng nhập git của bạn.</span></p>
 
     <div class="pager">
       <a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + GitHub Desktop</b></a>
       <a href="#luat" data-p="luat"><span>Tiếp theo</span><b>04 · Luật thi &amp; chấm điểm →</b></a>
     </div>
   </section>
-
 
   <!-- ══ 04 ══ -->
   <section class="panel" id="p-luat">
@@ -1276,17 +1212,18 @@ END {
           <label class="ck"><input type="checkbox" data-id="app-install"><span>Chạy xong đoạn lệnh cài, không báo lỗi</span></label>
           <label class="ck"><input type="checkbox" data-id="app-vscode"><span><b>Mở app lần đầu</b> · VS Code mở được và đã <b>Sign in with GitHub</b></span></label>
           <label class="ck"><input type="checkbox" data-id="app-ghd"><span><b>Mở app lần đầu</b> · GitHub Desktop mở được và đã đăng nhập</span></label>
-          <label class="ck"><input type="checkbox" data-id="app-gitid"><span><b>Mở app lần đầu</b> · <b>Name</b> + <b>Email</b> trong <b>Settings → Git</b> đúng như bạn muốn hiện trên lịch sử code</span></label>
+          <label class="ck"><input type="checkbox" data-id="app-gitid"><span><b>Mở app lần đầu</b> · <b>Name</b> + <b>Email</b> trong <b>Settings → Git</b> đúng, và giống nhau trên mọi máy bạn dùng</span></label>
         </div>
       </details>
 
       <details class="clg" data-page="hackathon" open>
-        <summary><span class="cv"></span>03 · Repo ngày hackathon<span class="gc">0/5</span></summary>
+        <summary><span class="cv"></span>03 · Repo ngày hackathon<span class="gc">0/6</span></summary>
         <div class="clbody">
           <label class="ck"><input type="checkbox" data-id="d1"><span><b>D1</b> · Tạo repo ở <b>tài khoản cá nhân</b>, để <b>Private</b></span></label>
+          <label class="ck"><input type="checkbox" data-id="d1-connector"><span><b>D1</b> · Đã thêm repo của đội vào <b>connector Claude</b> (mỗi người tự làm)</span></label>
           <label class="ck"><input type="checkbox" data-id="d2"><span><b>D2</b> · Mời cả team — và mọi người đã bấm <b>Accept invitation</b></span></label>
           <label class="ck"><input type="checkbox" data-id="d3"><span><b>D3</b> · Mời <b>juzser</b> vào repo + gửi link repo lên Slack</span></label>
-          <label class="ck"><input type="checkbox" data-id="d4"><span><b>D4</b> · Clone được về máy và <b>push</b> thử thành công</span></label>
+          <label class="ck"><input type="checkbox" data-id="d4"><span><b>D4</b> · Cả team clone được về máy và <b>push</b> thử thành công</span></label>
           <label class="ck"><input type="checkbox" data-id="d5"><span><b>D5</b> · <code>README.md</code> đã có khung 4 phần của bài thi</span></label>
         </div>
       </details>
