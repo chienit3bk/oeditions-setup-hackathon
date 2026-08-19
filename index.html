@@ -261,6 +261,7 @@
       <li><a href="#bat-dau" data-p="bat-dau"><span class="nu">00</span> Bắt đầu ở đâu</a></li>
       <li><a href="#nguoi-moi" data-p="nguoi-moi"><span class="nu">01</span> Claude + GitHub</a></li>
       <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop</a></li>
+      <li><a href="#hackathon" data-p="hackathon"><span class="nu">03</span> Setup repo hackathon</a></li>
     </ol>
   </nav>
 
@@ -270,9 +271,9 @@
   <section class="panel" id="p-bat-dau">
     <p class="eyebrow">Dành cho người chưa từng cài công cụ dev</p>
     <h1>Oeditions Hackathon Setup</h1>
-    <p class="lede">Nhận máy → cài Claude → nối GitHub → dán một prompt và để nó tự cài. Trang này dùng chung cho cả macOS và Windows — chọn hệ điều hành ở <b>góc trên bên phải</b> (hoặc bấm nút đổi ngay trong bài), cả trang sẽ chỉ hiện lệnh của máy bạn.</p>
+    <p class="lede">Nhận máy → cài Claude → nối GitHub → dán một prompt và để nó tự cài — rồi dựng repo cho team trước ngày thi. Trang này dùng chung cho cả macOS và Windows — chọn hệ điều hành ở <b>góc trên bên phải</b> (hoặc bấm nút đổi ngay trong bài), cả trang sẽ chỉ hiện lệnh của máy bạn.</p>
 
-    <h2>Ba bước, khoảng 20 phút</h2>
+    <h2>Ba bước setup, khoảng 20 phút</h2>
     <div class="cards">
       <div class="card hum">
         <span class="n">Mục 01 · ~15 phút</span>
@@ -284,10 +285,15 @@
         <span class="t">Cài 2 app</span>
         <span class="d">VS Code + GitHub Desktop. Dán một đoạn lệnh là xong, kèm phần chứng minh lệnh đó an toàn.</span>
       </div>
+      <div class="card hum">
+        <span class="n">Mục 03 · ~10 phút</span>
+        <span class="t">Setup repo hackathon</span>
+        <span class="d">Làm ngay khi BTC công bố team: tạo repo private, mời cả team và BTC vào repo.</span>
+      </div>
       <div class="card">
         <span class="n">Checklist bên phải</span>
         <span class="t">Tick khi xong</span>
-        <span class="d">Xếp đúng theo tên bước trong bài — A1, B3, C1… Tick tới đâu biết mình đang ở đâu tới đó.</span>
+        <span class="d">Xếp đúng theo tên bước trong bài — A1, B3, C1, D2… Tick tới đâu biết mình đang ở đâu tới đó.</span>
       </div>
     </div>
 
@@ -301,10 +307,11 @@
           <tr><td>Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a></td><td>Có mục <b>Claude</b>, và repo công ty nằm trong danh sách</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
           <tr><td>Hỏi Claude <i>"liệt kê repo tôi truy cập được trên GitHub"</i></td><td>Nó kể ra đúng repo công ty</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
           <tr><td>Mở VS Code và GitHub Desktop</td><td>Cả hai mở được, GitHub Desktop đã đăng nhập</td><td><a href="#cai-app" data-p="cai-app">02</a></td></tr>
+          <tr><td>Đã biết team và repo của team chưa</td><td>Repo <b>private</b> đã tạo, cả team và <b>sonnh@ownego.com</b> đã được mời</td><td><a href="#hackathon" data-p="hackathon">03 · D1–D3</a></td></tr>
         </tbody>
       </table>
     </div>
-    <p><span style="color:var(--muted)">Cả 4 đều đạt thì bạn xong rồi — chỉ cần tick nốt checklist bên phải.</span></p>
+    <p><span style="color:var(--muted)">Đạt hết thì bạn xong rồi — chỉ cần tick nốt checklist bên phải.</span></p>
 
     <h2>Claude Code, Chat, hay Cowork?</h2>
     <div class="tw">
@@ -844,6 +851,93 @@ git push</code></pre>
 
     <div class="pager">
       <a href="#nguoi-moi" data-p="nguoi-moi"><span>Quay lại</span><b>← 01 · Claude + GitHub</b></a>
+      <a href="#hackathon" data-p="hackathon"><span>Tiếp theo</span><b>03 · Setup repo hackathon →</b></a>
+    </div>
+  </section>
+
+  <!-- ══ 03 ══ -->
+  <section class="panel" id="p-hackathon">
+    <p class="eyebrow">03</p>
+    <h1>Setup repo cho ngày hackathon</h1>
+    <p class="lede">Làm ngay khi BTC công bố team. Bốn bước, khoảng 10 phút.</p>
+    <p><span style="color:var(--muted)"><b>21/8 · 14:30</b> công bố team → làm mục này ngay &nbsp;·&nbsp; <b>17:30</b> reveal đề &nbsp;·&nbsp; <b>22/8 · 09:00–16:00</b> code.</span></p>
+
+    <div class="note">
+      <span class="h">Bốn quy tắc bắt buộc</span>
+      <ul>
+        <li>Repo để ở <b>tài khoản cá nhân</b> của một thành viên — <b>không</b> tạo trong tổ chức <code>ownego</code>.</li>
+        <li>Để <b>Private</b>.</li>
+        <li>Mời <b>cả team</b> và <b>sonnh@ownego.com</b> vào repo.</li>
+        <li>Sau hackathon, repo nào ngon mới transfer về <code>ownego</code>.</li>
+      </ul>
+    </div>
+
+    <h2><span class="tag t-bot">D1</span> Tạo repo — một người trong team làm</h2>
+    <p>Mở <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">github.com/new</a>, điền 4 ô:</p>
+    <ul>
+      <li><b>Owner</b> — chọn <b>tên tài khoản của bạn</b>, không phải <code>ownego</code>.</li>
+      <li><b>Repository name</b> — <code>oeditions-&lt;tên-team&gt;</code>, không dấu, không khoảng trắng.</li>
+      <li>Chọn <b>Private</b> — mặc định đang là Public.</li>
+      <li>Tick <b>Add a README file</b> — repo rỗng sẽ khó clone về.</li>
+    </ul>
+    <div class="note warn">
+      <span class="h">Lỡ chọn nhầm Owner thành <code>ownego</code></span>
+      <p>Sửa được: <b>Settings → General → Transfer ownership</b>, chuyển về tài khoản bạn.</p>
+    </div>
+
+    <h2><span class="tag t-bot">D2</span> Mời cả team vào repo</h2>
+    <p>Trong repo: <b>Settings</b> → <b>Collaborators</b> → <b>Add people</b> → gõ <b>username GitHub</b> hoặc <b>email</b> của từng người. Quyền <b>Write</b> mặc định là đủ.</p>
+    <div class="note warn">
+      <span class="h">Mời xong chưa phải là xong</span>
+      <p>Mỗi người phải tự bấm <b>Accept invitation</b> trong email hoặc ở <a href="https://github.com/notifications" target="_blank" rel="noopener noreferrer">github.com/notifications</a>. Chưa accept thì repo không hiện ra trong GitHub Desktop — lý do số 1 khiến sáng hôm thi có người ngồi chờ.</p>
+    </div>
+
+    <h2><span class="tag t-hum">D3</span> Mời BTC vào repo</h2>
+    <p>Vẫn ở <b>Add people</b>, thêm địa chỉ này, rồi gửi link repo vào thread hackathon trên Slack:</p>
+    <div class="cmd">
+      <div class="bar"><b>Bắt buộc</b> · mời thêm địa chỉ này vào repo<button type="button" class="copy">Copy</button></div>
+      <pre><code>sonnh@ownego.com</code></pre>
+    </div>
+    <div class="note stop">
+      <span class="h">Repo Private thì không ai tự nhìn thấy</span>
+      <p>Chưa mời thì BTC không mở được repo của team bạn. Làm ngay lúc tạo repo, đừng để đến hôm thi.</p>
+    </div>
+
+    <h2><span class="tag t-bot">D4</span> Clone thử về máy</h2>
+    <p><b>GitHub Desktop</b> → <b>File</b> → <b>Clone repository</b> → tab <b>GitHub.com</b> → chọn repo → <b>Clone</b>. Sửa thử một dòng trong <code>README.md</code>, rồi <b>Commit to main</b> → <b>Push origin</b>. Thấy thay đổi hiện trên web là máy bạn đã sẵn sàng.</p>
+    <div class="note warn">
+      <span class="h">Không thấy repo trong danh sách?</span>
+      <p>Chưa bấm <b>Accept invitation</b>, hoặc GitHub Desktop đang đăng nhập nhầm tài khoản (<b>Settings → Accounts</b>). Chưa cài 2 app thì quay lại <a href="#cai-app" data-p="cai-app">mục 02</a> trước.</p>
+    </div>
+
+    <details class="opt">
+      <summary><span class="cv"></span>Nhờ Claude làm hộ D1 và D2<span class="hint">Tuỳ chọn</span></summary>
+      <div class="optbody">
+        <p>Làm bằng chuột ở trên đã đủ và ít sai hơn. Ai muốn thử thì mở <b>tab Code</b> của Claude (hoặc gõ <code>claude</code> trong Terminal/PowerShell) và dán:</p>
+        <div class="cmd tall">
+          <div class="bar">Prompt · dán vào tab Code của Claude<button type="button" class="copy">Copy</button></div>
+<pre><code>Tôi đang tham gia hackathon và cần dựng repo cho team. Giúp tôi:
+
+1. Kiểm tra máy đã có GitHub CLI (lệnh `gh`) và đã đăng nhập chưa.
+   Nếu chưa thì hướng dẫn tôi cài trước, đừng làm tiếp.
+
+2. Tạo repo GitHub tên "oeditions-team-X": PRIVATE, thuộc TÀI KHOẢN
+   CÁ NHÂN của tôi (KHÔNG thuộc tổ chức ownego), có sẵn README.md.
+
+3. Mời các thành viên sau làm collaborator, quyền write:
+   &lt;username-github-1&gt;, &lt;username-github-2&gt;
+
+4. In ra link repo và trạng thái lời mời của từng người.
+
+Nếu tôi chỉ có email chứ không có username GitHub thì đừng đoán —
+bảo tôi tự mời người đó ở Settings > Collaborators trên web.</code></pre>
+        </div>
+        <p>Sửa <code>oeditions-team-X</code> và danh sách username thành của team bạn trước khi gửi. Riêng <code>sonnh@ownego.com</code> thì cứ mời bằng email trên web như bước <b>D3</b>.</p>
+      </div>
+    </details>
+
+    <div class="pager">
+      <a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + GitHub Desktop</b></a>
       <span></span>
     </div>
   </section>
@@ -893,6 +987,16 @@ git push</code></pre>
           <label class="ck"><input type="checkbox"><span><b>Mở app lần đầu</b> · <b>Name</b> + <b>Email</b> trong <b>Settings → Git</b> đúng như bạn muốn hiện trên lịch sử code</span></label>
         </div>
       </details>
+
+      <details class="clg" data-page="hackathon" open>
+        <summary><span class="cv"></span>03 · Repo ngày hackathon<span class="gc">0/4</span></summary>
+        <div class="clbody">
+          <label class="ck"><input type="checkbox"><span><b>D1</b> · Tạo repo ở <b>tài khoản cá nhân</b>, để <b>Private</b></span></label>
+          <label class="ck"><input type="checkbox"><span><b>D2</b> · Mời cả team — và mọi người đã bấm <b>Accept invitation</b></span></label>
+          <label class="ck"><input type="checkbox"><span><b>D3</b> · Mời <b>sonnh@ownego.com</b> + gửi link repo lên Slack</span></label>
+          <label class="ck"><input type="checkbox"><span><b>D4</b> · Clone được về máy và <b>push</b> thử thành công</span></label>
+        </div>
+      </details>
     </div>
     <p class="railfoot">Xong một nhóm thì nó tự thu lại. Trạng thái lưu trong trình duyệt này.</p>
   </aside>
@@ -903,7 +1007,7 @@ git push</code></pre>
 <script>
 (function () {
   var root = document.documentElement;
-  var PAGES = ['bat-dau','nguoi-moi','cai-app'];
+  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon'];
 
   /* ── routing ─────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
