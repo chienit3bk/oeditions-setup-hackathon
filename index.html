@@ -948,7 +948,7 @@ git push</code></pre>
       <p>Đề bài và khung <code>README.md</code> sẽ hiện ở đây sau khi BTC công bố đề. Từ giờ tới lúc đó bạn cứ làm xong <b>D1 → D4</b> là đủ — repo dựng sẵn, cả team clone được về máy.</p>
     </div>
     <h2 class="lk-after"><span class="tag t-hum">D5</span> README mô tả bài thi</h2>
-    <p class="lk-after">Repo <b>bắt buộc</b> có <code>README.md</code> ở thư mục gốc, mô tả đủ 4 phần: <b>Spec</b>, <b>Prototype</b>, <b>Product</b>, <b>Responsibility note</b>. Thiếu Spec, Prototype hay Responsibility note là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>) — nên dựng khung sẵn từ hôm nay, ngày thi chỉ điền vào.</p>
+    <p class="lk-after">Repo <b>bắt buộc</b> có <code>README.md</code> ở thư mục gốc, mô tả đủ 3 phần: <b>Spec</b>, <b>Prototype</b>, <b>Product</b>. Thiếu Spec hay Prototype là <b>−5 điểm mỗi phần</b> (<a href="#luat" data-p="luat">mục 04</a>) — nên dựng khung sẵn từ hôm nay, ngày thi chỉ điền vào.</p>
     <div class="cmd tall lk-after">
       <div class="bar">README.md · khung sẵn, chỉ việc điền<button type="button" class="copy">Copy</button></div>
 <pre><code># &lt;Tên dự án&gt; — Team &lt;tên team&gt;
@@ -981,17 +981,6 @@ thư mục prototype/ rồi chèn vào đây.&gt;
 ```
 
 **Chưa kịp làm:** &lt;phần còn dang dở, ghi thật&gt;
-
-## 4. Responsibility note
-
-Ghi rõ đóng góp CỤ THỂ của từng thành viên. Phần không phải code
-(thiết kế, tài liệu, test, thuyết trình…) cũng ghi vào đây — đó là
-chỗ duy nhất nó được ghi nhận.
-
-| Thành viên | Đã làm gì | Dấu vết trong repo |
-|---|---|---|
-| &lt;tên&gt; | &lt;phần việc&gt; | &lt;PR / commit / file&gt; |
-| &lt;tên&gt; | &lt;phần việc&gt; | &lt;PR / commit / file&gt; |
 </code></pre>
     </div>
     <p class="lk-after"><span style="color:var(--muted)">Bắt đầu code: mở thư mục vừa clone trong <b>tab Code</b> của app Claude, hoặc <code>cd</code> vào rồi gõ <code>claude</code>. Connector ở mục 01 chỉ để Claude <b>đọc</b> repo trên mạng — đẩy code lên vẫn dùng đăng nhập git của bạn.</span></p>
@@ -1043,7 +1032,7 @@ chỗ duy nhất nó được ghi nhận.
     </div>
     <p class="lk-after">Cách đo, danh sách file không tính, và <b>lệnh tự kiểm tra</b> nằm ở <a href="#luat" data-p="luat" onclick="document.getElementById('dong-gop').scrollIntoView({behavior:'smooth'});return false;">cuối trang này</a>. Chạy thử trong lúc thi để còn kịp cân lại phần việc.</p>
 
-    <h2 class="lk-after">Bốn thứ phải nộp</h2>
+    <h2 class="lk-after">Ba thứ phải nộp</h2>
     <p class="lk-after">Dựng sẵn khung <code>README.md</code> ở <a href="#hackathon" data-p="hackathon">mục 03 · D5</a> từ hôm nay, ngày thi chỉ việc điền.</p>
     <div class="lk-after tw">
       <table>
@@ -1052,7 +1041,6 @@ chỗ duy nhất nó được ghi nhận.
           <tr><td><b>1 · Spec</b></td><td>Mô tả ngắn gọn vấn đề đang giải quyết &amp; hướng giải pháp</td></tr>
           <tr><td><b>2 · Prototype</b></td><td>Bản demo/mockup thể hiện ý tưởng — UI mockup, flow, wireframe…</td></tr>
           <tr><td><b>3 · Product</b></td><td>Phần build thật, phải chạy được dù chỉ ở mức MVP</td></tr>
-          <tr><td><b>4 · Responsibility note</b></td><td>Ghi rõ đóng góp cụ thể của <b>từng thành viên</b> — kể cả phần không phải code</td></tr>
         </tbody>
       </table>
     </div>
@@ -1062,7 +1050,7 @@ chỗ duy nhất nó được ghi nhận.
       <table>
         <thead><tr><th>Tiêu chí</th><th>Điểm</th><th>Ai chấm</th></tr></thead>
         <tbody>
-          <tr><td><b>Commitment</b></td><td><b>30</b></td><td><b>% đóng góp trên GitHub</b> của từng thành viên (commit / dòng code), kết hợp <b>Responsibility note</b> để ghi nhận phần đóng góp không phải code</td></tr>
+          <tr><td><b>Commitment</b></td><td><b>30</b></td><td><b>% đóng góp trên GitHub</b> của từng thành viên (commit / dòng code)</td></tr>
           <tr><td><b>Idea</b></td><td><b>30</b></td><td>Khán giả vote tối đa <b>20</b> + giám khảo tối đa <b>10</b></td></tr>
           <tr><td><b>Thuyết trình</b></td><td><b>20</b></td><td>Giám khảo — rõ ràng, súc tích, thuyết phục</td></tr>
           <tr><td><b>Demo</b></td><td><b>20</b></td><td>Giám khảo — thể hiện đúng trải nghiệm cốt lõi, chứng minh ý tưởng khả thi</td></tr>
@@ -1079,7 +1067,7 @@ chỗ duy nhất nó được ghi nhận.
     <p class="lk-after"><span style="color:var(--muted)">Ví dụ: team cao nhất 40 vote → 20 điểm. Team X được 25 vote → (25 / 40) × 20 = <b>12,5 điểm</b>.</span></p>
 
     <h2 class="lk-after">Trừ điểm</h2>
-    <p class="lk-after">Trừ thẳng vào tổng 100, các lỗi <b>cộng dồn</b>. Bốn lỗi đầu là lỗi <b>quên nộp</b>, mỗi lỗi <b>−5</b> — tránh được hoàn toàn bằng chuẩn bị trước. Lỗi thứ năm là lỗi <b>chia việc</b>, nặng hơn hẳn (<b>−20</b>), phải theo dõi trong lúc thi.</p>
+    <p class="lk-after">Trừ thẳng vào tổng 100, các lỗi <b>cộng dồn</b>. Ba lỗi đầu là lỗi <b>quên nộp</b>, mỗi lỗi <b>−5</b> — tránh được hoàn toàn bằng chuẩn bị trước. Lỗi thứ tư là lỗi <b>chia việc</b>, nặng hơn hẳn (<b>−20</b>), phải theo dõi trong lúc thi.</p>
     <div class="lk-after tw">
       <table>
         <thead><tr><th>Vi phạm</th><th>Trừ</th></tr></thead>
@@ -1087,15 +1075,14 @@ chỗ duy nhất nó được ghi nhận.
           <tr><td>Nộp bài muộn so với deadline</td><td><b>−5</b></td></tr>
           <tr><td>Thiếu Spec</td><td><b>−5</b></td></tr>
           <tr><td>Thiếu Prototype</td><td><b>−5</b></td></tr>
-          <tr><td>Thiếu Responsibility note</td><td><b>−5</b></td></tr>
           <tr><td><b>Vi phạm Contribution rule</b> — có thành viên đóng góp <b>dưới 10%</b> hoặc <b>trên 30%</b></td><td><b>−20</b></td></tr>
         </tbody>
       </table>
     </div>
     <div class="lk-after note stop">
-      <span class="h">Mất trắng 35 điểm mà không viết sai dòng code nào</span>
-      <p>Thiếu cả Spec, Prototype, Responsibility note và lệch contribution rule là <b>−35</b> — hơn cả tổng điểm Thuyết trình và Demo cộng lại. Ba lỗi đầu tránh được bằng khung <code>README.md</code> dựng sẵn; lỗi contribution tránh được bằng cách chạy lệnh tự kiểm tra vài lần trong ngày thi.</p>
-      <p>Điểm cuối = tổng 4 tiêu chí − tổng trừ, <b>không xuống dưới 0</b>. Trừ tối đa <b>−40</b>.</p>
+      <span class="h">Mất trắng 30 điểm mà không viết sai dòng code nào</span>
+      <p>Thiếu cả Spec, Prototype và lệch contribution rule là <b>−30</b> — hơn cả điểm Thuyết trình. Hai lỗi đầu tránh được bằng khung <code>README.md</code> dựng sẵn; lỗi contribution tránh được bằng cách chạy lệnh tự kiểm tra vài lần trong ngày thi.</p>
+      <p>Điểm cuối = tổng 4 tiêu chí − tổng trừ, <b>không xuống dưới 0</b>. Trừ tối đa <b>−35</b>.</p>
     </div>
 
     <h2 class="lk-after">Năm track để chọn</h2>
@@ -1245,7 +1232,7 @@ END {
           <label class="ck"><input type="checkbox" data-id="d2"><span><b>D2</b> · Mời cả team — và mọi người đã bấm <b>Accept invitation</b></span></label>
           <label class="ck"><input type="checkbox" data-id="d3"><span><b>D3</b> · Mời <b>juzser</b> vào repo + gửi link repo lên Slack</span></label>
           <label class="ck"><input type="checkbox" data-id="d4"><span><b>D4</b> · Cả team clone được về máy và <b>push</b> thử thành công</span></label>
-          <label class="ck lk-after"><input type="checkbox" data-id="d5"><span><b>D5</b> · <code>README.md</code> đã có khung 4 phần của bài thi</span></label>
+          <label class="ck lk-after"><input type="checkbox" data-id="d5"><span><b>D5</b> · <code>README.md</code> đã có khung 3 phần của bài thi</span></label>
         </div>
       </details>
 
