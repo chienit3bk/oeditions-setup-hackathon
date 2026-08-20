@@ -1189,9 +1189,11 @@ END {
         <span class="ttl">Checklist</span>
         <span class="cnt" id="cnt">0 / 0</span>
         <span class="track"><span class="fill" id="fill"></span></span>
+        <button type="button" id="clToggle" aria-expanded="false">Hiện</button>
         <button type="button" id="reset">Xoá</button>
       </div>
 
+      <div id="clgroups">
       <details class="clg" data-page="nguoi-moi" open>
         <summary><span class="cv"></span>01 · Phần A — Có Claude<span class="gc">0/1</span></summary>
         <div class="clbody">
@@ -1244,8 +1246,9 @@ END {
           <label class="ck"><input type="checkbox" data-id="e3"><span><b>E3</b> · Đã chạy lệnh tự kiểm tra — cả đội đều trong <b>10–30%</b></span></label>
         </div>
       </details>
+      </div>
     </div>
-    <p class="railfoot">Xong một nhóm thì nó tự thu lại. Trạng thái lưu trong trình duyệt này.</p>
+    <p class="railfoot" id="railfoot">Xong một nhóm thì nó tự thu lại. Trạng thái lưu trong trình duyệt này.</p>
   </aside>
 </div>
 
@@ -1459,6 +1462,29 @@ END {
 
   renderAll(false);
   onUnlock.push(function () { renderAll(false); });
+
+  // ẩn danh sách checklist mặc định, chỉ hiện thanh tiến độ — bấm Hiện để mở
+  var COLLAPSE_KEY = 'mmnd-check-collapsed-v1';
+  var clgroups = document.getElementById('clgroups');
+  var railfoot = document.getElementById('railfoot');
+  var clToggle = document.getElementById('clToggle');
+  var collapsed = true;
+  try { var cv = localStorage.getItem(COLLAPSE_KEY); collapsed = cv === null ? true : cv === '1'; } catch (e) {}
+
+  function applyCollapse() {
+    clgroups.hidden = collapsed;
+    railfoot.hidden = collapsed;
+    clToggle.textContent = collapsed ? 'Hiện' : 'Ẩn';
+    clToggle.setAttribute('aria-expanded', String(!collapsed));
+  }
+
+  clToggle.addEventListener('click', function () {
+    collapsed = !collapsed;
+    try { localStorage.setItem(COLLAPSE_KEY, collapsed ? '1' : '0'); } catch (e) {}
+    applyCollapse();
+  });
+
+  applyCollapse();
   window.__railFocus(location.hash.slice(1) || PAGES[0]);
 })();
 </script>
