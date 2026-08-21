@@ -1392,13 +1392,14 @@ END {
 
   var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat','dem-nguoc','thuyet-trinh'];
   var FOCUS_PAGES = ['dem-nguoc','thuyet-trinh'];
+  var DEFAULT_PAGE = 'dem-nguoc';
 
   /* ── routing ─────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
   var side = document.getElementById('side');
 
   function show(page, push) {
-    if (PAGES.indexOf(page) === -1) page = PAGES[0];
+    if (PAGES.indexOf(page) === -1) page = DEFAULT_PAGE;
     PAGES.forEach(function (p) {
       var el = document.getElementById('p-' + p);
       if (el) el.classList.toggle('on', p === page);
@@ -1418,7 +1419,7 @@ END {
     a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.p, true); });
   });
   window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
-  show(location.hash.slice(1) || PAGES[0], false);
+  show(location.hash.slice(1) || DEFAULT_PAGE, false);
 
   document.getElementById('menubtn').addEventListener('click', function () {
     var open = side.classList.toggle('open');
@@ -1601,7 +1602,7 @@ END {
   });
 
   applyCollapse();
-  window.__railFocus(location.hash.slice(1) || PAGES[0]);
+  window.__railFocus(location.hash.slice(1) || DEFAULT_PAGE);
 
   /* ── tab ẩn: đếm giờ Oekathon + đồng hồ thuyết trình ── */
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
