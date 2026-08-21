@@ -99,6 +99,7 @@
     padding:9px 12px; border-radius:8px; color:var(--ink-2); font-size:14.5px; line-height:1.35;
   }
   nav.side a .nu { font-family:var(--mono); font-size:11px; color:var(--muted); flex:none; }
+  nav.side a .opt-mark { margin-left:auto; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); flex:none; }
   nav.side a:hover { background:var(--surface-2); }
   nav.side a.on { background:var(--bot-soft); color:var(--bot); font-weight:640; }
   nav.side a.on .nu { color:var(--bot); }
@@ -323,7 +324,7 @@
     <ol>
       <li><a href="#bat-dau" data-p="bat-dau"><span class="nu">00</span> Bắt đầu ở đâu</a></li>
       <li><a href="#nguoi-moi" data-p="nguoi-moi"><span class="nu">01</span> Claude + GitHub</a></li>
-      <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop</a></li>
+      <li><a href="#cai-app" data-p="cai-app"><span class="nu">02</span> Cài VS Code + GitHub Desktop<span class="opt-mark">Tuỳ chọn</span></a></li>
       <li><a href="#hackathon" data-p="hackathon"><span class="nu">03</span> Setup repo hackathon</a></li>
       <li class="lk-after"><a href="#luat" data-p="luat"><span class="nu">04</span> Luật thi &amp; chấm điểm</a></li>
     </ol>
@@ -350,9 +351,9 @@
         <span class="d">Cài Claude, tạo tài khoản GitHub, nối hai cái lại để AI đọc được repo của bạn. Toàn bộ bằng chuột.</span>
       </div>
       <div class="card bot">
-        <span class="n">Mục 02 · ~5 phút</span>
+        <span class="n">Mục 02 · ~5 phút · Tuỳ chọn</span>
         <span class="t">Cài 2 app</span>
-        <span class="d">VS Code + GitHub Desktop. Dán một đoạn lệnh là xong, kèm phần chứng minh lệnh đó an toàn.</span>
+        <span class="d">VS Code + GitHub Desktop. Cần nếu bạn code trên máy hoặc dùng Claude qua Token Slayer — chỉ dùng Tab Chat trên web thì bỏ qua. Dán một đoạn lệnh là xong, kèm phần chứng minh lệnh đó an toàn.</span>
       </div>
       <div class="card hum">
         <span class="n">Mục 03 · ~10 phút</span>
@@ -380,7 +381,7 @@
           <tr><td>Mở app Claude trên máy</td><td>Đăng nhập được, và có tab <b>Code</b></td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · A2</a></td></tr>
           <tr><td>Vào <a href="https://github.com/settings/installations" target="_blank" rel="noopener noreferrer">github.com/settings/installations</a></td><td>Có mục <b>Claude</b> trong danh sách</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
           <tr><td>Hỏi Claude <i>"liệt kê repo tôi truy cập được trên GitHub"</i></td><td>Nó kể ra đúng repo bạn đã tick</td><td><a href="#nguoi-moi" data-p="nguoi-moi">01 · C1</a></td></tr>
-          <tr><td>Mở VS Code và GitHub Desktop</td><td>Cả hai mở được, GitHub Desktop đã đăng nhập</td><td><a href="#cai-app" data-p="cai-app">02</a></td></tr>
+          <tr><td>Mở VS Code và GitHub Desktop <span class="tag t-hum">Tuỳ chọn</span></td><td>Cả hai mở được, GitHub Desktop đã đăng nhập — bỏ qua nếu bạn chỉ dùng Tab Chat trên web</td><td><a href="#cai-app" data-p="cai-app">02</a></td></tr>
           <tr><td>Đã biết team và repo của team chưa</td><td>Repo <b>private</b> đã tạo, cả team và <b>juzser</b> đã được mời</td><td><a href="#hackathon" data-p="hackathon">03 · D1–D3</a></td></tr>
         </tbody>
       </table>
@@ -419,21 +420,22 @@
     </div>
 
     <h2><span class="tag t-hum">Phần A</span> Có Claude để dùng</h2>
-    <p>Hai đường, <b>chọn một là đủ</b> cho mục 01 — nối GitHub ở đường nào cũng ra kết quả y hệt vì connector gắn vào tài khoản chứ không gắn vào máy.</p>
-    <h3>A1 · Nhanh nhất: dùng trên web</h3>
+    <p>Hai đường, <b>chọn một là đủ</b> cho mục 01 — nối GitHub ở đường nào cũng ra kết quả y hệt vì connector gắn vào tài khoản chứ không gắn vào máy. <b>Khuyên dùng A1 (web)</b> — dễ nối GitHub nhất, không cần cài gì. A2 + mục 02 (VS Code, tuỳ chọn) chỉ cần nếu bạn muốn code trên máy, hoặc đang dùng Claude qua <b>Token Slayer</b>.</p>
+    <h3>A1 · Nhanh nhất: dùng trên web <span class="tag t-bot">Khuyên dùng</span></h3>
     <ol>
       <li>Mở <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> → <b>Sign in</b> → đăng nhập bằng tài khoản Claude công ty cấp.</li>
       <li>Thấy khung chat là xong, không cần cài gì.</li>
     </ol>
     <div class="note warn">
       <span class="h">Chưa được cấp tài khoản Claude thì làm gì</span>
-      <p>Nhắn <b>chiennv</b> hoặc <b>tungot</b> trên <b>Slack</b> để được setup qua Token Slayer <b>ngay trước sáng thứ Bảy</b> (ngày thi). Hướng dẫn tự setup: <a href="https://token-slayer.ownego.com/setup" target="_blank" rel="noopener noreferrer">token-slayer.ownego.com/setup</a> (cần cài VS Code trước — xem <a href="#cai-app" data-p="cai-app">mục 02</a>, có sẵn cho cả macOS lẫn Windows). Trong lúc chờ, bạn vẫn làm được <b>Phần B</b> (tài khoản GitHub) và cả <b>mục 02</b> — chỉ Phần C là phải có tài khoản Claude.</p>
+      <p>Nhắn <b>chiennv</b> hoặc <b>tungot</b> trên <b>Slack</b> để được setup qua Token Slayer <b>ngay trước sáng thứ Bảy</b> (ngày thi). Token Slayer cấp quyền qua <b>CLI</b>, không đăng nhập được ở claude.ai web — nên bạn sẽ dùng Claude qua <b>Terminal hoặc VS Code</b> thay vì web. Hướng dẫn tự setup: <a href="https://token-slayer.ownego.com/setup" target="_blank" rel="noopener noreferrer">token-slayer.ownego.com/setup</a> (cần cài VS Code trước — xem <a href="#cai-app" data-p="cai-app">mục 02</a>, có sẵn cho cả macOS lẫn Windows). Trong lúc chờ, bạn vẫn làm được <b>Phần B</b> (tài khoản GitHub) và cả <b>mục 02</b> — chỉ Phần C là phải có tài khoản Claude.</p>
     </div>
     <div class="osnow">
       <span class="cur">Trang đang hiện hướng dẫn cho <b class="os os-mac">macOS</b><b class="os os-win">Windows</b> — chọn ở góc trên bên phải, hoặc bấm ngay đây.</span>
       <button type="button" class="osflip"><span class="os os-mac">Máy tôi là Windows</span><span class="os os-win">Máy tôi là macOS</span></button>
     </div>
-    <h3>A2 · App trên máy (nên cài, để dành cho mục 02)</h3>
+    <h3>A2 · App trên máy <span class="tag t-hum">Tuỳ chọn</span></h3>
+    <p>Cần nếu bạn dùng Claude qua <b>Token Slayer</b>, hoặc muốn cài VS Code ở mục 02 để code trên máy. Chỉ dùng Tab Chat trên web thì bỏ qua, dùng A1 là đủ.</p>
     <ol>
       <li class="os os-mac">Tải bản macOS tại <a href="https://claude.com/download" target="_blank" rel="noopener noreferrer">claude.com/download</a>, mở file rồi kéo icon Claude vào thư mục <b>Applications</b>.</li>
       <li class="os os-win">Tải bản Windows tại <a href="https://claude.com/download" target="_blank" rel="noopener noreferrer">claude.com/download</a>, chạy file cài đặt, bấm Next → Install.</li>
@@ -604,9 +606,9 @@
 
   <!-- ══ 02 ══ -->
   <section class="panel" id="p-cai-app">
-    <p class="eyebrow">02</p>
+    <p class="eyebrow">02 · <span class="tag t-hum">Tuỳ chọn</span></p>
     <h1>Cài VS Code + GitHub Desktop</h1>
-    <p class="lede">Một đoạn lệnh dán vào là cài xong cả 2 app, kèm phần chứng minh vì sao đoạn lệnh đó an toàn để bạn tự kiểm tra trước khi chạy.</p>
+    <p class="lede">Không bắt buộc — cần nếu bạn muốn code trên máy (Tab Code / CLI), hoặc đang dùng Claude qua <b>Token Slayer</b> (không đăng nhập được ở claude.ai web, phải dùng qua Terminal/VS Code). Chỉ dùng <b>Tab Chat</b> trên web thì bỏ qua mục này. Một đoạn lệnh dán vào là cài xong cả 2 app, kèm phần chứng minh vì sao đoạn lệnh đó an toàn để bạn tự kiểm tra trước khi chạy.</p>
 
     <h2>Hai app này để làm gì</h2>
     <p>Ngắn gọn: <b>GitHub</b> giữ bản gốc trên mạng, <b>VS Code</b> là chỗ bạn đọc và sửa trên máy mình, <b>GitHub Desktop</b> đưa qua đưa lại giữa hai bên.</p>
@@ -990,7 +992,7 @@ git push</code></pre>
     <p><span style="color:var(--muted)">Mời bằng email <code>sonnh@ownego.com</code> cũng ra đúng tài khoản này. Repo Private mà quên mời thì BTC không mở được repo của team bạn.</span></p>
 
     <h2><span class="tag t-bot">D4</span> Cả team clone thử trước ngày thi</h2>
-    <p>Mỗi người clone repo về máy, sửa thử một dòng rồi <b>push</b> — để phát hiện trục trặc lúc còn kịp sửa, đừng để sáng 22/8. Chưa cài VS Code / GitHub Desktop thì quay lại <a href="#cai-app" data-p="cai-app">mục 02</a>.</p>
+    <p>Mỗi người clone repo về máy, sửa thử một dòng rồi <b>push</b> — để phát hiện trục trặc lúc còn kịp sửa, đừng để sáng 22/8. Dùng GitHub Desktop, git CLI, hay nhờ Claude gõ lệnh hộ đều được — muốn cài GitHub Desktop + VS Code (tuỳ chọn) thì xem <a href="#cai-app" data-p="cai-app">mục 02</a>.</p>
     <div class="note stop">
       <span class="h">Ai làm phần nào thì tự commit phần đó</span>
       <p class="lk-while">Đóng góp của từng người được đo bằng <b>lịch sử GitHub</b>, nên đừng gom code cho một người commit hộ. Kiểm tra <code>git config user.name</code> và <code>user.email</code> giống nhau trên mọi máy bạn dùng — khai lệch là bị đếm thành hai người.</p>
@@ -1038,7 +1040,7 @@ thư mục prototype/ rồi chèn vào đây.&gt;
 **Chưa kịp làm:** &lt;phần còn dang dở, ghi thật&gt;
 </code></pre>
     </div>
-    <p class="lk-after"><span style="color:var(--muted)">Bắt đầu code: mở thư mục vừa clone bằng <b>VS Code</b> → mở <b>Terminal</b> (menu <b>Terminal → New Terminal</b>) → gõ <code>claude</code>. Không cần tự đi tìm cài plugin gì cả — lần đầu chạy trong VS Code, Claude Code tự hỏi cài <b>extension tích hợp IDE</b>, bấm đồng ý là xong; có nó thì Claude sửa file là hiện diff ngay trong VS Code, không phải tự mở lại để xem. Connector ở mục 01 chỉ để Claude <b>đọc</b> repo trên mạng — đẩy code lên vẫn dùng đăng nhập git của bạn.</span></p>
+    <p class="lk-after"><span style="color:var(--muted)">Bắt đầu code: mở thư mục vừa clone bằng <b>VS Code</b> → mở <b>Terminal</b> (menu <b>Terminal → New Terminal</b>) → gõ <code>claude</code>. Không cần tự đi tìm cài plugin gì cả — lần đầu chạy trong VS Code, Claude Code tự hỏi cài <b>extension tích hợp IDE</b>, bấm đồng ý là xong; có nó thì Claude sửa file là hiện diff ngay trong VS Code, không phải tự mở lại để xem. Chưa cài VS Code (<a href="#cai-app" data-p="cai-app">mục 02</a>, tuỳ chọn) thì <code>cd</code> vào thư mục repo trong Terminal/PowerShell rồi gõ <code>claude</code> vẫn được, chỉ là không có diff trực quan. Connector ở mục 01 chỉ để Claude <b>đọc</b> repo trên mạng — đẩy code lên vẫn dùng đăng nhập git của bạn.</span></p>
 
     <div class="pager">
       <a href="#cai-app" data-p="cai-app"><span>Quay lại</span><b>← 02 · Cài VS Code + GitHub Desktop</b></a>
@@ -1310,7 +1312,7 @@ END {
       </details>
 
       <details class="clg" data-page="cai-app" open>
-        <summary><span class="cv"></span>02 · Cài 2 app<span class="gc">0/4</span></summary>
+        <summary><span class="cv"></span>02 · Cài 2 app<span class="tag t-hum">Tuỳ chọn</span><span class="gc">0/4</span></summary>
         <div class="clbody">
           <label class="ck"><input type="checkbox" data-id="app-install"><span>Chạy xong đoạn lệnh cài, không báo lỗi</span></label>
           <label class="ck"><input type="checkbox" data-id="app-vscode"><span><b>Mở app lần đầu</b> · VS Code mở được và đã <b>Sign in with GitHub</b></span></label>
