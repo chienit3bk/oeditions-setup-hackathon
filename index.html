@@ -6,6 +6,10 @@
 <meta name="description" content="Hướng dẫn onboarding máy dev: cài Claude, tạo tài khoản GitHub, nối GitHub vào AI, và để Claude tự setup máy. Dùng chung cho macOS và Windows.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
 <title>Oeditions Hackathon Setup</title>
+<!-- Chỉ dùng cho 2 trang ẩn #dem-nguoc / #thuyet-trinh (xem data-focus trong CSS) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,wdth@6..144,1..1000,25..151&display=swap" rel="stylesheet">
 <style>
   :root {
     --ground:#F4F7F6; --surface:#FFFFFF; --surface-2:#EAEFEE;
@@ -248,25 +252,45 @@
     aside.rail { grid-column:1; }
   }
 
-  /* ── tab ẩn: đếm giờ + đồng hồ thuyết trình (chiếu màn hình) ── */
-  .bigclock { background:var(--code-bg); border:1px solid var(--code-line); border-radius:var(--r); padding:34px 22px; text-align:center; }
-  .bigclock .lbl { font-family:var(--mono); font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--code-ink); opacity:.62; }
-  .bigclock .num { margin-top:10px; font-family:var(--mono); font-weight:700; font-variant-numeric:tabular-nums; font-size:clamp(38px,8vw,96px); line-height:1; letter-spacing:.01em; color:var(--code-ink); }
-  .bigclock .num.c-run { color:#52CFBC; }
-  .bigclock .num.c-warn { color:#E0A55E; }
-  .bigclock .num.c-stop { color:#EE8478; }
-  .bigclock .sub { margin-top:12px; font-size:14.5px; color:var(--code-ink); opacity:.72; }
-  .pres-ctl { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:22px; }
-  .pres-ctl button { font:650 14px/1 var(--sans); padding:11px 20px; border-radius:999px; border:1px solid var(--code-line); background:transparent; color:var(--code-ink); cursor:pointer; }
-  .pres-ctl button:hover:not(:disabled) { border-color:var(--code-ink); }
-  .pres-ctl button:disabled { opacity:.4; cursor:default; }
-  .pres-ctl button.go { background:#52CFBC; border-color:#52CFBC; color:#08201D; }
-  .pres-ctl button.go:hover:not(:disabled) { border-color:#52CFBC; }
+  /* ── tab ẩn: đếm giờ + đồng hồ thuyết trình (chiếu màn hình) ──
+     Bảng màu / font riêng cho hai trang này, phỏng theo oeditions.ownego.com/rules
+     (nền #0a0a0a, chữ #f5f5f0, font Google Sans Flex) — chỉ áp dụng khi
+     data-focus="1", không đụng tới theme sáng/tối của phần còn lại của trang. */
+  :root[data-focus="1"] {
+    --ground:#0a0a0a; --surface:#0e0e0e; --surface-2:#141414;
+    --ink:#f5f5f0; --ink-2:#c4c4bd; --muted:#8f8f88;
+    --line:#2b2b2b; --line-soft:#232323;
+    --sans:'Google Sans Flex', system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
   :root[data-focus="1"] .top, :root[data-focus="1"] .side, :root[data-focus="1"] aside.rail { display:none !important; }
-  :root[data-focus="1"] .wrap { grid-template-columns:1fr; padding-top:34px; }
-  :root[data-focus="1"] main { max-width:920px; margin:0 auto; }
-  .fsbtn { align-self:center; font:600 13px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; padding:9px 16px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer; }
-  .fsbtn:hover { color:var(--ink); border-color:var(--muted); }
+  :root[data-focus="1"] .wrap { display:block; max-width:none; padding:0; }
+  :root[data-focus="1"] main { max-width:none; margin:0; padding:0; }
+  :root[data-focus="1"] body { background:var(--ground); }
+
+  .focus-page { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:60px 24px 120px; }
+  .focus-eyebrow { font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+  .focus-label { font-family:var(--sans); font-size:clamp(15px,2.4vw,22px); font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-2); margin-bottom:8px; }
+  .focus-num { font-family:var(--sans); font-weight:700; font-variant-numeric:tabular-nums; font-size:clamp(64px,15vw,200px); line-height:1; letter-spacing:-0.01em; color:var(--ink); }
+  .focus-num.c-run { color:#6FE7D2; text-shadow:0 0 70px rgba(111,231,210,.35); }
+  .focus-num.c-warn { color:#F0B872; text-shadow:0 0 70px rgba(240,184,114,.35); }
+  .focus-num.c-stop { color:#F5978A; text-shadow:0 0 70px rgba(245,151,138,.35); }
+  .focus-sub { margin-top:24px; max-width:60ch; font-family:var(--sans); font-size:15px; color:var(--muted); line-height:1.6; }
+  .focus-ctl { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:42px; }
+  .focus-ctl button { font-family:var(--sans); font-size:12px; text-transform:uppercase; font-weight:700; letter-spacing:.04em; background:transparent; color:var(--ink); border:1px solid #3a3a3a; border-radius:4px; padding:14px 24px; cursor:pointer; transition:border-color .2s, background .2s; }
+  .focus-ctl button:hover:not(:disabled) { border-color:#4a4a44; background:#141414; }
+  .focus-ctl button:disabled { opacity:.35; cursor:default; }
+  .focus-ctl button.go { background:var(--ink); color:#0a0a0a; border-color:var(--ink); box-shadow:0 0 24px rgba(245,245,240,.25); }
+  .focus-ctl button.go:hover:not(:disabled) { background:#fff; border-color:#fff; }
+  .focus-fs { position:fixed; top:22px; right:24px; font-family:var(--sans); font-size:11px; text-transform:uppercase; font-weight:700; letter-spacing:.04em; background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:4px; padding:9px 14px; cursor:pointer; }
+  .focus-fs:hover { color:var(--ink); border-color:#4a4a44; }
+  .focus-nav { position:fixed; bottom:26px; left:0; right:0; display:flex; justify-content:center; align-items:center; gap:14px; font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
+  .focus-nav a { color:var(--muted); }
+  .focus-nav a:hover { color:var(--ink); }
+  .focus-nav .dot { opacity:.5; }
+  @media (max-width:620px) {
+    .focus-fs { top:14px; right:14px; padding:8px 11px; }
+    .focus-nav { bottom:16px; gap:10px; flex-wrap:wrap; padding:0 14px; }
+  }
 </style>
 </head>
 <body>
@@ -1202,28 +1226,38 @@ END {
 
   <!-- ══ ẩn — không có trong menu, vào bằng link #dem-nguoc ══ -->
   <section class="panel" id="p-dem-nguoc">
-    <p class="eyebrow">Tab ẩn — dùng để chiếu màn hình ngày thi, không có trong menu</p>
-    <h1>Đếm giờ Oekathon 2026</h1>
-    <p class="lede">Bấm <b>Toàn màn hình</b> để chiếu sạch, không menu không checklist. Link tắt: thêm <code>#dem-nguoc</code> vào cuối URL trang này.</p>
-    <button type="button" class="fsbtn" id="fsbtn">Toàn màn hình</button>
-
-    <div class="bigclock">
-      <div class="lbl" id="hackLbl">—</div>
-      <div class="num" id="hackNum">00:00:00</div>
-      <div class="sub" id="hackSub">—</div>
+    <div class="focus-page">
+      <div class="focus-eyebrow">Oekathon 2026 · Đếm giờ</div>
+      <div class="focus-label" id="hackLbl">—</div>
+      <div class="focus-num" id="hackNum">00:00:00</div>
+      <div class="focus-sub" id="hackSub">—</div>
     </div>
+    <button type="button" class="focus-fs" id="fsbtn1">Toàn màn hình</button>
+    <div class="focus-nav">
+      <a href="#thuyet-trinh" data-p="thuyet-trinh">Đồng hồ thuyết trình →</a>
+      <span class="dot">·</span>
+      <a href="#bat-dau" data-p="bat-dau">← Trang chính</a>
+    </div>
+  </section>
 
-    <h2>Đồng hồ thuyết trình — 20 phút / đội</h2>
-    <p><b>0–13 phút</b> trình bày, <b>13–20 phút</b> Q&amp;A. Bấm <b>Đặt lại</b> trước khi gọi đội tiếp theo lên.</p>
-    <div class="bigclock">
-      <div class="lbl" id="presLbl">Trình bày · phút 0–13</div>
-      <div class="num c-run" id="presNum">20:00</div>
-      <div class="sub">13 phút trình bày + 7 phút Q&amp;A</div>
-      <div class="pres-ctl">
+  <!-- ══ ẩn — không có trong menu, vào bằng link #thuyet-trinh ══ -->
+  <section class="panel" id="p-thuyet-trinh">
+    <div class="focus-page">
+      <div class="focus-eyebrow">Oekathon 2026 · Thuyết trình — 20 phút / đội</div>
+      <div class="focus-label" id="presLbl">Trình bày · phút 0–13</div>
+      <div class="focus-num c-run" id="presNum">20:00</div>
+      <div class="focus-sub">13 phút trình bày + 7 phút Q&amp;A · bấm Đặt lại trước khi gọi đội tiếp theo</div>
+      <div class="focus-ctl">
         <button type="button" class="go" id="presStart">Bắt đầu</button>
         <button type="button" id="presPause" disabled>Tạm dừng</button>
         <button type="button" id="presReset">Đặt lại</button>
       </div>
+    </div>
+    <button type="button" class="focus-fs" id="fsbtn2">Toàn màn hình</button>
+    <div class="focus-nav">
+      <a href="#dem-nguoc" data-p="dem-nguoc">Đếm giờ hackathon →</a>
+      <span class="dot">·</span>
+      <a href="#bat-dau" data-p="bat-dau">← Trang chính</a>
     </div>
   </section>
 
@@ -1323,7 +1357,8 @@ END {
     }, 20000);
   }
 
-  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat','dem-nguoc'];
+  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat','dem-nguoc','thuyet-trinh'];
+  var FOCUS_PAGES = ['dem-nguoc','thuyet-trinh'];
 
   /* ── routing ─────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
@@ -1340,7 +1375,7 @@ END {
     });
     if (push && location.hash !== '#' + page) history.pushState(null, '', '#' + page);
     if (window.__railFocus) window.__railFocus(page);
-    root.setAttribute('data-focus', page === 'dem-nguoc' ? '1' : '0');
+    root.setAttribute('data-focus', FOCUS_PAGES.indexOf(page) === -1 ? '0' : '1');
     side.classList.remove('open');
     document.getElementById('menubtn').setAttribute('aria-expanded', 'false');
     window.scrollTo(0, 0);
@@ -1567,7 +1602,7 @@ END {
     var days = Math.floor(totalSec / 86400);
     var rem = totalSec % 86400;
     hackNum.textContent = (days > 0 ? days + ' ngày ' : '') + fmtHMS(rem);
-    hackNum.className = 'num' + (cls ? ' ' + cls : '');
+    hackNum.className = 'focus-num' + (cls ? ' ' + cls : '');
     hackLbl.textContent = label;
     hackSub.textContent = sub;
   }
@@ -1588,7 +1623,7 @@ END {
     else if (elapsed >= PRES_SPLIT) { phase = 'Q&A · phút 13–20'; cls = 'c-warn'; }
     else { phase = 'Trình bày · phút 0–13'; cls = 'c-run'; }
     presLbl.textContent = phase;
-    presNum.className = 'num ' + cls;
+    presNum.className = 'focus-num ' + cls;
   }
   presStart.addEventListener('click', function () {
     if (presRunning) return;
@@ -1616,10 +1651,12 @@ END {
   });
   presRender();
 
-  document.getElementById('fsbtn').addEventListener('click', function () {
+  function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
     else document.documentElement.requestFullscreen().catch(function () {});
-  });
+  }
+  document.getElementById('fsbtn1').addEventListener('click', toggleFullscreen);
+  document.getElementById('fsbtn2').addEventListener('click', toggleFullscreen);
 })();
 </script>
 </body>
