@@ -297,11 +297,10 @@
 
   /* ── footer: link tới 2 trang ẩn ở trên, cho cả trang chính (không hiện trong menu) ── */
   footer.sitefoot { border-top:1px solid var(--line); padding:20px 0 26px; }
-  .sitefoot-in { max-width:1500px; margin:0 auto; padding:0 22px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
-  .sitefoot .lbl { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
-  .sitefoot .links { display:flex; gap:10px; flex-wrap:wrap; }
-  .sitefoot .links a { font-size:13px; font-weight:640; text-decoration:none; padding:8px 14px; border:1px solid var(--line); border-radius:999px; color:var(--ink); background:var(--surface); }
-  .sitefoot .links a:hover { border-color:var(--bot); color:var(--bot); }
+  .sitefoot-in { max-width:1500px; margin:0 auto; padding:0 22px; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; }
+  .sitefoot-in a { color:var(--muted); text-decoration:none; }
+  .sitefoot-in a:hover { color:var(--ink); }
+  .sitefoot-in .dot { color:var(--muted); opacity:.5; }
   :root[data-focus="1"] footer.sitefoot { display:none !important; }
 </style>
 </head>
@@ -1348,11 +1347,9 @@ END {
 
 <footer class="sitefoot">
   <div class="sitefoot-in">
-    <span class="lbl">Công cụ vận hành ngày thi — ẩn khỏi menu chính</span>
-    <div class="links">
-      <a href="#dem-nguoc" data-p="dem-nguoc">Đếm giờ hackathon</a>
-      <a href="#thuyet-trinh" data-p="thuyet-trinh">Đồng hồ thuyết trình</a>
-    </div>
+    <a href="#dem-nguoc" data-p="dem-nguoc">Đếm giờ hackathon</a>
+    <span class="dot">·</span>
+    <a href="#thuyet-trinh" data-p="thuyet-trinh">Đồng hồ thuyết trình</a>
   </div>
 </footer>
 
