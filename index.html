@@ -1254,11 +1254,11 @@ END {
   <!-- ══ ẩn — không có trong menu, vào bằng link #thuyet-trinh ══ -->
   <section class="panel" id="p-thuyet-trinh">
     <div class="focus-page">
-      <div class="focus-eyebrow">Oekathon 2026 · Thuyết trình — 20 phút / đội</div>
+      <div class="focus-eyebrow">Oekathon 2026 · Thuyết trình — 10 phút / đội</div>
       <input type="text" class="focus-team" id="teamName" placeholder="Tên đội đang thuyết trình" autocomplete="off" spellcheck="false">
-      <div class="focus-label" id="presLbl">Trình bày · phút 0–13</div>
-      <div class="focus-num c-run" id="presNum">20:00</div>
-      <div class="focus-sub">13 phút trình bày + 7 phút Q&amp;A · bấm Đặt lại trước khi gọi đội tiếp theo</div>
+      <div class="focus-label" id="presLbl">Trình bày · phút 0–7</div>
+      <div class="focus-num c-run" id="presNum">10:00</div>
+      <div class="focus-sub">7 phút trình bày + 3 phút Q&amp;A · bấm Đặt lại trước khi gọi đội tiếp theo</div>
       <div class="focus-ctl">
         <button type="button" class="go" id="presStart">Bắt đầu</button>
         <button type="button" id="presPause" disabled>Tạm dừng</button>
@@ -1617,7 +1617,7 @@ END {
     } else {
       totalSec = Math.floor((now - HACK_END) / 1000);
       label = 'Đã hết giờ code — chuyển sang thuyết trình';
-      sub = 'Mỗi đội 20 phút: 13 phút trình bày + 7 phút Q&A';
+      sub = 'Mỗi đội 10 phút: 7 phút trình bày + 3 phút Q&A';
     }
     var days = Math.floor(totalSec / 86400);
     var rem = totalSec % 86400;
@@ -1629,7 +1629,7 @@ END {
   renderHackClock();
   setInterval(renderHackClock, 1000);
 
-  var PRES_TOTAL = 20 * 60, PRES_SPLIT = 13 * 60;
+  var PRES_TOTAL = 10 * 60, PRES_SPLIT = 7 * 60;
   var presRemaining = PRES_TOTAL, presRunning = false, presTimer = null;
   var presLbl = document.getElementById('presLbl'), presNum = document.getElementById('presNum');
   var presStart = document.getElementById('presStart'), presPause = document.getElementById('presPause'), presReset = document.getElementById('presReset');
@@ -1643,9 +1643,9 @@ END {
     var absSec = Math.abs(presRemaining);
     presNum.textContent = (overtime ? '-' : '') + pad2(Math.floor(absSec / 60)) + ':' + pad2(absSec % 60);
     var elapsed = PRES_TOTAL - presRemaining, phase, cls;
-    if (overtime) { phase = 'Hết 20 phút — đang cộng thêm giờ'; cls = 'c-stop'; }
-    else if (elapsed >= PRES_SPLIT) { phase = 'Q&A · phút 13–20'; cls = 'c-warn'; }
-    else { phase = 'Trình bày · phút 0–13'; cls = 'c-run'; }
+    if (overtime) { phase = 'Hết 10 phút — đang cộng thêm giờ'; cls = 'c-stop'; }
+    else if (elapsed >= PRES_SPLIT) { phase = 'Q&A · phút 7–10'; cls = 'c-warn'; }
+    else { phase = 'Trình bày · phút 0–7'; cls = 'c-run'; }
     presLbl.textContent = phase;
     presNum.className = 'focus-num ' + cls;
   }
