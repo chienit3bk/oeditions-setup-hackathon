@@ -269,6 +269,9 @@
 
   .focus-page { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:60px 24px 120px; }
   .focus-eyebrow { font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+  .focus-team { display:block; width:min(90vw,720px); margin:0 auto 26px; font-family:var(--sans); font-weight:700; font-size:clamp(26px,5vw,52px); text-align:center; color:var(--ink); background:transparent; border:none; border-bottom:2px solid transparent; outline:none; padding:4px 8px 10px; }
+  .focus-team::placeholder { color:var(--muted); opacity:.7; }
+  .focus-team:focus { border-bottom-color:#3a3a3a; }
   .focus-label { font-family:var(--sans); font-size:clamp(15px,2.4vw,22px); font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-2); margin-bottom:8px; }
   .focus-num { font-family:var(--sans); font-weight:700; font-variant-numeric:tabular-nums; font-size:clamp(64px,15vw,200px); line-height:1; letter-spacing:-0.01em; color:var(--ink); }
   .focus-num.c-run { color:#6FE7D2; text-shadow:0 0 70px rgba(111,231,210,.35); }
@@ -1244,6 +1247,7 @@ END {
   <section class="panel" id="p-thuyet-trinh">
     <div class="focus-page">
       <div class="focus-eyebrow">Oekathon 2026 · Thuyết trình — 20 phút / đội</div>
+      <input type="text" class="focus-team" id="teamName" placeholder="Tên đội đang thuyết trình" autocomplete="off" spellcheck="false">
       <div class="focus-label" id="presLbl">Trình bày · phút 0–13</div>
       <div class="focus-num c-run" id="presNum">20:00</div>
       <div class="focus-sub">13 phút trình bày + 7 phút Q&amp;A · bấm Đặt lại trước khi gọi đội tiếp theo</div>
@@ -1613,6 +1617,10 @@ END {
   var presRemaining = PRES_TOTAL, presRunning = false, presTimer = null;
   var presLbl = document.getElementById('presLbl'), presNum = document.getElementById('presNum');
   var presStart = document.getElementById('presStart'), presPause = document.getElementById('presPause'), presReset = document.getElementById('presReset');
+  var teamName = document.getElementById('teamName');
+  teamName.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); presRun(); teamName.blur(); }
+  });
 
   function presRender() {
     var overtime = presRemaining < 0;
@@ -1625,14 +1633,15 @@ END {
     presLbl.textContent = phase;
     presNum.className = 'focus-num ' + cls;
   }
-  presStart.addEventListener('click', function () {
+  function presRun() {
     if (presRunning) return;
     presRunning = true;
     presTimer = setInterval(function () { presRemaining -= 1; presRender(); }, 1000);
     presStart.textContent = 'Đang chạy…';
     presStart.disabled = true;
     presPause.disabled = false;
-  });
+  }
+  presStart.addEventListener('click', presRun);
   presPause.addEventListener('click', function () {
     presRunning = false;
     clearInterval(presTimer);
@@ -1648,6 +1657,8 @@ END {
     presStart.disabled = false;
     presPause.disabled = true;
     presRender();
+    teamName.focus();
+    teamName.select();
   });
   presRender();
 
