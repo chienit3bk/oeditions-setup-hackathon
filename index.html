@@ -294,6 +294,15 @@
     .focus-fs { top:14px; right:14px; padding:8px 11px; }
     .focus-nav { bottom:16px; gap:10px; flex-wrap:wrap; padding:0 14px; }
   }
+
+  /* ── footer: link tới 2 trang ẩn ở trên, cho cả trang chính (không hiện trong menu) ── */
+  footer.sitefoot { border-top:1px solid var(--line); padding:20px 0 26px; }
+  .sitefoot-in { max-width:1500px; margin:0 auto; padding:0 22px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
+  .sitefoot .lbl { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  .sitefoot .links { display:flex; gap:10px; flex-wrap:wrap; }
+  .sitefoot .links a { font-size:13px; font-weight:640; text-decoration:none; padding:8px 14px; border:1px solid var(--line); border-radius:999px; color:var(--ink); background:var(--surface); }
+  .sitefoot .links a:hover { border-color:var(--bot); color:var(--bot); }
+  :root[data-focus="1"] footer.sitefoot { display:none !important; }
 </style>
 </head>
 <body>
@@ -1336,6 +1345,16 @@ END {
     <p class="railfoot" id="railfoot">Xong một nhóm thì nó tự thu lại. Trạng thái lưu trong trình duyệt này.</p>
   </aside>
 </div>
+
+<footer class="sitefoot">
+  <div class="sitefoot-in">
+    <span class="lbl">Công cụ vận hành ngày thi — ẩn khỏi menu chính</span>
+    <div class="links">
+      <a href="#dem-nguoc" data-p="dem-nguoc">Đếm giờ hackathon</a>
+      <a href="#thuyet-trinh" data-p="thuyet-trinh">Đồng hồ thuyết trình</a>
+    </div>
+  </div>
+</footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
