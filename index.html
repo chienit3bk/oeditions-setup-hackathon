@@ -247,6 +247,26 @@
   @media (max-width:920px) {
     aside.rail { grid-column:1; }
   }
+
+  /* ── tab ẩn: đếm giờ + đồng hồ thuyết trình (chiếu màn hình) ── */
+  .bigclock { background:var(--code-bg); border:1px solid var(--code-line); border-radius:var(--r); padding:34px 22px; text-align:center; }
+  .bigclock .lbl { font-family:var(--mono); font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--code-ink); opacity:.62; }
+  .bigclock .num { margin-top:10px; font-family:var(--mono); font-weight:700; font-variant-numeric:tabular-nums; font-size:clamp(38px,8vw,96px); line-height:1; letter-spacing:.01em; color:var(--code-ink); }
+  .bigclock .num.c-run { color:#52CFBC; }
+  .bigclock .num.c-warn { color:#E0A55E; }
+  .bigclock .num.c-stop { color:#EE8478; }
+  .bigclock .sub { margin-top:12px; font-size:14.5px; color:var(--code-ink); opacity:.72; }
+  .pres-ctl { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:22px; }
+  .pres-ctl button { font:650 14px/1 var(--sans); padding:11px 20px; border-radius:999px; border:1px solid var(--code-line); background:transparent; color:var(--code-ink); cursor:pointer; }
+  .pres-ctl button:hover:not(:disabled) { border-color:var(--code-ink); }
+  .pres-ctl button:disabled { opacity:.4; cursor:default; }
+  .pres-ctl button.go { background:#52CFBC; border-color:#52CFBC; color:#08201D; }
+  .pres-ctl button.go:hover:not(:disabled) { border-color:#52CFBC; }
+  :root[data-focus="1"] .top, :root[data-focus="1"] .side, :root[data-focus="1"] aside.rail { display:none !important; }
+  :root[data-focus="1"] .wrap { grid-template-columns:1fr; padding-top:34px; }
+  :root[data-focus="1"] main { max-width:920px; margin:0 auto; }
+  .fsbtn { align-self:center; font:600 13px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; padding:9px 16px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer; }
+  .fsbtn:hover { color:var(--ink); border-color:var(--muted); }
 </style>
 </head>
 <body>
@@ -1180,6 +1200,33 @@ END {
     </div>
   </section>
 
+  <!-- ══ ẩn — không có trong menu, vào bằng link #dem-nguoc ══ -->
+  <section class="panel" id="p-dem-nguoc">
+    <p class="eyebrow">Tab ẩn — dùng để chiếu màn hình ngày thi, không có trong menu</p>
+    <h1>Đếm giờ Oekathon 2026</h1>
+    <p class="lede">Bấm <b>Toàn màn hình</b> để chiếu sạch, không menu không checklist. Link tắt: thêm <code>#dem-nguoc</code> vào cuối URL trang này.</p>
+    <button type="button" class="fsbtn" id="fsbtn">Toàn màn hình</button>
+
+    <div class="bigclock">
+      <div class="lbl" id="hackLbl">—</div>
+      <div class="num" id="hackNum">00:00:00</div>
+      <div class="sub" id="hackSub">—</div>
+    </div>
+
+    <h2>Đồng hồ thuyết trình — 20 phút / đội</h2>
+    <p><b>0–13 phút</b> trình bày, <b>13–20 phút</b> Q&amp;A. Bấm <b>Đặt lại</b> trước khi gọi đội tiếp theo lên.</p>
+    <div class="bigclock">
+      <div class="lbl" id="presLbl">Trình bày · phút 0–13</div>
+      <div class="num c-run" id="presNum">20:00</div>
+      <div class="sub">13 phút trình bày + 7 phút Q&amp;A</div>
+      <div class="pres-ctl">
+        <button type="button" class="go" id="presStart">Bắt đầu</button>
+        <button type="button" id="presPause" disabled>Tạm dừng</button>
+        <button type="button" id="presReset">Đặt lại</button>
+      </div>
+    </div>
+  </section>
+
 
   </main>
 
@@ -1276,7 +1323,7 @@ END {
     }, 20000);
   }
 
-  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat'];
+  var PAGES = ['bat-dau','nguoi-moi','cai-app','hackathon','luat','dem-nguoc'];
 
   /* ── routing ─────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-p]'));
@@ -1293,6 +1340,7 @@ END {
     });
     if (push && location.hash !== '#' + page) history.pushState(null, '', '#' + page);
     if (window.__railFocus) window.__railFocus(page);
+    root.setAttribute('data-focus', page === 'dem-nguoc' ? '1' : '0');
     side.classList.remove('open');
     document.getElementById('menubtn').setAttribute('aria-expanded', 'false');
     window.scrollTo(0, 0);
@@ -1486,6 +1534,92 @@ END {
 
   applyCollapse();
   window.__railFocus(location.hash.slice(1) || PAGES[0]);
+
+  /* ── tab ẩn: đếm giờ Oekathon + đồng hồ thuyết trình ── */
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtHMS(totalSec) {
+    var h = Math.floor(totalSec / 3600);
+    var m = Math.floor((totalSec % 3600) / 60);
+    var s = totalSec % 60;
+    return pad2(h) + ':' + pad2(m) + ':' + pad2(s);
+  }
+
+  var HACK_START = new Date('2026-08-22T09:15:00');
+  var HACK_END = new Date('2026-08-22T15:00:00');
+  var hackLbl = document.getElementById('hackLbl'), hackNum = document.getElementById('hackNum'), hackSub = document.getElementById('hackSub');
+
+  function renderHackClock() {
+    var now = new Date(), totalSec, label, sub, cls = '';
+    if (now < HACK_START) {
+      totalSec = Math.floor((HACK_START - now) / 1000);
+      label = 'Còn lại đến giờ thi';
+      sub = 'Bắt đầu 9h15 · thứ Bảy 22/8/2026';
+    } else if (now < HACK_END) {
+      totalSec = Math.floor((HACK_END - now) / 1000);
+      label = 'Còn lại giờ code';
+      sub = 'Hết giờ lúc 15h00';
+      cls = totalSec <= 5 * 60 ? 'c-stop' : (totalSec <= 15 * 60 ? 'c-warn' : 'c-run');
+    } else {
+      totalSec = Math.floor((now - HACK_END) / 1000);
+      label = 'Đã hết giờ code — chuyển sang thuyết trình';
+      sub = 'Mỗi đội 20 phút: 13 phút trình bày + 7 phút Q&A';
+    }
+    var days = Math.floor(totalSec / 86400);
+    var rem = totalSec % 86400;
+    hackNum.textContent = (days > 0 ? days + ' ngày ' : '') + fmtHMS(rem);
+    hackNum.className = 'num' + (cls ? ' ' + cls : '');
+    hackLbl.textContent = label;
+    hackSub.textContent = sub;
+  }
+  renderHackClock();
+  setInterval(renderHackClock, 1000);
+
+  var PRES_TOTAL = 20 * 60, PRES_SPLIT = 13 * 60;
+  var presRemaining = PRES_TOTAL, presRunning = false, presTimer = null;
+  var presLbl = document.getElementById('presLbl'), presNum = document.getElementById('presNum');
+  var presStart = document.getElementById('presStart'), presPause = document.getElementById('presPause'), presReset = document.getElementById('presReset');
+
+  function presRender() {
+    var overtime = presRemaining < 0;
+    var absSec = Math.abs(presRemaining);
+    presNum.textContent = (overtime ? '-' : '') + pad2(Math.floor(absSec / 60)) + ':' + pad2(absSec % 60);
+    var elapsed = PRES_TOTAL - presRemaining, phase, cls;
+    if (overtime) { phase = 'Hết 20 phút — đang cộng thêm giờ'; cls = 'c-stop'; }
+    else if (elapsed >= PRES_SPLIT) { phase = 'Q&A · phút 13–20'; cls = 'c-warn'; }
+    else { phase = 'Trình bày · phút 0–13'; cls = 'c-run'; }
+    presLbl.textContent = phase;
+    presNum.className = 'num ' + cls;
+  }
+  presStart.addEventListener('click', function () {
+    if (presRunning) return;
+    presRunning = true;
+    presTimer = setInterval(function () { presRemaining -= 1; presRender(); }, 1000);
+    presStart.textContent = 'Đang chạy…';
+    presStart.disabled = true;
+    presPause.disabled = false;
+  });
+  presPause.addEventListener('click', function () {
+    presRunning = false;
+    clearInterval(presTimer);
+    presStart.textContent = 'Tiếp tục';
+    presStart.disabled = false;
+    presPause.disabled = true;
+  });
+  presReset.addEventListener('click', function () {
+    presRunning = false;
+    clearInterval(presTimer);
+    presRemaining = PRES_TOTAL;
+    presStart.textContent = 'Bắt đầu';
+    presStart.disabled = false;
+    presPause.disabled = true;
+    presRender();
+  });
+  presRender();
+
+  document.getElementById('fsbtn').addEventListener('click', function () {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen().catch(function () {});
+  });
 })();
 </script>
 </body>
